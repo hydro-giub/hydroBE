@@ -2,7 +2,7 @@
 \alias{getBFI}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-here we need a title in order to check and install the package
+here we need a title in order to check and install the package some changes
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
