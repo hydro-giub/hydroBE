@@ -42,3 +42,4 @@ Simon
 y <- rnorm(502)
 y[sample(1:500,5)] <- NA
 bfi <- estimateBFI(y=y,win=5,r=0.9,plot=F)
+}
