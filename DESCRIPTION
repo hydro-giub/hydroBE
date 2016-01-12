@@ -5,5 +5,5 @@ Version: 1.0
 Date: 2016-01-11
 Author: group of hydrology
 Maintainer: Simon <hydro@uni.net>
-Description: The package contains some functions to import time series of FOEN and AWA or to calculate streamflow according the Strickler formula.
+Description: The package contains some functions for hydrological analysis (e.g. Strickler formula and BFI) and helps to import time series from Bafu and Awa.
 License: file LICENSE
