@@ -43,4 +43,3 @@ plot(y,type='l')
 points(y,cex=0.5)
 points(y=y[i],x=i,col=2)
 }
-

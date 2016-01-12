@@ -1,5 +1,5 @@
 estimateBFI <-
-function(y=NULL,win=5,r=0.9,plot=F) {
+function(y=NULL,win=5,r=0.9,plot=FALSE) {
   
   # get local minimas in blocks of size win
   n <- length(y)

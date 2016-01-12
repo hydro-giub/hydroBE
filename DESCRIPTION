@@ -1,9 +1,9 @@
 Package: hydroBE
 Type: Package
-Title: What the package does (short line)
+Title: miscellaneous functions for hydrologists workaday life 
 Version: 1.0
 Date: 2016-01-11
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: group of hydrology
+Maintainer: Simon <hydro@uni.net>
+Description: The package contains some functions to import time series of FOEN and AWA or to calculate streamflow according the Strickler formula.
+License: file LICENSE

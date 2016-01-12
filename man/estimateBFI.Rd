@@ -5,10 +5,10 @@
 Estimate Base Flow Index (BFI)
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+The Base Flow Index is estimated with respect to a given window with and ratio to define local minimas.
 }
 \usage{
-estimateBFI(y = NULL, win = 5, r = 0.9, plot = F)
+estimateBFI(y = NULL, win = 5, r = 0.9, plot = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,5 +41,5 @@ Simon
 \examples{
 y <- rnorm(502)
 y[sample(1:500,5)] <- NA
-bfi <- estimateBFI(y=y,win=5,r=0.9,plot=F)
+bfi <- estimateBFI(y=y,win=5,r=0.9,plot=FALSE)
 }
