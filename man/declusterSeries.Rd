@@ -12,7 +12,7 @@ declusterSeries(y = NULL, L = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{y}{numerical vector. The (strictly regular) series. \code{NA}s are allowed and will be ignored.}
+  \item{y}{numerical vector. The (strictly regular) series. \code{NA}s are allowed and will be treated as -Inf.}
   \item{L}{integer. Minimum distance in number of time units.}
 }
 \details{

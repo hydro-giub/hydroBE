@@ -28,14 +28,14 @@ getRatingPoints(z, x, m, k, baseRef = NULL, l, ni = 1000, plot = FALSE)
   \item{plot}{logical. Plot the channel profil?}
 }
 \details{
-If baseRef is not defined, the reference point for water levels \code{l} is defined as the point in \code{x} where \code{z} reaches its maximum. Note that it is allowed
+If \code{baseRef} is not defined, the reference point for water levels \code{l} is defined as the point in \code{x} where \code{z} reaches its maximum. Note that it is allowed
 to define the reference point with respect to several points in \code{x}, what might be helpfull in case of a "rugged" river bed (e.g. in case of sand, gravel, and stones).
 }
 \value{
-Matrix with columns water 'level', 'area' below water table, wet 'radius', interpolated 'k', streamflow 'velocity', and 'discharge' [m^3/s].
+Matrix with columns water 'level', 'area' below water table, wet 'radius', interpolated 'k', streamflow 'velocity', and 'discharge' [m3/s].
 }
 \references{
-Strickler, A. (1924). "Beiträge zur Frage der Geschwindigkeitsformel und der Rauigkeitszahlen für Ströme, Kanäle und geschlossene Leitungen". Schweizerische Bauzeitung, Heft 23.
+Strickler, A. (1924). "Beitraege zur Frage der Geschwindigkeitsformel und der Rauigkeitszahlen fuer Stroeme, Kanaele und geschlossene Leitungen". Schweizerische Bauzeitung, Heft 23.
 }
 \author{
 Simon

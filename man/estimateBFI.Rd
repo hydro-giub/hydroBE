@@ -15,7 +15,7 @@ estimateBFI(y = NULL, win = 5, r = 0.9, plot = FALSE)
   \item{y}{numerical vector. Strictly regular runoff series (usually on a daily basis).}
   \item{win}{integer. Block width in number of time units to find local minimas.}
   \item{r}{number in the interval [0,1]. Denotes the ratio for constraining baseflow ordinates out of the local minimas.}
-  \item{plot}{logical, plot runoff and corresponding baseflow series?}
+  \item{plot}{logical. Plot runoff and corresponding baseflow series?}
 }
 \details{
 The series will be truncated to the last \code{length(y)\%\%win} entries in \code{y} to match whole multiples of \code{win}.
