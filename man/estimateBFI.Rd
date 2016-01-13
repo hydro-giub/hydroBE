@@ -19,6 +19,9 @@ estimateBFI(y = NULL, win = 5, r = 0.9, plot = FALSE)
 }
 \details{
 The series will be truncated to the last \code{length(y)\%\%win} entries in \code{y} to match whole multiples of \code{win}.
+A baseflow ordinate x_{n} is defined by 
+\deqn{x_{n-1} > x_{n}*r < x_{n+1}}
+where x is a local minima in a window with length \code{win}. Missing values do not satisfy this inequality (see `Examples`).
 }
 \value{
 BFI
@@ -39,7 +42,11 @@ Simon
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-y <- rnorm(502)
-y[sample(1:500,5)] <- NA
-bfi <- estimateBFI(y=y,win=5,r=0.9,plot=FALSE)
+# the last two entries in y get truncated
+y <- rnorm(202)
+bfi <- estimateBFI(y=y,win=5,r=0.9,plot=TRUE)
+
+# handling of NAs
+y[sample(1:200,2)] <- NA
+bfi <- estimateBFI(y=y,win=5,r=0.9,plot=TRUE)
 }

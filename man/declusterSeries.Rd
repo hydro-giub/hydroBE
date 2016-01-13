@@ -2,10 +2,10 @@
 \alias{declusterSeries}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Declustering of maximas in a time series
+Decluster maximas in a time series
 }
 \description{
-Declusters recursively the maximas in a time series based on a minimal temporal distance
+Declusters recursively the maximas in a time series based on a minimal temporal distance.
 }
 \usage{
 declusterSeries(y = NULL, L = NULL)
@@ -37,8 +37,16 @@ Simon
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-y <- c(0,0,0,0,1,1,0,0,0,0,0,3,2,NA,1,5,3,4,5,6,5,2,3,2,4,5,4,3,2,1,0)
+y <- c(0,0,1,1,0,0,0,3,2,NA,1,5,3,4,5,6,5,2,3,2,4,5,4,3,2,1,0)
+
+# handling of NAs and plateaus
 i <- declusterSeries(y=y,L=2)
+plot(y,type='l')
+points(y,cex=0.5)
+points(y=y[i],x=i,col=2)
+
+# decluster minimas
+i <- declusterSeries(y=-y,L=2)
 plot(y,type='l')
 points(y,cex=0.5)
 points(y=y[i],x=i,col=2)

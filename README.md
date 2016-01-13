@@ -11,7 +11,7 @@ library(hydroBE)
 ?hydroBE
 ```
 
-or simply do it by hand with
+or simply do it by hand according
 
 ```r
 p <- '/path/to/your/Downloads/'
