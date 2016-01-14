@@ -1,11 +1,12 @@
-.sniffBafuFile <- function(f) {
+sniffBafuFile <- 
+function(f) {
   
   h <- list(type=NA,id=NA,start=NA,end=NA,skip=0,sep=NA,var=NA,time='irregular',comment=NA)
   h['type'] <- sub('^.*?(\\..*$)','\\1',f)
   
   if(!grepl('\\.xls$',f)) {
     
-    n <- capture.output(scan(f,sep='\n',what=list(NULL),blank.lines.skip=F),type='message')
+    n <- capture.output(tmp <- scan(f,sep='\n',what=list(NULL),blank.lines.skip=F),type='message')
     n <- as.numeric(sub('^.*?([[:digit:]]+).*$','\\1',n))
     l1 <- scan(f,sep='\n',n=30,what='raw',blank.lines.skip=F,fileEncoding='ISO-8859-1',quiet=T)
     l1 <- gsub('(\\*|%)','',l1)
@@ -31,7 +32,7 @@
         tf <- ifelse(grepl('^[[:digit:].]{10} [[:digit:]:]+$',d[1]),'%Y.%m.%d %H:%M','%Y.%m.%d')
         d <- as.POSIXct(d,format=tf,tz='UTC')
         dd <- diff(d[-length(d)])
-        if (grepl('min',attr(dd,'units')) & all(dd==10)) {h['time'] <- '10min'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M',tz='UTC')}
+        if (grepl('min',attr(dd,'units')) & all(dd==10)) {h['time'] <- '10 min'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M',tz='UTC')}
         if (grepl('hour',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'hour'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H',tz='UTC')}
         if (grepl('day',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'day'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d',tz='UTC')}
         if (grepl('day',attr(dd,'units')) & all(dd<32 & dd>27)) {h['time'] <- 'month'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m',tz='UTC')}
@@ -40,7 +41,7 @@
         
         h['var'] <- 'peak'
         d <- as.POSIXct(d,format='%Y.%m.%d %H:%M',tz='UTC')
-        h[c('start','end')] <- format(d[c(1,length(d))],'%Y.%m.%d %H:%M:%S',tz='UTC')
+        h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M:%S',tz='UTC')
         dd <- sub('[[:digit:]]{2}:[[:digit:]]{2}$','00',d)
         dd <- as.POSIXct(dd,format='%Y-%m-%d %H:%M',tz='UTC')
         dd <- diff(dd[-length(dd)])
@@ -49,10 +50,7 @@
         dd <- as.POSIXct(dd,format='%Y-%m-%d',tz='UTC')
         dd <- diff(dd[-length(dd)])
         if (grepl('day',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'day'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d',tz='UTC')}
-        dd <- sub('\\.[[:digit:]]+ [[:digit:]:]+$','.01',d)
-        dd <- as.POSIXct(dd,format='%Y-%m-%d',tz='UTC')
-        dd <- diff(dd[-length(dd)])
-        if (grepl('day',attr(dd,'units')) & all(dd<65 & dd>1)) {h['time'] <- 'month'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m',tz='UTC')}
+        if (grepl('day',attr(dd,'units')) & all(dd<65 & dd>=1)) {h['time'] <- 'month'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m',tz='UTC')}
         
       }
       
@@ -67,7 +65,7 @@
       tf <- ifelse(grepl('^[[:digit:].]{10} [[:digit:]:]+$',d[1]),'%d.%m.%Y %H:%M','%d.%m.%Y')
       d <- as.POSIXct(d,format=tf,tz='UTC')
       dd <- diff(d[-length(d)])
-      if (grepl('min',attr(dd,'units')) & all(dd==10)) {h['time'] <- '10min'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M',tz='UTC')}
+      if (grepl('min',attr(dd,'units')) & all(dd==10)) {h['time'] <- '10 min'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M',tz='UTC')}
       if (grepl('hour',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'hour'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H',tz='UTC')}
       if (grepl('day',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'day'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d',tz='UTC')}
       if (grepl('day',attr(dd,'units')) & all(dd<32 & dd>27)) {h['time'] <- 'month'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m',tz='UTC')}

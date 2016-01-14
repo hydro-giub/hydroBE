@@ -1,1 +1,3 @@
-exportPattern("^[[:alpha:]]+")
+export(declusterSeries, estimateBFI, getRatingPoints, importBafu)
+import(graphics, grDevices, methods, stats, utils)
+importFrom(gdata, read.xls)

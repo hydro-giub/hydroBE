@@ -2,10 +2,10 @@
 \alias{declusterSeries}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Decluster maximas in a time series
+Decluster local maximas in a time series
 }
 \description{
-Declusters recursively the maximas in a time series based on a minimal temporal distance.
+Declusters recursively the local maximas in a time series based on a minimal temporal distance.
 }
 \usage{
 declusterSeries(y = NULL, L = NULL)
