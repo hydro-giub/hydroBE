@@ -1,7 +1,7 @@
 sniffBafuFile <- 
 function(f) {
   
-  h <- list(type=NA,id=NA,start=NA,end=NA,skip=0,sep=NA,var=NA,time='irregular',comment=NA)
+  h <- list(type=NA,id=NA,start=NA,end=NA,skip=0,sep=NA,var=NA,time='irregular',unit=NA,comment=NA)
   h['type'] <- sub('^.*?(\\..*$)','\\1',f)
   
   if(!grepl('\\.xls$',f)) {
@@ -9,51 +9,45 @@ function(f) {
     n <- capture.output(tmp <- scan(f,sep='\n',what=list(NULL),blank.lines.skip=F),type='message')
     n <- as.numeric(sub('^.*?([[:digit:]]+).*$','\\1',n))
     l1 <- scan(f,sep='\n',n=30,what='raw',blank.lines.skip=F,fileEncoding='ISO-8859-1',quiet=T)
-    l1 <- gsub('(\\*|%)','',l1)
     l2 <- scan(f,sep='\n',n=1,what='raw',blank.lines.skip=F,fileEncoding='ISO-8859-1',skip=n-1,quiet=T)
-    n <- grep('^[[:blank:][:digit:];.:-]+$',l1)[1]
+    n <- grep('^[[:blank:][:digit:];,.:-]+$',l1)[1]
     h['skip'] <- n-1
-    l1[1:(n-1)] <- sub(' / donn.*?onal data ','',l1[1:(n-1)])
-    l1[1:(n-1)] <- sub('^[ ]+','',l1[1:(n-1)])
-    l1[1:(n-1)] <- sub('[ ]+$','',l1[1:(n-1)])
+    l1 <- gsub('(\\*|%)','',l1)
+    l1 <- sub('[dD]onn.*?onal data','',l1)
+    l1 <- sub('[dD]atum.*?wert','',l1)
+    l1 <- sub('^[ ]+','',l1)
+    l1 <- sub('[ ]+$','',l1)
+    l1 <- l1[grepl('[[:alnum:]]',l1)]
+    n <- grep('^[[:blank:][:digit:];,.:-]+$',l1)[1]
     h['comment'] <- paste(l1[1:(n-1)],collapse=' ')
+    if(any(grepl('([aA]bfluss|m\\xb3/s|m3/s|m.{1}/s)',l1))) {h['unit'] <- 'Q'}
+    if(any(grepl('([wW]asserstand|m[ .]*?ü[ .]*?[Mm])',l1))) {h['unit'] <- 'L'}
+    if(any(grepl('([wW]assertemperatur|[tT]emperatur|\\xb0C|°C)',l1))) {h['unit'] <- 'T'}
     
     if(grepl(';',l1[n])) {
       
       h['sep'] <- ';'
       h['id'] <- sub('^([[:digit:]]+);.*$','\\1',l1[n])
       d <- sub('^.*?;(.*?);.*$','\\1',c(l1[n:length(l1)],l2))
-      
       if(grepl('-',d[1])) {
-        
         h['var'] <-'mean'
         d <- sub('^(.*?)-.*$','\\1',d)
-        if (nchar(d[1])<10) {d <- paste(d,'01',sep='.')}
-        tf <- ifelse(grepl('^[[:digit:].]{10} [[:digit:]:]+$',d[1]),'%Y.%m.%d %H:%M','%Y.%m.%d')
-        d <- as.POSIXct(d,format=tf,tz='UTC')
-        dd <- diff(d[-length(d)])
-        if (grepl('min',attr(dd,'units')) & all(dd==10)) {h['time'] <- '10 min'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M',tz='UTC')}
-        if (grepl('hour',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'hour'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H',tz='UTC')}
-        if (grepl('day',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'day'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d',tz='UTC')}
-        if (grepl('day',attr(dd,'units')) & all(dd<32 & dd>27)) {h['time'] <- 'month'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m',tz='UTC')}
-        
-      } else {
-        
-        h['var'] <- 'peak'
-        d <- as.POSIXct(d,format='%Y.%m.%d %H:%M',tz='UTC')
-        h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M:%S',tz='UTC')
-        dd <- sub('[[:digit:]]{2}:[[:digit:]]{2}$','00',d)
-        dd <- as.POSIXct(dd,format='%Y-%m-%d %H:%M',tz='UTC')
-        dd <- diff(dd[-length(dd)])
-        if (grepl('hour',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'hour'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H',tz='UTC')}
-        dd <- sub(' [[:digit:]:]+$','',d)
-        dd <- as.POSIXct(dd,format='%Y-%m-%d',tz='UTC')
-        dd <- diff(dd[-length(dd)])
-        if (grepl('day',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'day'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d',tz='UTC')}
-        if (grepl('day',attr(dd,'units')) & all(dd<65 & dd>=1)) {h['time'] <- 'month'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m',tz='UTC')}
-        
-      }
-      
+      } else {h['var'] <- 'peak'}
+      if (nchar(d[1])<10) {d <- paste(d,'01',sep='.')}
+      tf <- ifelse(grepl('^[[:digit:].]{10} [[:digit:]:]+$',d[1]),'%Y.%m.%d %H:%M','%Y.%m.%d')
+      d <- as.POSIXct(d,format=tf,tz='UTC')
+      dd <- diff(d[-length(d)])
+      if (grepl('min',attr(dd,'units')) & all(dd==10)) {h['time'] <- '10 min'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H:%M',tz='UTC')}
+      dd <- sub(':[[:digit:]]{2}:[[:digit:]]{2}$',':00',d)
+      dd <- as.POSIXct(dd,format='%Y-%m-%d %H:%M',tz='UTC')
+      dd <- diff(dd[-length(dd)])
+      if (grepl('hour',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'hour'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d %H',tz='UTC')}
+      dd <- sub(' [[:digit:]:]+$','',d)
+      dd <- as.POSIXct(dd,format='%Y-%m-%d',tz='UTC')
+      dd <- diff(dd[-length(dd)])
+      if (grepl('day',attr(dd,'units')) & all(dd==1)) {h['time'] <- 'day'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m-%d',tz='UTC')}
+      if (grepl('day',attr(dd,'units')) & all(dd<65 & any(dd>1))) {h['time'] <- 'month'; h[c('start','end')] <- format(d[c(1,length(d))],'%Y-%m',tz='UTC')}
+
     } else {
       
       h['sep'] <- '\t'
@@ -79,6 +73,9 @@ function(f) {
     h['skip'] <- 1
     h['sep'] <- ','
     h['comment'] <- sub(',,,$','',l)
+    if(any(grepl('([aA]bfluss|m\\xb3/s|m3/s|m.{1}/s)',l))) {h['unit'] <- 'Q'}
+    if(any(grepl('([wW]asserstand|m[]*ü[ .]*[Mm])',l))) {h['unit'] <- 'L'}
+    if(any(grepl('([wW]assertemperatur|[tT]emperatur|\\xb0C|°C)',l))) {h['unit'] <- 'T'}
     l <- gdata::read.xls(f,fileEncoding='ISO-8859-1',quote='"',header=T,sep=',',stringsAsFactors=F,skip=1)
     h['id'] <- l[1,'KennNr']
     h['var'] <- ifelse(grepl('-',l[1,'Datum']),'mean','peak')

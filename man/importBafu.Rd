@@ -2,25 +2,31 @@
 \alias{importBafu}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Import time series from Bundesamt fuer Umwelt (Bafu)
+Import time series from Bafu
 }
 \description{
-to do
+Imports time series from files provided by the Bundesamt fuer Umwelt (Bafu). Tries to check the variables consistency and to merge files if feasible.
 }
 \usage{
-importBafu(dir = NULL, files = NULL)
+importBafu(dir = NULL, files = NULL, quiet = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dir}{string. Import all files in directory \code{dir}.}
-  \item{files}{character vector. Import all files specified in \code{files}.
-}
+  \item{files}{character vector. Import all files specified in \code{files}.}
+  \item{quiet}{logical. Print summary?}
 }
 \details{
-Either \code{dir} or \code{files} can be specified, but not both. \code{dir} takes precedence.
+Either \code{dir} or \code{files} can be specified, but not both. \code{dir} takes precedence. The ordering of files in \code{dir} or \code{files}
+determines how merging of series is applied: If station id, variable (i.e. peak vs. mean values), and unit are consistent, then missing values in the
+first series are replaced by corresponding values in the second series.
 }
 \value{
-data frame with column 'time' followed by corresponding observations.
+data frame with column 'time' followed by corresponding observations. Depending on the underlying time scale, column 'time' is either a
+integer vector (in case of yearly values), character vector (in case of monthly values), or of class \code{\link{POSIXct}} (in case of at least daily
+resolution). When of class \code{\link{POSIXct}}, clock time refers to the starting time of the underlying period, e.g. for 
+hourly values 01:00 corresponds to 01:00 - 02:00.
+
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -29,13 +35,12 @@ data frame with column 'time' followed by corresponding observations.
 Simon
 }
 \note{
-The function tries hard to identify the variables (i.e. peaks versus mean values) and underlying time units in the provided files. However, \code{importBafu} 
-assumes a certain file structure (e.g. header format and text delimiter) and thus might fail to successfully check the files consistency. 
-For example, the Bafu sometimes has to export the most recent observations directly out of the HydroPro software. In this case, the user is responsible
-to check the validity of the imported data.
+The function tries hard to identify the variables (i.e. peaks versus mean values), underlying time units, and variables (e.g. levels or discharge). 
+However, \code{importBafu} assumes a certain file structure (e.g. header and date format, text delimiter) and thus might fail to successfully check the files consistency
+when these assumptions does not hold. It is highly recommended to make some validation against the original files.
 
-For convenience column 'time' has class \code{\link{POSIXct}}. In case of mean values, time refers here to the starting time of the underlying period, e.g. in case
-of hourly mean values 01:00 corresponds to 01:00 - 02:00.
+The Bafu sometimes has to export the most recent observations directly out of the HydroPro software. As it is not clear if these observations are peaks or mean values, no
+merging is applied.
 }
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~

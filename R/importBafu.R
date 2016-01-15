@@ -1,17 +1,10 @@
 importBafu <- 
-function(dir=NULL,files=NULL) {
-  
-  
-  
-  source('/home/sschick/workspace/hydroBE/R/sniffBafuFile.R')
-  dir <- '/home/sschick/workspace/test/hq-mm/'
-  
+function(dir=NULL,files=NULL,quiet=TRUE) {
+
   if(!is.null(dir)) {files <- list.files(dir,full.names=T)}
-  df <- data.frame(file=files,type=NA,id=NA,start=NA,end=NA,skip=0,sep=NA,var=NA,time=NA,comment=NA,stringsAsFactors=F)
-  for (i in 1:nrow(df)) {df[i,2:10] <- sniffBafuFile(f=files[i])}
-  if(length(setdiff(unique(df$var),'unknown'))>1 | length(unique(df$time))!=1) {
-    stop('variables (peak vs. mean values) or time units in the provided files are not consistent')
-  }
+  df <- data.frame(file=files,type=NA,id=NA,start=NA,end=NA,skip=0,sep=NA,var=NA,time=NA,unit=NA,comment=NA,stringsAsFactors=F)
+  for (i in 1:nrow(df)) {df[i,2:11] <- sniffBafuFile(f=files[i])}
+  if(length(unique(df$time))!=1) {stop('time units in the provided files are not consistent')}
   
   tf <- rep(NA,nrow(df))
   tf[grepl('^[[:digit:]]{4}$',df$start)] <- '%Y'
@@ -19,7 +12,6 @@ function(dir=NULL,files=NULL) {
   tf[grepl('^[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}$',df$start)] <- '%Y-%m-%d'
   tf[grepl('^[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} [[:digit:]]{2}$',df$start)] <- '%Y-%m-%d %H'
   tf[grepl('^[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} [[:digit:]]{2}:[[:digit:]]{2}$',df$start)] <- '%Y-%m-%d %H:%M'
-  tf[grepl('^[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} [[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}$',df$start)] <- '%Y-%m-%d %H:%M:%S'
   if(length(unique(tf))!=1) {stop('time accuracy is inconsistent')} else {tf <- unique(tf)}
   
   if(tf=='%Y') {
@@ -46,24 +38,55 @@ function(dir=NULL,files=NULL) {
     isXls <- grepl('xls',df$type[i])
     
     if(isHp & !isXls) {
-      df2 <- read.table(df$file[i],header=F,sep=df$sep[i],quote='',skip=df$skip[i],stringsAsFactors=F)
+      df2 <- read.table(df$file[i],sep=df$sep[i],skip=df$skip[i],quote='',header=F,stringsAsFactors=F,strip.white=T,
+                        na.strings=c('NA','Luecke','Lücke','L\xfccke',''),encoding='ISO-8859-1')
+      df2[,1] <- paste(df2[,1],df2[,2])
+      df2 <- df2[,-2]
+      tff <- sub('%Y-','%d-',tf)
+      tff <- sub('-%d','-%Y',tff)
     }
     
     if(!isHp & isXls) {
-      
+      df2 <- gdata::read.xls(df$file[i],sep=df$sep[i],skip=df$skip[i],quote='"',header=T,stringsAsFactors=F,strip.white=T,
+                             na.strings=c('NA','Luecke','Lücke','L\xfccke',''),fileEncoding='ISO-8859-1')
+      df2 <- df2[,2:3]
+      tff <- tf
     }
     
     if(!isHp & !isXls) {
-      
+      df2 <- read.table(df$file[i],sep=df$sep[i],skip=df$skip[i],quote='',header=F,stringsAsFactors=F,strip.white=T,
+                        na.strings=c('NA','Luecke','Lücke','L\xfccke',''),encoding='ISO-8859-1')
+      df2 <- df2[,-1]
+      tff <- tf
     }
     
-    # merge with df1
+    df2[,1] <- sub('-.*$','',df2[,1])
+    df2[,1] <- gsub('\\.','-',df2[,1])
+    if(tf=='%Y') {df2[,1] <- sub('^([[:digit:]]{4}).*$','\\1',df2[,1])}
+    if(tf=='%Y-%m') {df2[,1] <- sub('^([[:digit:]]{4}-[[:digit:]]{2}).*$','\\1',df2[,1])}
+    if(grepl('%Y-%m-%d',tf)) {df2[,1] <- as.POSIXct(df2[,1],format=tff,tz='UTC')}
+    names(df2) <- c('time',paste('a',i,'a',df$id[i],sep=''))
+    df1 <- merge(x=df1,y=df2,by='time',all.x=T,sort=T)
     
   }
   
+  cn <- sub('^a[[:digit:]]+a','',names(df1))
+  ci <- 1:nrow(df)
+  i <- 3
+  while (i<=ncol(df1)) {
+    ii <- which(cn[i]==cn[1:(i-1)])
+    ii <- ii[df$var[ii-1]==df$var[i-1] & df$unit[ii-1]==df$unit[i-1]]
+    if(length(ii)==1) {
+      rpl <- is.na(df[,ii]) & !is.na(df[,i])
+      df1[rpl,ii] <- df1[rpl,i]
+      df1 <- df1[,-i]
+      cn <- cn[-i]
+      ci <- ci[-(i-1)]
+    } else {i <- i+1}
+  }
+  names(df1) <- c('time',paste(df$unit[ci],df$var[ci],cn[-1],sep=''))
   
-  # merge orders splitted on different files
-  
-  return(df)
+  if(!quiet) {print(df)}
+  return(df1)
   
 }
