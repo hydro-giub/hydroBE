@@ -1,7 +1,7 @@
 # hydroBE
-R-Package with miscellaneous functions for hydrologists workaday life
+R-Package with miscellaneous functions for hydrologists workaday life.
 
-To install the package, you can use the help of devtools
+To install the package, you can use the help of devtools:
 
 ```r
 install.packages('devtools')
@@ -11,7 +11,7 @@ library(hydroBE)
 ?hydroBE
 ```
 
-or simply do it by hand according
+Or simply do it by hand:
 
 ```r
 p <- '/path/to/your/Downloads/'
