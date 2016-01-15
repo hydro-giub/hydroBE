@@ -20,9 +20,9 @@ function(f) {
     l1 <- l1[grepl('[[:alnum:]]',l1)]
     n <- grep('^[[:blank:][:digit:];,.:-]+$',l1)[1]
     h['comment'] <- paste(l1[1:(n-1)],collapse=' ')
-    if(any(grepl('([aA]bfluss|m\\xb3/s|m3/s|m.{1}/s)',l1))) {h['unit'] <- 'Q'}
-    if(any(grepl('([wW]asserstand|m[ .]*?ü[ .]*?[Mm])',l1))) {h['unit'] <- 'L'}
-    if(any(grepl('([wW]assertemperatur|[tT]emperatur|\\xb0C|°C)',l1))) {h['unit'] <- 'T'}
+    if(any(grepl('([aA]bfluss|m\\xb3/s|m\u00B3/s|m3/s|m.{1}/s)',l1))) {h['unit'] <- 'Q'}
+    if(any(grepl('([wW]asserstand|m[ .]*?\u00FC[ .]*?[Mm])',l1))) {h['unit'] <- 'L'}
+    if(any(grepl('([wW]assertemperatur|[tT]emperatur|\\xb0C|\u00B0C)',l1))) {h['unit'] <- 'T'}
     
     if(grepl(';',l1[n])) {
       
@@ -73,9 +73,9 @@ function(f) {
     h['skip'] <- 1
     h['sep'] <- ','
     h['comment'] <- sub(',,,$','',l)
-    if(any(grepl('([aA]bfluss|m\\xb3/s|m3/s|m.{1}/s)',l))) {h['unit'] <- 'Q'}
-    if(any(grepl('([wW]asserstand|m[]*ü[ .]*[Mm])',l))) {h['unit'] <- 'L'}
-    if(any(grepl('([wW]assertemperatur|[tT]emperatur|\\xb0C|°C)',l))) {h['unit'] <- 'T'}
+    if(any(grepl('([aA]bfluss|m\\xb3/s|m\u00B3/s|m3/s|m.{1}/s)',l))) {h['unit'] <- 'Q'}
+    if(any(grepl('([wW]asserstand|m[]*\u00FC[ .]*[Mm])',l))) {h['unit'] <- 'L'}
+    if(any(grepl('([wW]assertemperatur|[tT]emperatur|\\xb0C|\u00B0C)',l))) {h['unit'] <- 'T'}
     l <- gdata::read.xls(f,fileEncoding='ISO-8859-1',quote='"',header=T,sep=',',stringsAsFactors=F,skip=1)
     h['id'] <- l[1,'KennNr']
     h['var'] <- ifelse(grepl('-',l[1,'Datum']),'mean','peak')

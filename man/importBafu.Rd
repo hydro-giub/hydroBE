@@ -26,7 +26,6 @@ data frame with column 'time' followed by corresponding observations. Depending 
 integer vector (in case of yearly values), character vector (in case of monthly values), or of class \code{\link{POSIXct}} (in case of at least daily
 resolution). When of class \code{\link{POSIXct}}, clock time refers to the starting time of the underlying period, e.g. for 
 hourly values 01:00 corresponds to 01:00 - 02:00.
-
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -43,11 +42,16 @@ The Bafu sometimes has to export the most recent observations directly out of th
 merging is applied.
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
+\section{Warning}{
+Irregular series (Stuetzpunkte in Bafu terminology) are not supported.
+}
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-a <- 1+1
+d <- '/home/Downloads/'
+\dontrun{df <- importBafu(dir=d)}   
+
+f <- c('/the/first/Bafu/file1.asc','/the/second/Bafu/file2.asc')
+\dontrun{df <- importBafu(files=f)} 
 }

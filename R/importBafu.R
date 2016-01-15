@@ -39,7 +39,7 @@ function(dir=NULL,files=NULL,quiet=TRUE) {
     
     if(isHp & !isXls) {
       df2 <- read.table(df$file[i],sep=df$sep[i],skip=df$skip[i],quote='',header=F,stringsAsFactors=F,strip.white=T,
-                        na.strings=c('NA','Luecke','Lücke','L\xfccke',''),encoding='ISO-8859-1')
+                        na.strings=c('NA','Luecke','L\u00FCcke','L\xfccke',''),encoding='ISO-8859-1')
       df2[,1] <- paste(df2[,1],df2[,2])
       df2 <- df2[,-2]
       tff <- sub('%Y-','%d-',tf)
@@ -48,14 +48,14 @@ function(dir=NULL,files=NULL,quiet=TRUE) {
     
     if(!isHp & isXls) {
       df2 <- gdata::read.xls(df$file[i],sep=df$sep[i],skip=df$skip[i],quote='"',header=T,stringsAsFactors=F,strip.white=T,
-                             na.strings=c('NA','Luecke','Lücke','L\xfccke',''),fileEncoding='ISO-8859-1')
+                             na.strings=c('NA','Luecke','L\u00FCcke','L\xfccke',''),fileEncoding='ISO-8859-1')
       df2 <- df2[,2:3]
       tff <- tf
     }
     
     if(!isHp & !isXls) {
       df2 <- read.table(df$file[i],sep=df$sep[i],skip=df$skip[i],quote='',header=F,stringsAsFactors=F,strip.white=T,
-                        na.strings=c('NA','Luecke','Lücke','L\xfccke',''),encoding='ISO-8859-1')
+                        na.strings=c('NA','Luecke','L\u00FCcke','L\xfccke',''),encoding='ISO-8859-1')
       df2 <- df2[,-1]
       tff <- tf
     }
