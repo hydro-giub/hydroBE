@@ -77,7 +77,7 @@ function(dir=NULL,files=NULL,quiet=TRUE) {
     ii <- which(cn[i]==cn[1:(i-1)])
     ii <- ii[df$var[ii-1]==df$var[i-1] & df$unit[ii-1]==df$unit[i-1]]
     if(length(ii)==1) {
-      rpl <- is.na(df[,ii]) & !is.na(df[,i])
+      rpl <- is.na(df1[,ii]) & !is.na(df1[,i])
       df1[rpl,ii] <- df1[rpl,i]
       df1 <- df1[,-i]
       cn <- cn[-i]
