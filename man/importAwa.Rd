@@ -8,12 +8,13 @@ Import time series from Awa
 Imports time series from files provided by the Amt fuer Wasser und Abfall - Kanton Bern (Awa). Tries to check the variables consistency and to merge files if feasible.
 }
 \usage{
-importAwa(dir = NULL, files = NULL, quiet = TRUE)
+importAwa(dir = NULL, files = NULL, agg = 'day', quiet = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dir}{string. Import all files in directory \code{dir}.}
   \item{files}{character vector. Import all files specified in \code{files}.}
+  \item{agg}{string. Favoured time aggregation. One of '10 min', 'hour', 'day', 'month', or 'year'. Defaults to 'day'.}
   \item{quiet}{logical. Print summary?}
 }
 \details{
