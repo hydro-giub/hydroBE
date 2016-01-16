@@ -1,5 +1,5 @@
 sniffBafuFile <- 
-function(f) {
+function(f=NULL) {
   
   h <- list(type=NA,id=NA,start=NA,end=NA,skip=0,sep=NA,var=NA,time='irregular',unit=NA,comment=NA)
   h['type'] <- sub('^.*?(\\..*$)','\\1',f)

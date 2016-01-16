@@ -12,15 +12,9 @@ importAwa(dir = NULL, files = NULL, quiet = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{dir}{
-%%     ~~Describe \code{dir} here~~
-}
-  \item{files}{
-%%     ~~Describe \code{files} here~~
-}
-  \item{quiet}{
-%%     ~~Describe \code{quiet} here~~
-}
+  \item{dir}{string. Import all files in directory \code{dir}.}
+  \item{files}{character vector. Import all files specified in \code{files}.}
+  \item{quiet}{logical. Print summary?}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
@@ -48,8 +42,9 @@ importAwa(dir = NULL, files = NULL, quiet = TRUE)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-a <- 1
+d <- '/home/Downloads/'
+\dontrun{df <- importAwa(dir=d)}   
 
+f <- c('/the/first/Bafu/file1.asc','/the/second/Bafu/file2.asc')
+\dontrun{df <- importAwa(files=f)} 
+}

@@ -1,0 +1,6 @@
+sniffAwaFile <-
+function(f=NULL) {
+  
+  
+  
+}
