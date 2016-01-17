@@ -14,9 +14,9 @@ function(f=NULL) {
   if(grepl(';',l1[n])) {h['sep'] <- ';'}
   if(grepl(',',l1[n])) {h['sep'] <- ','}
   if(grepl('\t',l1[n])) {h['sep'] <- '\t'}
-  if(any(grepl('([aA]bfl|[aA]bfluss|m\\xb3/s|m\u00B3/s|m3/s|m.{1}/s)',l1))) {h['unit'] <- 'Q'}
   if(any(grepl('(Wsfl|[wW]asserstand|m[ .]*?\u00FC[ .]*?[Mm])',l1))) {h['unit'] <- 'L'}
   if(any(grepl('([wW]assertemperatur|[tT]emperatur|\\xb0C|\u00B0C)',l1))) {h['unit'] <- 'T'}
+  if(any(grepl('([aA]bfl|[aA]bfluss|m\\xb3/s|m\u00B3/s|m3/s|m.{1}/s)',l1))) {h['unit'] <- 'Q'}
   d <- sub(paste(h['sep'],'[[:digit:]','.,',h['sep'],']+$',sep=''),'',c(l1[n],l2))
   h[c('start','end')] <- gsub(h['sep'],' ',d)
   return(h)
