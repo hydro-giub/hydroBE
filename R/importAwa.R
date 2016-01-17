@@ -12,5 +12,6 @@ function(dir=NULL,files=NULL,agg='day',quiet=TRUE) {
   
   
   r <- range(as.POSIXct(df$start,format='%d.%m.%Y %H:%M',tz='UTC'),as.POSIXct(df$end,format='%d.%m.%Y %H:%M'),tz='UTC')
+  df1 <- data.frame(time=NA)
   
 }
