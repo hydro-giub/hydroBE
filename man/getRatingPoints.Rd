@@ -13,23 +13,19 @@ for given water levels \code{l} according the Strickler formula
 where \eqn{R = (area)/(radius)}. \code{k} gets linearly interpolated.
 }
 \usage{
-getRatingPoints(z, x, m, k, baseRef = NULL, l, ni = 1000, plot = FALSE)
+getRatingPoints(z, x, k, m, l, plot = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{z}{numerical vector. Positive depth [m]. It is assumed that the first and last points in z are zero and thus define a theoretical water table with respect to a 
-  closed profil.}
-  \item{x}{numerical vector. Points along the channel profil where \code{z} was measured [m]. \code{x} has to be nonstrictly increasing, i. e. \eqn{x(n+1) \ge x(n)} for all n.}
-  \item{m}{single number. Slope of the river bed perpendicular to the channel profil. \eqn{m = dz/dx = tan(alpha)}}
+  \item{z}{numerical vector. Altitude [m] with respect to e.g. sea level ("true" elevation).}
+  \item{x}{numerical vector. Points along the channel profil where \code{z} was measured [m].}
   \item{k}{single number or numerical vector. Defines the Strickler value(s) [m^(1/3)/s]. In case of a vector, \code{k} should have same dimension as \code{z} and \code{x}.}
-  \item{baseRef}{integer(s). Index of reference point(s) in x for water levels \code{l}.}
-  \item{l}{numerical vector. Positive water levels [m] with respect to \code{baseRef} for which corresponding discharge should be calculated.}
-  \item{ni}{single number. Defines the number of points for interpolation (should be \eqn{\ge 1000}).}
+  \item{m}{single number. Slope of the river bed perpendicular to the channel profil. \eqn{m = dz/dx = tan(alpha)}}
+  \item{l}{numerical vector. Positive water levels [m] for which corresponding discharge should be calculated.}
   \item{plot}{logical. Plot the channel profil?}
 }
 \details{
-If \code{baseRef} is not defined, the reference point for water levels \code{l} is defined as the point in \code{x} where \code{z} reaches its maximum. Note that it is allowed
-to define the reference point with respect to several points in \code{x}, what might be helpfull in case of a "rugged" river bed (e.g. in case of sand, gravel, and stones).
+The reference point for water levels \code{l} is defined as the point in \code{x} where \code{z} reaches its minimum.
 }
 \value{
 Matrix with columns water 'level', 'area' below water table, wet 'radius', interpolated 'k', streamflow 'velocity', and 'discharge' [m3/s].
@@ -38,7 +34,7 @@ Matrix with columns water 'level', 'area' below water table, wet 'radius', inter
 Strickler, A. (1924). "Beitraege zur Frage der Geschwindigkeitsformel und der Rauigkeitszahlen fuer Stroeme, Kanaele und geschlossene Leitungen". Schweizerische Bauzeitung, Heft 23.
 }
 \author{
-Simon
+Original code provided by Alain Bruehlmann.
 }
 \note{
 %%  ~~further notes~~
@@ -51,39 +47,32 @@ Simon
 }
 \examples{
 # quadratic profile
-z <- c(0,2,2,0)
-x <- c(1,1,2,2)
-m <- 0.1
-k <- 30
-baseRef <- 2:3
-ni <- 10000
-l <- c(0,0.2,0.4,0.6,0.8,1)
-pq <- getRatingPoints(z=z,x=x,m=m,k=k,baseRef=baseRef,ni=ni,l=l,plot=TRUE)
+z <- c(10,0,0,10)
+x <- c(0,0,10,10)
+k <- sample(0:100,size=length(z))
+m <- 0.03
+l <- 1:10
+pq <- getRatingPoints(z=z,x=x,k=k,m=m,l=l,plot=TRUE)
 print(pq)
 plot(x=pq[,'level'],y=pq[,'discharge'])
 
 # trapezoid
-z <- c(0,2,2,0)
+z <- c(2,0,0,2)
 x <- c(1,3,4,6)
-m <- 0.1
 k <- 30
-baseRef <- 2
-ni <- 10000
-l <- c(0,0.2,0.4,0.6,0.8,1)
-pq <- getRatingPoints(z=z,x=x,m=m,k=k,baseRef=baseRef,ni=ni,l=l,plot=TRUE)
+m <- 0.1
+l <- seq(0,1.5,by=0.2)
+pq <- getRatingPoints(z=z,x=x,k=k,m=m,l=l,plot=TRUE)
 print(pq)
 plot(x=pq[,'level'],y=pq[,'discharge'])
 
 # natural channel
-z <- c(0,0.1,0.2,0.1,0.23,0.35,0.55,0.6,0.63,0.59,0.43,0.2,0.5,0)
-x <- 1:length(z)
-m <- 0.1
-k <- c(5,10,10,20,50,100,110,105,110,100,60,30,20,10)
-baseRef <- 8:10
-ni <- 10000
-l <- c(0,0.2,0.4,0.6,0.8,1)
-l <- seq(0,1,by=0.2)
-pq <- getRatingPoints(z=z,x=x,m=m,k=k,baseRef=baseRef,ni=ni,l=l,plot=TRUE)
+z <- c(9,9,9,10,9,8,7,6,7,8,7,6,5,4,3,4,5,6,5,4,1,4,5,6,7,8,9,8,7,8,8)
+x <- c(1:25,23,24,25,26,27,28)
+k <- sample(0:100,size=length(z))
+m <- 0.03
+l <- 1:13
+pq <- getRatingPoints(z=z,x=x,k=k,m=m,l=l,plot=TRUE)
 print(pq)
 plot(x=pq[,'level'],y=pq[,'discharge'])
 }
