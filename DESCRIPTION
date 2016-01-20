@@ -1,7 +1,7 @@
 Package: hydroBE
 Type: Package
 Title: miscellaneous functions for hydrologists workaday life 
-Version: 1.0
+Version: 0.9
 Date: 2016-01-11
 Author: group of hydrology
 Maintainer: Simon <hydro@uni.net>

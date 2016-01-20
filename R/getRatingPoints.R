@@ -3,20 +3,17 @@ function(z,x,k,m,l,plot=FALSE) {
   
   # river bed reference point for water levels l
   cp <- which.min(z)
-  # points to the left of cp
+  # points to the left of cp, truncated to maximum
   lp <- 1:(min(cp)-1)
-  # truncate to maximum
   lp <- lp[which.max(z[lp]):length(lp)]
-  # points to the right of cp
+  # points to the right of cp, truncated to maximum
   rp <- (max(cp+1)):length(z)
-  # truncate to maximum
   rp <- rp[1:which.max(z[rp])]
   if (length(lp)<1 | length(rp)<1) {stop('please provide a meaningful profil z')}
   # truncate "overflow" water levels
   l <- l[(z[cp]+l<=max(z[lp])) & (z[cp]+l<=max(z[rp])) & l>0]
   if (length(l)<1) {stop('please provide suitable levels l')}
   k <- rep(k,length.out=length(z))
-  # put the cleaned profil into a matrix
   pr <- matrix(c(x,z,k),ncol=3,dimnames=list(NULL,c('x','z','k')))[c(lp,cp,rp),]
   n <- nrow(pr)
   pq <- matrix(NA,nrow=length(l),ncol=6,dimnames=list(NULL,c('level','area','radius','k','velocity','discharge')))
@@ -24,11 +21,8 @@ function(z,x,k,m,l,plot=FALSE) {
   
   for (i in 1:length(l)) {
     
-    # initialise area
     a <- 0
-    # initialise radius
     r <- 0
-    # actual water level
     zl <- z[cp]+l[i]
     # is point wet? outermost points (min(lp) and max(rp) are always FALSE)
     iw <- pr[,'z']<zl
