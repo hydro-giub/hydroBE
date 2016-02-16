@@ -34,7 +34,7 @@ Matrix with columns water 'level' [m], profile 'area' [m2] below water table, we
 Strickler, A. (1924). "Beitraege zur Frage der Geschwindigkeitsformel und der Rauigkeitszahlen fuer Stroeme, Kanaele und geschlossene Leitungen". Schweizerische Bauzeitung, Heft 23.
 }
 \author{
-Original code provided by Alain Bruehlmann.
+Original code provided by Alain.
 }
 \note{
 %%  ~~further notes~~

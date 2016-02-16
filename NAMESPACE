@@ -1,3 +1,4 @@
-export(declusterSeries, estimateBFI, getRatingPoints, importBafu, importAwa)
+export(declusterSeries, estimateBFI, getRatingPoints, hypsocurve, importBafu, importAwa)
 import(graphics, grDevices, methods, stats, utils)
 importFrom(gdata, read.xls)
+importFrom(raster, values, res)

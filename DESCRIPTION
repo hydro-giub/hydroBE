@@ -5,7 +5,7 @@ Version: 0.9
 Date: 2016-01-11
 Author: group of hydrology
 Maintainer: Simon <hydro@uni.net>
-Description: The package contains some functions for hydrological analysis (e.g. Strickler formula and BFI) and helps to import time series from Bafu and Awa.
+Description: The package contains some functions for hydrological analysis and helps to import time series from Bafu and Awa.
 License: GPL-2
 Depends: R (>= 2.3.0)
-Imports: graphics, grDevices, methods, stats, utils, gdata
+Imports: graphics, grDevices, methods, stats, utils, gdata, raster
