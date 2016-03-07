@@ -1,16 +1,18 @@
 \name{hypsocurve}
 \alias{hypsocurve}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Plot hypsography against area
 }
+
 \description{
 Plots the hypsography of a given \code{\link[=Raster-class]{RasterLayer}} against area.
 }
+
 \usage{
 hypsocurve(x, ylab = "m.a.s.l.", xlab = "area km2", col = "blue", unit.conv = 1e+06, ...)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x}{object of class \code{\link[=Raster-class]{RasterLayer}}}
   \item{ylab}{y axis label}
@@ -19,31 +21,11 @@ hypsocurve(x, ylab = "m.a.s.l.", xlab = "area km2", col = "blue", unit.conv = 1e
   \item{unit.conv}{number, conversion factor to link the resolution of \code{x} to \code{xlab}}
   \item{\dots}{additional arguments passed to \code{\link{plot}}}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Jan
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 library(raster)
 x <- raster(matrix(c(rnorm(90),rep(NA,10)),ncol=10,nrow=10),xmx=10,ymx=10)

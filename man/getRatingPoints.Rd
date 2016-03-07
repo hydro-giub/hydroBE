@@ -1,9 +1,10 @@
 \name{getRatingPoints}
 \alias{getRatingPoints}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Calculate discharge according the Strickler formula 
 }
+
 \description{
 For a given open channel profile (defined by corresponding points in \code{z} and \code{x}), slope \code{m}, and Strickler value(s) \code{k}, streamflow velocity is calculated 
 for given water levels \code{l} according the Strickler formula 
@@ -12,10 +13,11 @@ for given water levels \code{l} according the Strickler formula
 
 where hydraulic radius \eqn{R = (area)/(radius)}. \code{k} gets linearly interpolated.
 }
+
 \usage{
 getRatingPoints(z, x, k, m, l, plot = FALSE)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{z}{numerical vector. Altitude [m] with respect to e.g. sea level or any other reference point.}
   \item{x}{numerical vector. Points along the channel profile where \code{z} was measured [m].}
@@ -24,27 +26,23 @@ getRatingPoints(z, x, k, m, l, plot = FALSE)
   \item{l}{numerical vector. Positive water levels [m] for which corresponding discharge should be calculated.}
   \item{plot}{logical. Plot the channel profile?}
 }
+
 \details{
 The reference point for water levels \code{l} is defined as the point in \code{x} where \code{z} reaches its minimum.
 }
+
 \value{
 Matrix with columns water 'level' [m], profile 'area' [m2] below water table, wet profile 'radius' [m], interpolated 'k', streamflow 'velocity' [m/s], and 'discharge' [m3/s].
 }
+
 \references{
 Strickler, A. (1924). "Beitraege zur Frage der Geschwindigkeitsformel und der Rauigkeitszahlen fuer Stroeme, Kanaele und geschlossene Leitungen". Schweizerische Bauzeitung, Heft 23.
 }
+
 \author{
-Original code provided by Alain.
-}
-\note{
-%%  ~~further notes~~
+Original code provided by Alain, modified by Simon.
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
 # quadratic profile
 z <- c(10,0,0,10)
