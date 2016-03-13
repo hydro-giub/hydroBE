@@ -1,1 +1,0 @@
-whoiam <- function(x) {print(paste('are you ',x,'?',sep=''))}
