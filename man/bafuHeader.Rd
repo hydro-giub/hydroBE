@@ -9,7 +9,7 @@ Sniff in the header of a Bafu file
 }
 
 \description{
-Helper functions to extract header information out of files from Bafu (Bundesamt fuer Umwelt) 
+Helper functions to extract header information out of files from Bafu (Bundesamt fuer Umwelt).
 }
 
 \usage{

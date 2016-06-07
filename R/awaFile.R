@@ -1,7 +1,7 @@
-checkBafuFiles <- 
+checkAwaFiles <- 
 function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
   
-  if(!is.null(dir)) {files <- list.files(dir,full.names=T,pattern='\\.(asc|txt|csv|xls)$')}
+  if(!is.null(dir)) {files <- list.files(dir,full.names=T,pattern='\\.(asc|txt|csv)$')}
   cn <- c('id','name','site','var','res','type','start','end','nas','comment',
           'file','format','hydropro','sep','skip','nlines')
   m <- matrix(NA,nrow=length(files),ncol=length(cn),dimnames=list(NULL,cn))
@@ -10,43 +10,19 @@ function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
     
     fil <- files[i]
     frt <- sub('^.*?\\.(.*$)','\\1',fil)
-    xls <- grepl('xls',frt)
     
-    if(xls) {
-      li <- gdata::read.xls(fil,fileEncoding='ISO-8859-1',quote='"',nrows=30,header=F,sep='x',stringsAsFactors=F)[,1]
-      nlines <- -1L
-    } else {
-      co <- file(fil,encoding='ISO-8859-1')
-      li <- readLines(con=co,n=30)
-      close(co)
-      nlines <- floor(file.info(fil)$size/(nchar(li[30])+2))
-    }
+    co <- file(fil,encoding='CP1282')
+    li <- readLines(con=co,n=30)
+    close(co)
+    nlines <- floor(file.info(fil)$size/(nchar(li[30])+2))
     
     hyp <- any(grepl('[hH]ydro|[hH][bB][cC][hH]',li))
     
-    if(!xls & !hyp) {
-      h <- bafuHeaderTxt(li=li)
+    if(hyp) {
+      h <- awaHeaderHydropro(li=li)
       m[i,names(h)] <- unlist(h)
       if(check.series) {
-        h <- bafuSeriesTxt(file=fil,nlines=nlines,skip=h$skip,check.na=check.na,series.only=F)
-        m[i,names(h)] <- unlist(h)
-      }
-    }
-    
-    if(!xls & hyp) {
-      h <- bafuHeaderHydropro(li=li)
-      m[i,names(h)] <- unlist(h)
-      if(check.series) {
-        h <- bafuSeriesHydropro(file=fil,nlines=nlines,skip=h$skip,check.na=check.na,series.only=F)
-        m[i,names(h)] <- unlist(h)
-      }
-    }
-    
-    if(xls & !hyp) {
-      h <- bafuHeaderXls(li=li)
-      m[i,names(h)] <- unlist(h)
-      if(check.series) {
-        h <- bafuSeriesXls(file=fil,nlines=nlines,skip=h$skip,check.na=check.na,series.only=F)
+        h <- awaSeriesHydropro(file=fil,nlines=nlines,skip=h$skip,check.na=check.na,series.only=F)
         m[i,names(h)] <- unlist(h)
       }
     }
@@ -68,12 +44,12 @@ function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
   
 }
 
-importBafuFiles <- 
+importAwaFiles <- 
 function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
-
+  
   if(!is.null(dir)) {files <- list.files(dir,full.names=T)}
-  fs <- checkBafuFiles(files=files,check.series=T,check.na=F)
-  id <- as.integer(sub('^.*?/[[:blank:]]*','',fs[,'id']))
+  fs <- checkAwaFiles(files=files,check.series=T,check.na=F)
+  id <- fs[,'id']
   e <- grepl('^$',id)
   if(any(e)) {id[e] <- 1:sum(e)}
   tr <- unique(fs[,'res'])
@@ -85,17 +61,10 @@ function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
   x <- d$x
   m1 <- matrix(NA,nrow=length(x),ncol=nrow(fs),dimnames=list(as.character(x),paste0('id',id)))
   hyp <- as.logical(fs[,'hydropro'])
-  xls <- grepl('xls',fs[,'format'],fixed=T)
   
   for (i in 1:nrow(fs)) {
-    if(!xls[i] & !hyp[i]) {
-      m2 <- bafuSeriesTxt(file=fs[i,'file'],nlines=fs[i,'nlines'],skip=fs[i,'skip'],check.na=F,series.only=T)
-    }
-    if(!xls[i] & hyp[i]) {
-      m2 <- bafuSeriesHydropro(file=fs[i,'file'],nlines=fs[i,'nlines'],skip=fs[i,'skip'],check.na=F,series.only=T)
-    }
-    if(xls[i] & !hyp[i]) {
-      m2 <- bafuSeriesXls(file=fs[i,'file'],nlines=fs[i,'nlines'],skip=fs[i,'skip'],check.na=F,series.only=T)
+    if(hyp[i]) {
+      m2 <- awaSeriesHydropro(file=fs[i,'file'],nlines=fs[i,'nlines'],skip=fs[i,'skip'],check.na=F,series.only=T)
     }
     m1[substr(rownames(m2),1,d$n),i] <- m2[,'y']
   }
@@ -119,4 +88,4 @@ function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
   if(!quiet) {print(fs)}
   return(m1)
   
-}
+} 

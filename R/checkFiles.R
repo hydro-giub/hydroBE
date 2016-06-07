@@ -56,3 +56,39 @@ function(li=NULL,check.na=FALSE,sblock=NULL) {
   return(h)
   
 }
+
+getTimestamps <-
+function(res=NULL,sm=NULL) {
+  
+  if(res=='year') {
+    r <- range(as.numeric(sub('\\..*$','',sm[,'start'])),as.numeric(sub('\\..*$','',sm[,'end'])))
+    x <- seq.int(from=r[1],to=r[2],by=1)
+    n <- 4
+  }
+  if(res=='month') {
+    r <- range(as.numeric(sub('\\..*$','',sm[,'start'])),as.numeric(sub('\\..*$','',sm[,'end'])))
+    i <- rep(seq(from=r[1],to=r[2],by=1),each=12)
+    i <- paste(i,formatC(rep(1:12,times=length(i)/12),flag='0',width=2),sep='.')
+    r <- range(match(c(sm[,'start'],sm[,'end']),i))
+    x <- i[r[1]:r[2]]
+    n <- 7
+  }
+  if(res=='day') {
+    r <- range(as.POSIXct(as.vector(sm[,c('start','end')]),format='%Y.%m.%d',tz='UTC'))
+    x <- format(seq.POSIXt(from=r[1],to=r[2],by='day',tz='UTC'),'%Y.%m.%d')
+    n <- 10
+  }
+  if(res=='hour') {
+    r <- range(as.POSIXct(as.vector(sm[,c('start','end')]),format='%Y.%m.%d %H',tz='UTC'))
+    x <- format(seq.POSIXt(from=r[1],to=r[2],by='hour',tz='UTC'),'%Y.%m.%d %H')
+    n <- 13
+  }
+  if(res=='10 min') {
+    r <- range(as.POSIXct(as.vector(sm[,c('start','end')]),format='%Y.%m.%d %H:%M',tz='UTC'))
+    x <- format(seq.POSIXt(from=r[1],to=r[2],by='10 min',tz='UTC'),'%Y.%m.%d %H:%M')
+    n <- 16
+  }
+  
+  return(list(x=x,n=n))
+  
+}
