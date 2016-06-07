@@ -1,5 +1,5 @@
-\name{declusterSeries}
-\alias{declusterSeries}
+\name{declusterExtremes}
+\alias{declusterExtremes}
 
 \title{
 Decluster local maximas in a time series
@@ -10,7 +10,7 @@ Declusters recursively the local maximas in a time series based on a minimal tem
 }
 
 \usage{
-declusterSeries(y = NULL, L = NULL)
+declusterExtremes(y = NULL, L = NULL)
 }
 
 \arguments{
@@ -34,13 +34,13 @@ Simon
 y <- c(0,0,1,1,0,0,0,3,2,NA,1,5,3,4,5,6,5,2,3,2,4,5,4,3,2,1,0)
 
 # handling of NAs and plateaus
-i <- declusterSeries(y=y,L=2)
+i <- declusterExtremes(y=y,L=2)
 plot(y,type='l')
 points(y,cex=0.5)
 points(y=y[i],x=i,col=2)
 
 # decluster minimas
-i <- declusterSeries(y=-y,L=2)
+i <- declusterExtremes(y=-y,L=2)
 plot(y,type='l')
 points(y,cex=0.5)
 points(y=y[i],x=i,col=2)

@@ -41,7 +41,7 @@ Simon
 \note{
 The function relies on a rather heuristic approach to extract useful information and thus might fail when the Bafu comes up with new formats. Particularly files out of the Hydropro software (used for the most recent and unofficial observations) show a surprising wide range of naming conventions and non ascii characters.
 
-\code{bafuHeader} only tries to prettify the output of \code{bafuHeaderHydropro}, \code{bafuHeaderTxt}, or \code{bafuHeaderXls}.
+\code{bafuHeader} only tries to prettify the output of \code{bafuHeaderHydropro}, \code{bafuHeaderTxt}, and \code{bafuHeaderXls}.
 }
 
 \seealso{

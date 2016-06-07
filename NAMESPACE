@@ -1,5 +1,11 @@
-export(bafuHeaderHydropro, bafuHeaderTxt, bafuHeaderXls, bafuSeriesHydropro, bafuSeriesTxt, bafuSeriesXls, 
-       checkBafuFiles, declusterSeries, estimateBaseflow, getRatingPoints, importBafuFiles, plotHypsograph)
+export(checkBafuFiles, importBafuFiles)
+export(bafuHeaderHydropro, bafuHeaderTxt, bafuHeaderXls)
+export(bafuSeriesHydropro, bafuSeriesTxt, bafuSeriesXls)
+
+export(checkSeries)
+
+export(declusterExtremes, estimateBaseflow, getRatingPoints, plotHypsograph)
+
 import(graphics, grDevices, methods, stats, utils)
 importFrom(gdata, read.xls)
 importFrom(raster, values, res)

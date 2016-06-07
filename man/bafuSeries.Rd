@@ -13,7 +13,6 @@ Helper functions to summarize hydrological time series provided by Bafu (Bundesa
 }
 
 \usage{
-bafuSeries(li = NULL, check.na=FALSE, sblock=NULL)
 bafuSeriesHydropro(file = NULL, nlines = 0, skip = 3, 
                    check.na = FALSE, series.only = FALSE)
 bafuSeriesTxt(file = NULL, nlines = 0, skip = 3, 
@@ -23,17 +22,11 @@ bafuSeriesXls(file = NULL, nlines = 0, skip = 2,
 }
 
 \arguments{
-\item{li}{character vector, see 'Details'}
-\item{check.na}{logical, check series for missing values? Leading and trailing \code{NA}s will be ignored.}
-\item{series.only}{logical, return series in a nx1 matrix instead of a summary? Time stamps will be attached as row names.}
-\item{sblock}{integer, use \code{li[1:sblock]} to check the temporal resolution}
 \item{file}{string, file name}
 \item{nlines}{integer, number of lines in \code{file}}
 \item{skip}{integer, number of header lines}
-}
-
-\details{
-\code{bafuSeriesHydropro}, \code{bafuSeriesTxt}, and \code{bafuSeriesXls} all are wrappers for \code{bafuSeries}. The latter expects a character vector with entries of the form "2015.09.01 01:00;3.456" as input for argument \code{li} where missing values are indicated by "NA". \code{bafuSeries} then checks the temporal resolution and also tests for missing values, if required.
+\item{check.na}{logical, check series for missing values? Leading and trailing \code{NA}s will be ignored.}
+\item{series.only}{logical, return series in a nx1 matrix instead of a summary? Time stamps will be attached as row names.}
 }
 
 \value{
