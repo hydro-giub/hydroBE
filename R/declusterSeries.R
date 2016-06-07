@@ -3,7 +3,7 @@ function(y=NULL,L=NULL) {
   
   n <- length(y)
   d <- 1:n
-  if (n>2) {
+  if(n>2) {
     i <- which(y[-c(1,n)]>y[-(1:2)] & y[-c(1,n)]>y[-c(n-1,n)])+1
     ii <- which.max(y[i])
     i <- i[ii]

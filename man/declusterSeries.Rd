@@ -14,8 +14,8 @@ declusterSeries(y = NULL, L = NULL)
 }
 
 \arguments{
-  \item{y}{numerical vector. The (strictly regular) series. \code{NA}s are allowed and will be treated as -Inf.}
-  \item{L}{integer. Minimum distance in number of time units.}
+\item{y}{numerical vector. The (strictly regular) series. \code{NA}s are allowed and will be treated as -Inf.}
+\item{L}{integer. Minimum distance in number of time units.}
 }
 
 \details{

@@ -17,6 +17,8 @@ Or simply do it by hand:
 p <- '/path/to/your/Downloads/'
 download.file('https://github.com/hydro-giub/hydroBE/archive/master.zip',destfile=paste(p,'master.zip',sep=''))
 unzip(paste(p,'master.zip',sep=''),exdir=p)
+if (!require(gdata)) {install.packages('gdata')}
+if (!require(raster)) {install.packages('raster')}
 install.packages(paste(p,'hydroBE-master/',sep=''),repo=NULL,type='source')
 library(hydroBE)
 ?hydroBE

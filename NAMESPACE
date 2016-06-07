@@ -1,4 +1,5 @@
-export(declusterSeries, estimateBFI, getRatingPoints, hypsocurve, importBafu, importAwa)
+export(bafuHeaderHydropro, bafuHeaderTxt, bafuHeaderXls, bafuSeriesHydropro, bafuSeriesTxt, bafuSeriesXls, 
+       checkBafuFiles, declusterSeries, estimateBaseflow, getRatingPoints, importBafuFiles, plotHypsograph)
 import(graphics, grDevices, methods, stats, utils)
 importFrom(gdata, read.xls)
 importFrom(raster, values, res)

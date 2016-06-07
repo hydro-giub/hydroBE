@@ -9,17 +9,17 @@ function(z,x,k,m,l,plot=FALSE) {
   # points to the right of cp, truncated to maximum
   rp <- (max(cp+1)):length(z)
   rp <- rp[1:which.max(z[rp])]
-  if (length(lp)<1 | length(rp)<1) {stop('please provide a meaningful profil z')}
+  if(length(lp)<1 | length(rp)<1) {stop('please provide a meaningful profil z')}
   # truncate "overflow" water levels
   l <- l[(z[cp]+l<=max(z[lp])) & (z[cp]+l<=max(z[rp])) & l>0]
-  if (length(l)<1) {stop('please provide suitable levels l')}
+  if(length(l)<1) {stop('please provide suitable levels l')}
   k <- rep(k,length.out=length(z))
   pr <- matrix(c(x,z,k),ncol=3,dimnames=list(NULL,c('x','z','k')))[c(lp,cp,rp),]
   n <- nrow(pr)
   pq <- matrix(NA,nrow=length(l),ncol=6,dimnames=list(NULL,c('level','area','radius','k','velocity','discharge')))
   pq[,'level'] <- l
   
-  for (i in 1:length(l)) {
+  for(i in 1:length(l)) {
     
     a <- 0
     r <- 0
@@ -30,7 +30,7 @@ function(z,x,k,m,l,plot=FALSE) {
     sl <- which(xor(iw[2:(n-1)],iw[1:(n-2)]) & iw[2:(n-1)])+1
     sr <- which(xor(iw[2:(n-1)],iw[3:n]) & iw[2:(n-1)])+1
     
-    for (j in 1:length(sl)) {
+    for(j in 1:length(sl)) {
       
       # use intercept theorem to define end points: pay attention to signs because of overhanging segments!
       lz <- zl

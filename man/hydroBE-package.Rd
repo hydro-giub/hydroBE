@@ -19,7 +19,7 @@ The DESCRIPTION file:
 
 \author{
 \packageAuthor{hydroBE} 
-%- (Maintainer: \packageMaintainer{hydroBE})
+Maintainer: \packageMaintainer{hydroBE}
 }
 
 \keyword{ package }
