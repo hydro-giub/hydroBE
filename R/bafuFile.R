@@ -1,5 +1,4 @@
-checkBafuFiles <- 
-function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
+checkBafuFiles <- function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
   
   if(!is.null(dir)) {files <- list.files(dir,full.names=T,pattern='\\.(asc|txt|csv|xls)$')}
   cn <- c('id','name','site','var','res','type','start','end','nas','comment',
@@ -68,8 +67,7 @@ function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
   
 }
 
-importBafuFiles <- 
-function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
+importBafuFiles <- function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
 
   if(!is.null(dir)) {files <- list.files(dir,full.names=T)}
   fs <- checkBafuFiles(files=files,check.series=T,check.na=F)

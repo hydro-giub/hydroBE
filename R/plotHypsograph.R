@@ -1,5 +1,4 @@
-plotHypsograph <- 
-function(x,ylab='m.a.s.l.',xlab='area km2',col='blue',unit.conv=1e6,...) {
+plotHypsograph <- function(x,ylab='m.a.s.l.',xlab='area km2',col='blue',unit.conv=1e6,...) {
 
   if(class(x) != 'RasterLayer') {stop("Invalid argument: 'class(x)' must be 'RasterLayer'")}
   z.vals <- sort(raster::values(x),na.last=NA)

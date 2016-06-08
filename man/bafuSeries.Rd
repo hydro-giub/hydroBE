@@ -53,7 +53,7 @@ If \code{series.only=T} \code{bafuSeriesHydropro}, \code{bafuSeriesTxt}, and \co
 }
 
 \author{
-Simon
+Simon S
 }
 
 \seealso{

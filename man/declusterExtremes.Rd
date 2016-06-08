@@ -27,7 +27,7 @@ Integer vector with indices of the maximas within \code{y} with respect to \code
 }
 
 \author{
-Simon
+Simon S
 }
 
 \examples{

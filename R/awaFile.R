@@ -1,5 +1,4 @@
-checkAwaFiles <- 
-function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
+checkAwaFiles <- function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
   
   if(!is.null(dir)) {files <- list.files(dir,full.names=T,pattern='\\.(asc|txt|csv)$')}
   cn <- c('id','name','site','var','res','type','start','end','nas','comment',
@@ -44,8 +43,7 @@ function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
   
 }
 
-importAwaFiles <- 
-function(dir=NULL,files=NULL,ignore.var=FALSE,simplify.time=FALSE,quiet=TRUE) {
+importAwaFiles <- function(dir=NULL,files=NULL,ignore.var=FALSE,simplify.time=FALSE,quiet=TRUE) {
   
   if(!is.null(dir)) {files <- list.files(dir,full.names=T)}
   fs <- checkAwaFiles(files=files,check.series=T,check.na=F)

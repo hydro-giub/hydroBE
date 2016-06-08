@@ -39,7 +39,7 @@ Gustard, A., A. Bullock, and J.M. Dixon (1992). "Low flow estimation in the Unit
 }
 
 \author{
-Simon
+Simon S
 }
 
 \note{

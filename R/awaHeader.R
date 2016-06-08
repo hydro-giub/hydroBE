@@ -1,5 +1,4 @@
-awaHeader <-
-function(h=NULL) {
+awaHeader <- function(h=NULL) {
   
   if(grepl('m[^[:blank:]]*?/s',h$var)) {h$var <- 'm3/s'}
   if(grepl('l/s',h$var)) {h$var <- 'l/s'}
@@ -9,8 +8,7 @@ function(h=NULL) {
   
 }
 
-awaHeaderHydropro <-
-function(li=NULL) {
+awaHeaderHydropro <- function(li=NULL) {
   
   h <- list(id=NA,name=NA,site=NA,var=NA,comment=NA,skip=NA)
   

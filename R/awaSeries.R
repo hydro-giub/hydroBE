@@ -1,5 +1,4 @@
-awaSeriesHydropro <-
-function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
+awaSeriesHydropro <- function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
   
   h <- list(res=NA,type='unknown',start=NA,end=NA,nas=NA,sep=NA)
   if(check.na | series.only | nlines<1000) {

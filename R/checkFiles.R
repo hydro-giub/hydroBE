@@ -1,5 +1,4 @@
-checkSeries <-
-function(li=NULL,check.na=FALSE,sblock=NULL) {
+checkSeries <- function(li=NULL,check.na=FALSE,sblock=NULL) {
   
   n <- na2 <- length(li)
   if(is.null(sblock)) {sblock <- n}
@@ -57,8 +56,7 @@ function(li=NULL,check.na=FALSE,sblock=NULL) {
   
 }
 
-getTimestamps <-
-function(res=NULL,sm=NULL) {
+getTimestamps <- function(res=NULL,sm=NULL) {
   
   if(res=='year') {
     r <- range(as.numeric(sub('\\..*$','',sm[,'start'])),as.numeric(sub('\\..*$','',sm[,'end'])))

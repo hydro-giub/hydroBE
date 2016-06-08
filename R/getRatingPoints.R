@@ -1,5 +1,4 @@
-getRatingPoints <- 
-function(z,x,k,m,l,plot=FALSE) {
+getRatingPoints <- function(z,x,k,m,l,plot=FALSE) {
   
   # river bed reference point for water levels l
   cp <- which.min(z)

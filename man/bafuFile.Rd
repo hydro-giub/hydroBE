@@ -55,7 +55,7 @@ In case of \code{importBafuFiles} a matrix with row names corresponding to the u
 }
 
 \author{
-Simon
+Simon S
 }
 
 \examples{

@@ -24,7 +24,7 @@ plotHypsograph(x, ylab = 'm.a.s.l.', xlab = 'area km2',
 }
 
 \author{
-Jan
+Jan S
 }
 
 \examples{

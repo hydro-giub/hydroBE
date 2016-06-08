@@ -41,7 +41,7 @@ getTimestamps(res = NULL, sm = NULL)
 }
 
 \author{
-Simon
+Simon S
 }
 
 \note{

@@ -57,7 +57,7 @@ In case of \code{importAwaFiles} a matrix with row names corresponding to the un
 }
 
 \author{
-Simon
+Simon S
 }
 
 \examples{

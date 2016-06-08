@@ -1,5 +1,4 @@
-estimateBaseflow <-
-function(y=NULL,win=5,r=0.9,plot=FALSE,use.spline=FALSE,...) {
+estimateBaseflow <- function(y=NULL,win=5,r=0.9,plot=FALSE,use.spline=FALSE,...) {
   
   n <- length(y)
   y <- y[1:(n-n%%win)]

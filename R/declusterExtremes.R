@@ -1,5 +1,4 @@
-declusterExtremes <-
-function(y=NULL,L=NULL) {
+declusterExtremes <- function(y=NULL,L=NULL) {
   
   n <- length(y)
   d <- 1:n

@@ -1,5 +1,4 @@
-bafuHeader <-
-function(h=NULL) {
+bafuHeader <- function(h=NULL) {
   
   if(grepl('m[^[:blank:]]*?/s',h$var)) {h$var <- 'm3/s'}
   if(grepl('l/s',h$var)) {h$var <- 'l/s'}
@@ -9,8 +8,7 @@ function(h=NULL) {
 
 }
 
-bafuHeaderTxt <-
-function(li=NULL) {
+bafuHeaderTxt <- function(li=NULL) {
   
   h <- list(id=NA,name=NA,site=NA,var=NA,comment=NA,skip=NA)
   
@@ -46,8 +44,7 @@ function(li=NULL) {
   
 }
 
-bafuHeaderHydropro <-
-function(li=NULL) {
+bafuHeaderHydropro <- function(li=NULL) {
   
   h <- list(id=NA,name=NA,site=NA,var=NA,comment=NA,skip=NA)
   
@@ -89,8 +86,7 @@ function(li=NULL) {
   
 }
 
-bafuHeaderXls <-
-function(li=NULL) {
+bafuHeaderXls <- function(li=NULL) {
   
   h <- list(id=NA,name=NA,site=NA,var=NA,comment=NA,skip=NA)
   

@@ -40,7 +40,7 @@ Strickler, A. (1924). "Beitraege zur Frage der Geschwindigkeitsformel und der Ra
 }
 
 \author{
-Original code provided by Alain, adapted by Simon.
+Original code provided by Alain B, adapted by Simon S.
 }
 
 \examples{

@@ -47,7 +47,7 @@ If \code{series.only=T}, \code{awaSeriesHydropro} returns a nx1 matrix.
 }
 
 \author{
-Simon
+Simon S
 }
 
 \seealso{

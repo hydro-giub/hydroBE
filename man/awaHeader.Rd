@@ -39,7 +39,7 @@ The functions rely on a rather heuristic approach and thus may fail when the Awa
 }
 
 \author{
-Simon
+Simon S
 }
 
 \seealso{

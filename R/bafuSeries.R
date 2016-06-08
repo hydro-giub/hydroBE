@@ -1,5 +1,4 @@
-bafuSeriesTxt <-
-function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
+bafuSeriesTxt <- function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
   
   h <- list(res=NA,type=NA,start=NA,end=NA,nas=NA,sep=NA)
   if(check.na | series.only | nlines<1000) {
@@ -51,8 +50,7 @@ function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
 
 }
 
-bafuSeriesHydropro <-
-function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
+bafuSeriesHydropro <- function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
   
   h <- list(res=NA,type='unknown',start=NA,end=NA,nas=NA,sep=NA)
   if(check.na | series.only | nlines<1000) {
@@ -98,8 +96,7 @@ function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
   
 }
 
-bafuSeriesXls <-
-function(file=NULL,nlines=0,skip=2,check.na=FALSE,series.only=FALSE) {
+bafuSeriesXls <- function(file=NULL,nlines=0,skip=2,check.na=FALSE,series.only=FALSE) {
   
   h <- list(res=NA,type='peak',start=NA,end=NA,nas=NA,sep=NA)
   l <- unlist(gdata::read.xls(file,fileEncoding='ISO-8859-1',quote='"',header=F,sep='x',stringsAsFactors=F),use.names=F)

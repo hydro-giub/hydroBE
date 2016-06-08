@@ -43,7 +43,7 @@ The functions rely on a rather heuristic approach and thus may fail when the Baf
 }
 
 \author{
-Simon
+Simon S
 }
 
 \seealso{
