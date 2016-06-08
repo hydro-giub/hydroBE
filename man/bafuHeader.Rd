@@ -24,9 +24,13 @@ bafuHeaderXls(li = NULL)
 \item{li}{character vector containing the first lines of a Bafu file}
 }
 
+\details{
+\code{bafuHeader} only tries to prettify some output of \code{bafuHeaderHydropro}, \code{bafuHeaderTxt}, and \code{bafuHeaderXls}.
+}
+
 \value{
 List containing:
-\item{id}{string, gauge id}
+\item{id}{string, station id}
 \item{name}{string, name of watercourse}
 \item{site}{string, site name}
 \item{var}{string, observed variable}
@@ -34,14 +38,12 @@ List containing:
 \item{skip}{integer, number of header lines}
 }
 
-\author{
-Simon
+\section{Warning}{
+The functions rely on a rather heuristic approach and thus may fail when the Bafu comes up with new header formats. Particularly files out of the Hydropro software (used for the most recent and unofficial observations) show a surprising wide range of naming conventions and non ascii characters.
 }
 
-\note{
-The function relies on a rather heuristic approach to extract useful information and thus might fail when the Bafu comes up with new formats. Particularly files out of the Hydropro software (used for the most recent and unofficial observations) show a surprising wide range of naming conventions and non ascii characters.
-
-\code{bafuHeader} only tries to prettify the output of \code{bafuHeaderHydropro}, \code{bafuHeaderTxt}, and \code{bafuHeaderXls}.
+\author{
+Simon
 }
 
 \seealso{

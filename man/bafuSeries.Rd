@@ -25,8 +25,12 @@ bafuSeriesXls(file = NULL, nlines = 0, skip = 2,
 \item{file}{string, file name}
 \item{nlines}{integer, number of lines in \code{file}}
 \item{skip}{integer, number of header lines}
-\item{check.na}{logical, check series for missing values? Leading and trailing \code{NA}s will be ignored.}
-\item{series.only}{logical, return series in a nx1 matrix instead of a summary? Time stamps will be attached as row names.}
+\item{check.na}{logical, check series for missing values?}
+\item{series.only}{logical, return series in a nx1 matrix instead of a summary? Timestamps will be attached as row names.}
+}
+
+\details{
+In case of mean values, returned date and time information indicates the start of the corresponding period. E.g. for hourly mean values, "2015.09.01 01:00" depicts the interval 01:00-02:00 and for 10 min mean values "2015.09.01 01:00" depicts the interval 01:00-01:09.
 }
 
 \value{
@@ -35,11 +39,10 @@ bafuSeriesXls(file = NULL, nlines = 0, skip = 2,
 \item{start}{string, date of the first non-missing observation}
 \item{end}{string, date of the last non-missing observation}
 \item{nas}{integer, number of missing values (leading and trailing \code{NA}s will be ignored)}
-
-If \code{series.only=F}, \code{bafuSeriesHydropro}, \code{bafuSeriesTxt}, and \code{bafuSeriesXls} additionally return
 \item{type}{string, either "peak" or "mean" value}
 \item{sep}{character, field separator in \code{file}}
-Otherwise \code{bafuSeriesHydropro}, \code{bafuSeriesTxt}, and \code{bafuSeriesXls} return a nx1 matrix.
+
+If \code{series.only=T} \code{bafuSeriesHydropro}, \code{bafuSeriesTxt}, and \code{bafuSeriesXls} return a nx1 matrix.
 }
 
 \section{Warning}{
@@ -51,10 +54,6 @@ Otherwise \code{bafuSeriesHydropro}, \code{bafuSeriesTxt}, and \code{bafuSeriesX
 
 \author{
 Simon
-}
-
-\note{
-In case of mean values, returned date and time information indicate the start of the corresponding period. E.g. for hourly mean values, "2015.09.01 01:00" depicts the interval 01:00-02:00 and for 10 min mean values "2015.09.01 01:00" depicts the interval 01:00-01:09.
 }
 
 \seealso{

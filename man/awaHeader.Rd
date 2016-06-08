@@ -20,9 +20,13 @@ awaHeaderHydropro(li = NULL)
 \item{li}{character vector containing the first lines of a Awa file}
 }
 
+\details{
+\code{awaHeader} only tries to prettify some output of \code{awaHeaderHydropro}.
+}
+
 \value{
 List containing:
-\item{id}{string, gauge id}
+\item{id}{string, station id}
 \item{name}{string, name of watercourse}
 \item{site}{string, site name}
 \item{var}{string, observed variable}
@@ -30,14 +34,12 @@ List containing:
 \item{skip}{integer, number of header lines}
 }
 
-\author{
-Simon
+\section{Warning}{
+The functions rely on a rather heuristic approach and thus may fail when the Awa comes up with new header formats. Particularly files out of the Hydropro software show a surprising wide range of naming conventions and non ascii characters.
 }
 
-\note{
-The function relies on a rather heuristic approach to extract useful information and thus might fail when the Awa comes up with new formats. Particularly files out of the Hydropro software (used for the most recent and unofficial observations) show a surprising wide range of naming conventions and non ascii characters.
-
-\code{awaHeader} only tries to prettify the output of \code{awaHeaderHydropro}.
+\author{
+Simon
 }
 
 \seealso{
@@ -46,7 +48,7 @@ The function relies on a rather heuristic approach to extract useful information
 
 \examples{
 \dontrun{
-co <- file('/path/to/file.asc',encoding='ISO-8859-1')
+co <- file('/path/to/file.asc',encoding='CP1282')
 li <- readLines(con=co,n=30)
 close(co)
 h <- awaHeaderHydropro(li)

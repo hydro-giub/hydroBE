@@ -43,7 +43,7 @@ Simon
 }
 
 \note{
-Spline smoothing provides nice curves, but does not have any physical validity in the present context of baseflow estimation (though one can argue that simple linear interpolation might be questionable as well). Package \bold{\href{https://cran.r-project.org/web/packages/EcoHydRology/index.html}{EcoHydRology}} provides a different approach for baseflow estimation.
+Spline smoothing provides nice curves, but does not have any physical validity in the present context of baseflow estimation (though one can argue that simple linear interpolation might be questionable as well). Package \bold{\href{https://cran.r-project.org/package=EcoHydRology}{EcoHydRology}} provides a different approach for baseflow estimation.
 }
 
 \examples{

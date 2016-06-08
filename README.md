@@ -23,3 +23,5 @@ install.packages(paste(p,'hydroBE-master/',sep=''),repo=NULL,type='source')
 library(hydroBE)
 ?hydroBE
 ```
+
+You might consider to first create the tarball to get all the links right.
