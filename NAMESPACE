@@ -2,7 +2,11 @@ export(checkBafuFiles, importBafuFiles)
 export(bafuHeaderHydropro, bafuHeaderTxt, bafuHeaderXls)
 export(bafuSeriesHydropro, bafuSeriesTxt, bafuSeriesXls)
 
-export(checkSeries)
+export(checkAwaFiles, importAwaFiles)
+export(awaHeaderHydropro)
+export(awaSeriesHydropro)
+
+export(checkSeries, getTimestamps)
 
 export(declusterExtremes, estimateBaseflow, getRatingPoints, plotHypsograph)
 

@@ -36,12 +36,12 @@ The ordering of files in \code{dir} or \code{files} determines how \code{importB
 \value{
 In case of \code{checkBafuFiles} a matrix with columns "id" (station id), "name" (watercourse), "site" (site name), "var" (observed quantity), "res" (temporal resolution), "type" (peak versus mean values), "start" (date of first non-missing value), "end" (date of last non-missing value), "nas" (number of missing values, excluding leading and trailing missing values), "comment" (remaining annotations as found in the header), "file" (file name), "format" (file format), "hydropro" (file exported out of the Hydropro software?), "sep" (field separator), "skip" (number of header lines), and "nlines" (number of lines in the corresponding file).
 
-In case of \code{importBafuFiles} a matrix with row names corresponding to the underlying time scale. In case of mean values, clock time refers to the starting time of the underlying period, e.g. for hourly values 01 corresponds to 01:00 - 01:59.
+In case of \code{importBafuFiles} a matrix with row names corresponding to the underlying time scale. In case of mean values, clock time refers to the starting time of the underlying period, e.g. for hourly values 01 corresponds to 01:00 - 01:59. The column names consist of "id", "type", and "var" as obtained from \code{checkBafuFiles}.
 }
 
 \section{Warning}{
 \enumerate{
-\item \code{check.na=T} requires to read the whole series and thus might be time consuming for larger files.
+\item \code{check.na=T} requires to read the whole series and thus might be time consuming for large files.
 \item The approach for guessing the temporal resolution of the series might fail when the series is irregular (i.e. when missing values are not declared, but instead the corresponding rows are omitted).
 \item Since character encodings might not be consistent and the Bafu enjoys to use non ascii characters, it is not guaranteed that the files are properly decoded.
 \item Irregular series (Stuetzpunkte in Bafu parlance) are not supported by \code{importBafuFiles}.

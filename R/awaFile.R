@@ -16,7 +16,7 @@ function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
     close(co)
     nlines <- floor(file.info(fil)$size/(nchar(li[30])+2))
     
-    hyp <- any(grepl('[hH]ydro|[hH][bB][cC][hH]',li))
+    hyp <- any(grepl('[hH]ydro|[hH][bB][bB][eE]',li))
     
     if(hyp) {
       h <- awaHeaderHydropro(li=li)
@@ -45,13 +45,14 @@ function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE) {
 }
 
 importAwaFiles <- 
-function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
+function(dir=NULL,files=NULL,ignore.var=FALSE,simplify.time=FALSE,quiet=TRUE) {
   
   if(!is.null(dir)) {files <- list.files(dir,full.names=T)}
   fs <- checkAwaFiles(files=files,check.series=T,check.na=F)
   id <- fs[,'id']
   e <- grepl('^$',id)
   if(any(e)) {id[e] <- 1:sum(e)}
+  if(simplify.time) {fs[,'res'] <- sub('irregular|unknown','10 min',fs[,'res'])}
   tr <- unique(fs[,'res'])
   if(length(tr)!=1) {warning('temporal resolution is not consistent')}
   tr <- setdiff(tr,c('irregular','unknown'))[1]
@@ -59,14 +60,16 @@ function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
   
   d <- getTimestamps(res=tr,sm=fs)
   x <- d$x
+  ig <- simplify.time & grepl('[[:digit:]]{2}:[[:digit:]]{2}$',x[1])
+  if(ig) {x <- sub('[[:digit:]]{1}$','',x)}
   m1 <- matrix(NA,nrow=length(x),ncol=nrow(fs),dimnames=list(as.character(x),paste0('id',id)))
   hyp <- as.logical(fs[,'hydropro'])
   
-  for (i in 1:nrow(fs)) {
+  for(i in 1:nrow(fs)) {
     if(hyp[i]) {
       m2 <- awaSeriesHydropro(file=fs[i,'file'],nlines=fs[i,'nlines'],skip=fs[i,'skip'],check.na=F,series.only=T)
     }
-    m1[substr(rownames(m2),1,d$n),i] <- m2[,'y']
+    m1[substr(rownames(m2),1,ifelse(ig,d$n-1,d$n)),i] <- m2[,'y']
   }
   
   cn <- colnames(m1)

@@ -84,7 +84,9 @@ function(res=NULL,sm=NULL) {
     n <- 13
   }
   if(res=='10 min') {
-    r <- range(as.POSIXct(as.vector(sm[,c('start','end')]),format='%Y.%m.%d %H:%M',tz='UTC'))
+    r <- as.vector(sm[,c('start','end')])
+    r <- sub('[[:digit:]]{1}$','0',r)
+    r <- range(as.POSIXct(r,format='%Y.%m.%d %H:%M',tz='UTC'))
     x <- format(seq.POSIXt(from=r[1],to=r[2],by='10 min',tz='UTC'),'%Y.%m.%d %H:%M')
     n <- 16
   }

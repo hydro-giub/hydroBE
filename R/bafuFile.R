@@ -87,7 +87,7 @@ function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
   hyp <- as.logical(fs[,'hydropro'])
   xls <- grepl('xls',fs[,'format'],fixed=T)
   
-  for (i in 1:nrow(fs)) {
+  for(i in 1:nrow(fs)) {
     if(!xls[i] & !hyp[i]) {
       m2 <- bafuSeriesTxt(file=fs[i,'file'],nlines=fs[i,'nlines'],skip=fs[i,'skip'],check.na=F,series.only=T)
     }
@@ -103,7 +103,7 @@ function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
   cn <- colnames(m1)
   ci <- 1:nrow(fs)
   i <- 2
-  while (i<=ncol(m1)) {
+  while(i<=ncol(m1)) {
     ii <- which(cn[i]==cn[1:(i-1)])
     if(!ignore.var) {ii <- ii[fs[ci[ii],'var']==fs[ci[i],'var'] & fs[ci[ii],'type']==fs[ci[i],'type']]}
     if(length(ii)==1) {

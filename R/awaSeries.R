@@ -24,7 +24,15 @@ function(file=NULL,nlines=0,skip=3,check.na=FALSE,series.only=FALSE) {
   if(grepl(';.*?;',l[1])) {l <- sub(';',' ',l,fixed=T)}
   l <- sub('^([[:digit:].]+ [[:digit:]]{2}:[[:digit:]]{2}).*?([[:digit:].]+)$','\\1;\\2',l)
   if(grepl('^[[:digit:]]{2}\\.[[:digit:]]{2}\\.[[:digit:]]{4}',l[1])) {
-    l <- sub('^([[:digit:]]{2})\\.([[:digit:]]{2})\\.([[:digit:]]{4})(.*)$','\\3.\\2.\\1 \\4',l)
+    l <- sub('^([[:digit:]]{2})\\.([[:digit:]]{2})\\.([[:digit:]]{4})(.*)$','\\3.\\2.\\1\\4',l)
+  }
+  
+  # substitute 24:00 with 00:00
+  i <- grepl('24:00',l,fixed=T)
+  if(any(i)) {
+    ld <- format(as.POSIXct(sub(';.*$','',l[i]),format='%Y.%m.%d %H:%M',tz='UTC'),'%Y.%m.%d %H:%M')
+    lv <- sub('^.*?;','',l[i])
+    l[i] <- paste(ld,lv,sep=';')
   }
   
   # set missing values to NA
