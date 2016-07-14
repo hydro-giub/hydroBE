@@ -8,7 +8,7 @@ Helper functions to sniff in or import from files
 }
 
 \description{
-These functions work behind the scene of \code{bafuFiles} and the like.
+These functions work behind the scene of \code{\link{bafuFile}} and the like.
 }
 
 \usage{

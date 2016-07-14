@@ -6,9 +6,9 @@ To install the package, you can use the help of devtools:
 ```r
 install.packages('devtools')
 library('devtools')
-install_github(repo='hydro-giub/hydroBE')
+install_github(repo='hydro-giub/hydroBE',dependencies=T)
 library(hydroBE)
 ?hydroBE
 ```
 
-or simply download the repo and install from source. Please note that the package depends on the gdata and raster packages.
+or simply download the repo and install from source. Please note that the package depends on the {gdata} and {raster} package.

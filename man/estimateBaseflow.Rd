@@ -2,7 +2,7 @@
 \alias{estimateBaseflow}
 
 \title{
-Estimate Baseflow 
+Estimate baseflow 
 }
 
 \description{
