@@ -44,6 +44,7 @@ temp <- 5*sin(x-2)+rnorm(365)
 precip <-  rgamma(365,shape=2,rate=0.1)
 precip[sample(x=1:365,size=200)] <- 0
 f <- estimateSnowFraction(precip=precip,temp=temp)
+snow <- precip*f
 
 plot(temp,type='l',ylab='degree Celsius',xlab='time')
 abline(h=c())
@@ -53,5 +54,5 @@ plot(precip,type='s',xlab=NA,ylab=NA,axes=FALSE,col='red',ylim=ylim)
 axis(4)
 mtext('mm',side=4)
 par(new=TRUE)
-plot(precip*f,type='s',xlab=NA,ylab=NA,axes=FALSE,col='blue',ylim=ylim)
+plot(snow,type='s',xlab=NA,ylab=NA,axes=FALSE,col='blue',ylim=ylim)
 }
