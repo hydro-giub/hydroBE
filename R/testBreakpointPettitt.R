@@ -1,4 +1,4 @@
-estimateBreakpointPettitt <- function(x,alpha=0.05) {
+testBreakpointPettitt <- function(x,alpha=0.05) {
   
   n <- length(x)
   m <- matrix(NA,nrow=n,ncol=3,dimnames=list(NULL,c('rank','cumsum','ut')))
@@ -7,7 +7,7 @@ estimateBreakpointPettitt <- function(x,alpha=0.05) {
   m[,'rank'] <- rank(x)
   m[,'cumsum'] <- cumsum(m[,'rank'])
   m[,'ut'] <- 2*m[,'cumsum']-(1:n)*(n+1)
-  m[n,'ut'] <- NA
+  m[n,'ut'] <- 0
   
   # breakpoint k at index i
   i <- which.max(abs(m[,'ut']))

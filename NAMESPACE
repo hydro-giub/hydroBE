@@ -8,7 +8,8 @@ export(awaSeriesHydropro)
 
 export(checkSeries, getTimestamps)
 
-export(declusterExtremes, estimateBaseflow, estimateBreakpointPettitt, estimateSnowFraction, getRatingPoints, plotHypsograph)
+export(declusterExtremes, estimateBaseflow, estimateSnowFraction, getRatingPoints, plotHypsograph)
+export(testBreakpointPettitt, testLinearTrendPermutation)
 
 import(graphics, grDevices, methods, stats, utils)
 importFrom(gdata, read.xls)

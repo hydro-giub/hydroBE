@@ -1,16 +1,16 @@
-\name{estimateBreakpointPettitt}
-\alias{estimateBreakpointPettitt}
+\name{testBreakpointPettitt}
+\alias{testBreakpointPettitt}
 
 \title{
 Detect a breakpoint in level within a time series 
 }
 
 \description{
-Following the test of Pettitt (1979), a time series is tested for a single breakpoint concerning a shift in the mean.
+Following the test of Pettitt (1979), a time series is tested for a single, abrupt change-point concerning a shift in the mean.
 }
 
 \usage{
-estimateBreakpointPettitt(x, alpha=0.05)
+testBreakpointPettitt(x, alpha=0.05)
 } 
 
 \arguments{
@@ -43,7 +43,7 @@ Original code provided by Pascal H, adapted by Simon S.
 \examples{
 # jump in the mean
 x <- c(rnorm(20,2,0.15),rnorm(20,3,0.15))
-p <- estimateBreakpointPettitt(x,alpha=0.05)
+p <- testBreakpointPettitt(x,alpha=0.05)
 par(mfrow = c(2,1))
 
 plot(x,type='l',xlab='time',ylab='observation')
@@ -54,7 +54,7 @@ abline(v=p$index,col='red')
 
 # jump in the variance
 x <- c(rnorm(20,0,1),rnorm(20,0,10))
-p <- estimateBreakpointPettitt(x,alpha=0.05)
+p <- testBreakpointPettitt(x,alpha=0.05)
 par(mfrow = c(2,1))
 
 plot(x,type='l',xlab='time',ylab='observation')
