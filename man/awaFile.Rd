@@ -63,12 +63,10 @@ Simon S
 \examples{
 \dontrun{
 d <- 'path/to/dir/'
-m <- checkAwaFiles(dir=d)
-
-d <- '/home/Downloads/'
-df <- importAwaFiles(dir=d)
+checkAwaFiles(dir=d)
+m <- importAwaFiles(dir=d)
 
 f <- c('/the/first/Awa/file1.asc','/the/second/Awa/file2.asc')
-df <- importAwaFiles(files=f)
+m <- importAwaFiles(files=f)
 }
 }

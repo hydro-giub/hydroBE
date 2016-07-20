@@ -61,12 +61,10 @@ Simon S
 \examples{
 \dontrun{
 d <- 'path/to/dir/'
-m <- checkBafuFiles(dir=d)
-
-d <- '/home/Downloads/'
-df <- importBafuFiles(dir=d)
+checkBafuFiles(dir=d)
+m <- importBafuFiles(dir=d)
 
 f <- c('/the/first/Bafu/file1.asc','/the/second/Bafu/file2.asc')
-df <- importBafuFiles(files=f)
+m <- importBafuFiles(files=f)
 }
 }
