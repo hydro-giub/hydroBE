@@ -60,7 +60,7 @@ checkBafuFiles <- function(dir=NULL,files=NULL,check.series=FALSE,check.na=FALSE
   i1 <- is.na(m[,'name']) & is.na(m[,'site'])
   if(any(i1)) {
     i2 <- match(m[i1,'id'],sub('^[[:digit:][:blank:]/]*?([[:digit:]]+)$','\\1',m[!i1,'id']))
-    m[i1,c('name','site')] <- m[!i1,][i2,c('name','site')]
+    m[i1,c('name','site')] <- m[!i1,,drop=F][i2,c('name','site')]
   }
   
   return(m)
