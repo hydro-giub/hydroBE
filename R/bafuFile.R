@@ -107,7 +107,7 @@ importBafuFiles <- function(dir=NULL,files=NULL,ignore.var=FALSE,quiet=TRUE) {
     if(length(ii)==1) {
       rpl <- is.na(m1[,ii]) & !is.na(m1[,i])
       m1[rpl,ii] <- m1[rpl,i]
-      m1 <- m1[,-i]
+      m1 <- m1[,-i,drop=F]
       cn <- cn[-i]
       ci <- ci[-i]
     } else {i <- i+1}
