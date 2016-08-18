@@ -11,6 +11,8 @@ export(checkSeries, getTimestamps)
 export(declusterExtremes, estimateBaseflow, estimateSnowFraction, getRatingPoints, plotHypsograph)
 export(testBreakpointPettitt, testLinearTrendPermutation)
 
+export(importDailySeriesBafu,importDailySeriesBmlfuw,importDailySeriesGrdc,importDailySeriesLfub,importDailySeriesLubw)
+
 import(graphics, grDevices, methods, stats, utils)
 importFrom(gdata, read.xls)
 importFrom(raster, values, res)
