@@ -4,17 +4,19 @@
 \alias{importDailySeriesGrdc}
 \alias{importDailySeriesLfub}
 \alias{importDailySeriesLubw}
+\alias{importDailySeriesMs}
 
 \title{
-Import daily streamflow series
+Import daily series
 }
 
 \description{
-Five provider are supported at the moment: Bundesamt fuer Umwelt (Bafu);
-Bundesministerium fuer Land- und Forstwirtschaft, Umwelt und
+The following data providers are supported at the moment: Bundesamt fuer Umwelt Schweiz
+(Bafu); Bundesministerium fuer Land- und Forstwirtschaft, Umwelt und
 Wasserwirtschaft Oesterreich (Bmlfuw); Global Runoff Data Centre (Grdc)
 at Koblenz, Germany; Landesamt fuer Umwelt Bayern (Lfub); Landesanstalt
-fuer Umwelt, Messungen und Naturschutz Baden-Wuerttemberg (Lubw).
+fuer Umwelt, Messungen und Naturschutz Baden-Wuerttemberg (Lubw);
+Bundesamt fuer Meteorlogie und Klimatologie Schweiz (Ms).
 }
 
 \usage{
@@ -23,6 +25,8 @@ importDailySeriesBmlfuw(file = NULL, id = NULL, series = T, quiet = T)
 importDailySeriesGrdc(file = NULL, id = NULL, series = T, quiet = T)
 importDailySeriesLfub(file = NULL, id = NULL, series = T, quiet = T)
 importDailySeriesLubw(file = NULL, id = NULL, series = T, quiet = T)
+importDailySeriesMs(file = NULL, id = NULL, series = T, quiet = T, vars
+= NULL, cnames=NULL) 
 }
 
 \arguments{
@@ -32,6 +36,11 @@ importDailySeriesLubw(file = NULL, id = NULL, series = T, quiet = T)
 \item{series}{logical; return the series? Otherwise, name, id, and
   filename are returned}
 \item{quiet}{logical; print a short summary?}
+\item{vars}{character vector; the variables column names inf
+  \code{file}}
+\item{cnames}{character vector of same length as \code{vars}; if
+  supplied the returned matrix will have column names according
+  \code{cnames}}
 }
 
 \details{
@@ -42,17 +51,18 @@ matches results in an error.
 }
 
 \value{
-Matrix with column \code{qd} and the daily dates in the row names; if
-\code{series=F} a list which contains the name of the river, the site of
-the gauging station, the id, the file name, and the number of header lines.
+Matrix with the daily dates in the row names; streamflow data is labeled
+'qd'. If \code{series=F} a list which contains some information about
+the file.
 }
 
 \references{
 \href{http://www.bafu.admin.ch/index.html?lang=en}{Bafu},
 \href{http://ehyd.gv.at/}{Bmlfuw},
-\href{http://www.bafg.de/GRDC/EN/Home/homepage_node.html}{Grdc}
+\href{http://www.bafg.de/GRDC/EN/Home/homepage_node.html}{Grdc},
 \href{http://www.gkd.bayern.de/fluesse/abfluss/karten/index.php?thema=gkd&rubrik=fluesse&produkt=abfluss&gknr=0}{Lfub},
-\href{https://www.lubw.baden-wuerttemberg.de/lubw}{Lubw}
+\href{https://www.lubw.baden-wuerttemberg.de/lubw}{Lubw},
+\href{http://www.meteoswiss.admin.ch/home/services-and-publications/beratung-und-service/data-portal-for-teaching-and-research.html}{Ms}
 }
 
 \author{

@@ -1,0 +1,34 @@
+fetchBafuTable <- function(id=NULL,year=NULL,tempDir=NULL) {
+  
+  if(year<2004) {stop('pdf hack only works for years after 2003')}
+  tFile <- paste(tempDir,id,'-',year,'.pdf',sep='')
+  url <- paste('http://www.hydrodaten.admin.ch/lhg/sdi/jahrestabellen/',id,'Q_',substr(year,3,4),'.pdf',sep='')
+  download.file(url,destfile=tFile,quiet=T)
+  system(paste('pdftotext -raw',tFile,sep=' '),intern=F,wait=T)
+  tFile <- paste(tempDir,id,'-',year,'.txt',sep='')
+  dat <- readLines(tFile,warn=F)
+  dat <- dat[!grepl(pattern='[-+]',dat)]
+  isOfficial <- !any(grepl('Provisorische Daten',dat))
+  df <- data.frame(date=seq.Date(from=as.Date(paste(year,'01','01',sep='-')),to=as.Date(paste(year,'12','31',sep='-')),by='day'),qd=NA,isOfficial=isOfficial)
+  nDays <- table(format(df$date,format='%m'))
+  iMonth <- c(1,(cumsum(nDays)+1)[-12])
+  mNames <- c('Genn.','Febbr.','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Sett.','Ott.','Nov.','Dic.')
+  for (i in 1:12) {
+    j <- which(dat==mNames[i])+1
+    if (length(j)!=1) {next} else {
+      jj <- 0
+      k <- dat[j+jj]
+      while (grepl('^[0123456789]+[.]{0,1}[0123456789]*$',k)) {
+        jj <- jj+1
+        k <- dat[j+jj]
+      }
+      if (jj>=nDays[i]) {df$qd[iMonth[i]:(iMonth[i]+nDays[i]-1)] <- as.numeric(dat[j:(j+nDays[i]-1)])}
+      if (jj<nDays[i] & jj>0) {df$qd[iMonth[i]:(iMonth[i]+jj-1)] <- as.numeric(dat[j:(j+jj-1)])}
+    }
+  }
+  rownames(df) <- NULL
+  isNum <- !is.na(df[,'qd']) 
+  isNum <- (cumsum(isNum)>0) & rev(cumsum(rev(isNum))>0)
+  return(df[isNum,])
+  
+}

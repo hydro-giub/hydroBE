@@ -1,9 +1,48 @@
+importDailySeriesMs <- function(file=NULL,id=NULL,series=T,quiet=T,vars=NULL,cnames=NULL) {
+    
+    p <- dirname(file)
+    f <- basename(file)
+    file <- list.files(path=p,pattern=f,full.names=T)
+    if(length(file)!=1) {
+        warning('file not found or multiple matches')
+        return(NULL)
+    }
+    
+    ff <- unzip(file,list=T)
+    ff <- ff$Name[grepl('^order_[0-9]+_data\\.txt$',ff$Name)]
+    c <- unz(file,ff)
+    l <- readLines(c)
+    i <- range(grep(paste('^',id,sep=''),l))
+    df <- read.table(text=l[(i[1]-1):i[2]],header=T,sep=';',quote='',na.strings='-',blank.lines.skip=F,stringsAsFactors=F)
+
+    if(series) {
+        id2 <- df[1,'stn']
+        i <- vars%in%names(df)
+        if(!any(i)) {return(NULL)}
+        vars <- vars[i]
+        if(is.null(cnames)) {cnames <- vars} else {cnames <- cnames[i]}
+        m <- matrix(df[,vars],nrow=nrow(df),ncol=length(vars),dimnames=list(as.character(as.Date(as.character(df$time),'%Y%m%d')),cnames))
+        isNum <- apply(!is.na(m),1,any)
+        isNum <- (cumsum(isNum)>0) & rev(cumsum(rev(isNum))>0)
+        m <- m[isNum,,drop=F]
+        if(any(diff(as.Date(rownames(m)))!=1)) {warning('irregular series',immediate.=T)}
+    } else {
+        m <- list(file=file,id=id,first.row=i[1],last.row=i[2])
+    }
+    
+    if(id2!=id) {warning('id does not match',immediate.=T)}
+    if(!quiet) {print(paste0('file: ',file,'; id: ',id2))}
+    
+    return(m)
+    
+}
+
 importDailySeriesBafu <- function(file=NULL,id=NULL,series=T,quiet=T) {
     
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=T)
-    if (length(file)!=1) {
+    if(length(file)!=1) {
         warning('file not found or multiple matches')
         return(NULL)
     }
@@ -45,7 +84,7 @@ importDailySeriesBmlfuw <- function(file=NULL,id=NULL,series=T,quiet=T) {
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=T)
-    if (length(file)!=1) {
+    if(length(file)!=1) {
         warning('file not found or multiple matches')
         return(NULL)
     }
@@ -87,7 +126,7 @@ importDailySeriesGrdc <- function(file=NULL,id=NULL,series=T,quiet=T) {
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=T)
-    if (length(file)!=1) {
+    if(length(file)!=1) {
         warning('file not found or multiple matches')
         return(NULL)
     }
@@ -131,7 +170,7 @@ importDailySeriesLfub <- function(file=NULL,id=NULL,series=T,quiet=T) {
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=T)
-    if (length(file)!=1) {
+    if(length(file)!=1) {
         warning('file not found or multiple matches')
         return(NULL)
     }
@@ -175,7 +214,7 @@ importDailySeriesLubw <- function(file=NULL,id=NULL,series=T,quiet=T) {
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=T)
-    if (length(file)!=1) {
+    if(length(file)!=1) {
         warning('file not found or multiple matches')
         return(NULL)
     }
