@@ -12,6 +12,7 @@ importDailySeriesMs <- function(file=NULL,id=NULL,series=T,quiet=T,vars=NULL,cna
     ff <- ff$Name[grepl('^order_[0-9]+_data\\.txt$',ff$Name)]
     c <- unz(file,ff)
     l <- readLines(c)
+	close(c)
     i <- range(grep(paste('^',id,sep=''),l))
     df <- read.table(text=l[(i[1]-1):i[2]],header=T,sep=';',quote='',na.strings='-',blank.lines.skip=F,stringsAsFactors=F)
 

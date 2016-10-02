@@ -1,7 +1,7 @@
 fetchBafuTable <- function(id=NULL,year=NULL) {
 
     f <- paste('http://www.hydrodaten.admin.ch/lhg/sdi/jahrestabellen/',id,'Q_',substr(year,3,4),'.pdf',sep='')
-    lt <- readLines(f,warn=F,encoding='latin1')
+    l <- readLines(f,warn=F,encoding='latin1')
     l <- l[grepl('^T\\*(.*?)Tj$',l)]
     l <- sub('T* (','',l,fixed=T)
     l <- sub(') Tj','',l,fixed=T)
