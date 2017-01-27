@@ -6,7 +6,7 @@ Estimate baseflow
 }
 
 \description{
-The Baseflow series is estimated with respect to a given window width and ratio to define local minimas.
+The baseflow series is estimated with respect to a given window width and ratio to define local minimas.
 }
 
 \usage{

@@ -16,7 +16,7 @@ The following data providers are supported at the moment: Bundesamt fuer Umwelt 
 Wasserwirtschaft Oesterreich (Bmlfuw); Global Runoff Data Centre (Grdc)
 at Koblenz, Germany; Landesamt fuer Umwelt Bayern (Lfub); Landesanstalt
 fuer Umwelt, Messungen und Naturschutz Baden-Wuerttemberg (Lubw);
-Bundesamt fuer Meteorlogie und Klimatologie Schweiz (Ms).
+Bundesamt fuer Meteorologie und Klimatologie Schweiz (Ms).
 }
 
 \usage{
@@ -36,7 +36,7 @@ importDailySeriesMs(file = NULL, id = NULL, series = T, quiet = T, vars
 \item{series}{logical; return the series? Otherwise, name, id, and
   filename are returned}
 \item{quiet}{logical; print a short summary?}
-\item{vars}{character vector; the variables column names inf
+\item{vars}{character vector; the variables column names in
   \code{file}}
 \item{cnames}{character vector of same length as \code{vars}; if
   supplied the returned matrix will have column names according
