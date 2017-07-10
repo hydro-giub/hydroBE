@@ -1,11 +1,12 @@
 Package: hydroBE
 Type: Package
-Title: Miscellaneous Functions for Hydrologists Workaday Life 
-Version: 0.5
-Date: 2016-06-06
-Author: Group of Hydrology, Institute of Geography, University of Bern, Switzerland 
-Maintainer: Simon Schick <simon.schick@giub.unibe.ch>
-Description:  Unsorted collection of functions to analyse and manage hydrological data (particularly time series from Swiss data providers).
+Title: Miscellaneous Functions of the Group of Hydrology Bern
+Version: 0.9
+Date: 2017-07-09
+Depends: R (>= 3.0.0)
+Imports: graphics, MASS, stats, utils
+Suggests: ismev, raster
+Description: Read, plot, and analyse hydrological data.
+Author: Alain B, Jan S, Ole R, Pascal H, Simon S
+Maintainer: Simon S <simon.schick@giub.unibe.ch>
 License: GPL-2
-Depends: R (>= 2.3.0)
-Imports: graphics, grDevices, methods, stats, utils, gdata, raster

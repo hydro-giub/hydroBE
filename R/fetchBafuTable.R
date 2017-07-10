@@ -1,18 +1,21 @@
-fetchBafuTable <- function(id=NULL,year=NULL) {
+fetchBafuTable <- function(id,year) {
 
-    f <- paste('http://www.hydrodaten.admin.ch/lhg/sdi/jahrestabellen/',id,'Q_',substr(year,3,4),'.pdf',sep='')
+    f <- paste0('http://www.hydrodaten.admin.ch/lhg/sdi/jahrestabellen/',
+                id,'Q_',substr(year,3,4),'.pdf')
     l <- readLines(f,warn=F,encoding='latin1')
     l <- l[grepl('^T\\*(.*?)Tj$',l)]
     l <- sub('T* (','',l,fixed=T)
     l <- sub(') Tj','',l,fixed=T)
     l <- l[!grepl('^[-+]+$',l)]
     
-    o <- !any(grepl('Provisorische Daten',l))
-    d <- seq.Date(from=as.Date(paste(year,'01','01',sep='-')),to=as.Date(paste(year,'12','31',sep='-')),by='day')
-    df <- data.frame(date=d,qd=NA,isOfficial=o)
+    p <- any(grepl('Provisorische Daten',l))
+    d <- seq.Date(from=as.Date(paste(year,'01','01',sep='-')),
+                  to=as.Date(paste(year,'12','31',sep='-')),by='day')
+    df <- data.frame(date=d,discharge=NA,preliminary=p)
     n <- table(format(df$date,format='%m'))
     mi <- c(1,(cumsum(n)+1)[-12])
-    mn <- c('Genn.','Febbr.','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Sett.','Ott.','Nov.','Dic.')
+    mn <- c('Genn.','Febbr.','Marzo','Aprile','Maggio','Giugno',
+            'Luglio','Agosto','Sett.','Ott.','Nov.','Dic.')
 
     for(i in 1:12) {
         j <- grep(mn[i],l,fixed=T)+1
@@ -21,10 +24,10 @@ fetchBafuTable <- function(id=NULL,year=NULL) {
         if(nj>1) {j <- j[nj]}
         jj <- 0
         while (grepl('^[[:digit:]. ]+$',l[j+jj])) {jj <- jj+1}
-        if (jj>=n[i]) {df$qd[mi[i]:(mi[i]+n[i]-1)] <- as.numeric(l[j:(j+n[i]-1)])}
-        if (jj<n[i] & jj>0) {df$qd[mi[i]:(mi[i]+jj-1)] <- as.numeric(l[j:(j+jj-1)])}
+        if (jj>=n[i]) {df$discharge[mi[i]:(mi[i]+n[i]-1)] <- as.numeric(l[j:(j+n[i]-1)])}
+        if (jj<n[i] & jj>0) {df$discharge[mi[i]:(mi[i]+jj-1)] <- as.numeric(l[j:(j+jj-1)])}
     }
-    isNum <- !is.na(df[,'qd']) 
+    isNum <- !is.na(df$discharge) 
     isNum <- (cumsum(isNum)>0) & rev(cumsum(rev(isNum))>0)
     return(df[isNum,])
     

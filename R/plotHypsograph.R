@@ -1,9 +1,19 @@
-plotHypsograph <- function(x,ylab='m.a.s.l.',xlab='area km2',col='blue',unit.conv=1e6,...) {
+plotHypsograph <- function(x,ylab='m a.s.l.',x.res=1e3,y.res=1e3,...) {
 
-  if(class(x) != 'RasterLayer') {stop("Invalid argument: 'class(x)' must be 'RasterLayer'")}
-  z.vals <- sort(raster::values(x),na.last=NA)
-  x.vals <- (1:length(z.vals))*raster::res(x)[1]*raster::res(x)[2]/unit.conv
-  plot(x=rev(x.vals),y=z.vals,type='l',xlab=xlab,ylab=ylab,col=col,...)
-  invisible()
-  
+    ## coerce x to a vector
+    dim(x) <- NULL
+
+    ## sort elevation values
+    ## NA values get removed
+    z <- sort(x,na.last=NA)
+    n <- length(z)
+
+    ## calculate area in km2
+    a.cell <- x.res*y.res*1e-6
+    a.cum <- (n:1)*a.cell
+
+    ## plot
+    plot(x=a.cum,y=z,type='l',xlab=expression(km^2),ylab=ylab,...)
+    return(invisible())
+    
 }

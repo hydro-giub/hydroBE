@@ -2,28 +2,33 @@
 \alias{declusterExtremes}
 
 \title{
-Decluster local maximas in a time series
+Decluster maxima in a time series
 }
 
 \description{
-Declusters recursively the local maximas in a time series based on a minimal temporal distance.
+Recursively declusters the maxima in a time series based on a minimal
+temporal distance. This can be useful to define independent events for
+an extreme value analysis.
 }
 
 \usage{
-declusterExtremes(y = NULL, L = NULL)
+declusterExtremes(y, L = 11)
 }
 
 \arguments{
-\item{y}{numerical vector. The (strictly regular) series. \code{NA}s are allowed and will be treated as -Inf.}
+\item{y}{numeric vector. A (strictly regular) series; \code{NA}s are
+  allowed and will be treated as \eqn{-\infty}.}
 \item{L}{integer. Minimum distance in number of time units.}
 }
 
 \details{
-Plateaus are strictly handled as non-maximas, see `Examples`.
+Plateaus are strictly handled as non-maxima. To decluster minimas,
+multiply \code{y} with \eqn{-1}.
 }
 
 \value{
-Integer vector with indices of the maximas within \code{y} with respect to \code{L}.
+Integer vector with indices of the maxima within \code{y} with respect
+to \code{L}.
 }
 
 \author{
@@ -31,17 +36,41 @@ Simon S
 }
 
 \examples{
-y <- c(0,0,1,1,0,0,0,3,2,NA,1,5,3,4,5,6,5,2,3,2,4,5,4,3,2,1,0)
+## use case for an extreme value analysis on a daily basis
+r <- as.Date(c('2006-01-01','2010-12-31'))
+d <- seq.Date(r[1],r[2],by='day')
+y <- rnorm(length(d))
 
-# handling of NAs and plateaus
-i <- declusterExtremes(y=y,L=2)
-plot(y,type='l')
-points(y,cex=0.5)
-points(y=y[i],x=i,col=2)
+i <- declusterExtremes(y)
+g <- format(d[i],'\%Y')
+plot(x=d,y=y,type='l')
+points(x=d[i],y=y[i],col=3)
 
-# decluster minimas
-i <- declusterExtremes(y=-y,L=2)
-plot(y,type='l')
-points(y,cex=0.5)
-points(y=y[i],x=i,col=2)
+## yearly blockmaxima
+f <- function(x){
+    i <- rep(FALSE,length(x))
+    i[which.max(x)] <- TRUE
+    return(i)
+}
+j <- unlist(tapply(y[i],g,f),use.names=FALSE)
+i.block <- i[j]
+
+plot(x=d,y=y,type='l')
+points(x=d[i],y=y[i],col=3)
+points(x=d[i.block],y=y[i.block],col=2,cex=1.5)
+abline(v=seq.Date(min(d),max(d)+1,by='year'),lty=3)
+
+## points over threshold
+thr <- quantile(y,probs=0.95)
+i.pot <- i[y[i]>thr]
+
+plot(x=d,y=y,type='l')
+points(x=d[i],y=y[i],col=3)
+points(x=d[i.pot],y=y[i.pot],col=2,cex=1.5)
+abline(h=thr,lty=3)
+
+\dontrun{
+library(ismev)
+m1 <- gev.fit(y[i.block])
+m2 <- gpd.fit(y[i],threshold=thr,npy=mean(table(g)))}
 }

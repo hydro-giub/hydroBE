@@ -1,5 +1,5 @@
 # hydroBE
-R-Package with miscellaneous functions for hydrologists workaday life.
+R-Package with miscellaneous functions of the Group of Hydrology Bern.
 
 To install the package, you can use the help of devtools:
 
@@ -11,4 +11,4 @@ library(hydroBE)
 ?hydroBE
 ```
 
-or simply download the repo and install from source. Please note that the package depends on the {gdata} and {raster} package.
+or simply download the repo and install from source.

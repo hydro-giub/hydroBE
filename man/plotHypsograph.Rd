@@ -6,21 +6,23 @@ Plot hypsography against area
 }
 
 \description{
-Plots the hypsography of a given \code{\link[=Raster-class]{RasterLayer}} against area.
+Plots the hypsography of a given region against the cumulated area.
 }
 
 \usage{
-plotHypsograph(x, ylab = 'm.a.s.l.', xlab = 'area km2',
-               col = 'blue', unit.conv = 1e+06, ...)
+plotHypsograph(x, ylab = "m a.s.l.", x.res = 1000, y.res = 1000, ...)
 }
 
 \arguments{
-\item{x}{object of class \code{\link[=Raster-class]{RasterLayer}}}
-\item{ylab}{y axis label}
-\item{xlab}{x axis label}
-\item{col}{line color}
-\item{unit.conv}{number, conversion factor to link the resolution of \code{x} to \code{xlab}}
-\item{\dots}{additional arguments passed to \code{\link{plot}}}
+\item{x}{numeric vector or matrix. Contains the elevation values; see
+  the 'Examples' for how to deal with objects from package
+  \bold{\href{https://cran.r-project.org/package=raster}{raster}}.}
+\item{ylab}{string. The y axis label.}
+\item{x.res}{real number. The length of a grid cell in the x direction
+  with unit [m].}
+\item{y.res}{real number. Length of a grid cell in the y direction with
+  unit [m].}
+\item{\dots}{additional arguments. Passed to \code{\link{plot.default}}}
 }
 
 \author{
@@ -28,7 +30,10 @@ Jan S
 }
 
 \examples{
+\dontrun{
 library(raster)
-x <- raster(matrix(c(rnorm(90),rep(NA,10)),ncol=10,nrow=10),xmx=10,ymx=10)
-plotHypsograph(x=x)
+dem <- matrix(c(rnorm(90),rep(NA,10)),ncol=10,nrow=10)
+x <- raster(dem,xmx=50,ymx=50) 
+r <- res(x)
+plotHypsograph(x=values(x),x.res=r[1],y.res=r[2],col='blue')}
 }

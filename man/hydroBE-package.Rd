@@ -1,5 +1,4 @@
-\name{hydroBE-package}
-\alias{hydroBE-package}
+\name{hydroBE}
 \alias{hydroBE}
 \docType{package}
 
@@ -12,14 +11,16 @@
 }
 
 \details{
-The DESCRIPTION file:
-\packageDESCRIPTION{hydroBE}
-\packageIndices{hydroBE}
+The present mingle-mangle of functions was written during our work in
+the group of hydrology led by Rolf Weingartner at the University of
+Bern. The package is not included in an official R package repository,
+however, it should pass the CRAN check.
 }
 
 \author{
-\packageAuthor{hydroBE} 
+\packageAuthor{hydroBE}
+
 Maintainer: \packageMaintainer{hydroBE}
 }
 
-\keyword{ package }
+\keyword{package}

@@ -1,22 +1,9 @@
-export(checkBafuFiles, importBafuFiles)
-export(bafuHeaderHydropro, bafuHeaderTxt, bafuHeaderXls)
-export(bafuSeriesHydropro, bafuSeriesTxt, bafuSeriesXls)
+export(fetchBafuTable)
+export(readFilesAwa, readFilesBafu)
+export(estimateBaseflow, estimateSnowFraction, getRatingPoints, plotHypsograph)
+export(testBreakpoint, testLinearTrend, applySnht)
+export(declusterExtremes, getReturnLevels, plot2dProbability)
 
-export(checkAwaFiles, importAwaFiles)
-export(awaHeaderHydropro)
-export(awaSeriesHydropro)
+import(graphics, stats, utils)
+importFrom(MASS, kde2d)
 
-export(checkSeries, getTimestamps)
-
-export(declusterExtremes, estimateBaseflow, estimateSnowFraction, getRatingPoints, plotHypsograph)
-export(testBreakpointPettitt, testLinearTrendPermutation)
-
-export(importDailySeriesBafu, importDailySeriesBmlfuw, importDailySeriesGrdc, importDailySeriesLfub, importDailySeriesLubw, importDailySeriesMs)
-
-export(fetchBafuTable, sniffMsOrder)
-
-export(getReturnLevelsGev)
-
-import(graphics, grDevices, methods, stats, utils)
-importFrom(gdata, read.xls)
-importFrom(raster, values, res)

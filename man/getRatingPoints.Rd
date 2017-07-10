@@ -2,16 +2,15 @@
 \alias{getRatingPoints}
 
 \title{
-Calculate discharge according the Strickler formula 
+Calculate discharge according to the Strickler formula 
 }
 
 \description{
-For a given open channel profile (defined by corresponding points in \code{z} and \code{x}), slope \code{m}, and Strickler value(s) \code{k}, streamflow velocity is calculated 
-for given water levels \code{l} according the Strickler formula 
-
-\deqn{v = k*R^{2/3}*m^{1/2}}
-
-where hydraulic radius \eqn{R = (area)/(radius)}. \code{k} gets linearly interpolated.
+For a given open channel profile defined by \code{z} in the vertical,
+\code{x} in the horizontal, slope \code{m}, and Strickler value 
+\code{k}, streamflow velocity is calculated for the water levels
+\code{l} according to the Strickler formula \deqn{v = k*R^{2/3}*m^{1/2}}
+with hydraulic radius \eqn{R = (area)/(radius)}.
 }
 
 \usage{
@@ -19,32 +18,47 @@ getRatingPoints(z, x, k, m, l, plot = FALSE)
 }
 
 \arguments{
-  \item{z}{numerical vector. Altitude [m] with respect to e.g. sea level or any other reference point.}
-  \item{x}{numerical vector. Points along the channel profile where \code{z} was measured [m].}
-  \item{k}{single number or numerical vector. Defines the Strickler value(s) [m^(1/3)/s]. In case of a vector, \code{k} should have same dimension as \code{z} and \code{x}.}
-  \item{m}{single number. Slope of the river bed perpendicular to the channel profile. \eqn{m = dz/dx = tan(alpha)}}
-  \item{l}{numerical vector. Positive water levels [m] for which corresponding discharge should be calculated.}
-  \item{plot}{logical. Plot the channel profile?}
+\item{z}{numeric vector. Altitude [m] with respect to e.g. sea level
+  or any other reference point.}
+\item{x}{numeric vector. Points along the channel profile where
+  \code{z} was measured [m].}
+\item{k}{real number or numeric vector. Defines the Strickler
+  value(s) [m^(1/3)/s]. In case of a vector, \code{k} should have the
+  same length as \code{z} and \code{x} and gets linearly interpolated.}
+\item{m}{real number. Slope of the river bed perpendicular to the
+  channel profile, \code{m} \eqn{= tan(\alpha)}.}
+\item{l}{numeric vector. Positive water levels [m] for which
+  corresponding discharge should be calculated.}
+\item{plot}{logical. Plot the channel profile?}
 }
 
 \details{
-The reference point for water levels \code{l} is defined as the point in \code{x} where \code{z} reaches its minimum.
+The reference point for water levels \code{l} is defined as the point in
+\code{x} where \code{z} reaches its minimum.
 }
 
 \value{
-Matrix with columns water 'level' [m], profile 'area' [m2] below water table, wet profile 'radius' [m], interpolated 'k', streamflow 'velocity' [m/s], and 'discharge' [m3/s].
+Numeric matrix with columns water 'level' [m], profile 'area' below the
+water table [m^2], wet profile 'radius' [m], interpolated 'k',
+streamflow 'velocity' [m/s], and 'discharge' [m^3/s].
+}
+
+\note{
+The Strickler formula is also known as Manning or Gauckler formula.
 }
 
 \references{
-Strickler, A. (1924). "Beitraege zur Frage der Geschwindigkeitsformel und der Rauigkeitszahlen fuer Stroeme, Kanaele und geschlossene Leitungen". Schweizerische Bauzeitung, Heft 23.
+Strickler, A. (1924).
+"Beitraege zur Frage der Geschwindigkeitsformel und der Rauigkeitszahlen fuer Stroeme, Kanaele und geschlossene Leitungen".
+Schweizerische Bauzeitung, Heft 23.
 }
 
 \author{
-Original code provided by Alain B, adapted by Simon S.
+Original code provided by Alain B.
 }
 
 \examples{
-# quadratic profile
+## quadratic profile
 z <- c(10,0,0,10)
 x <- c(0,0,10,10)
 k <- sample(0:100,size=length(z))
@@ -54,7 +68,7 @@ pq <- getRatingPoints(z=z,x=x,k=k,m=m,l=l,plot=TRUE)
 print(pq)
 plot(x=pq[,'level'],y=pq[,'discharge'])
 
-# trapezoid
+## trapezoid
 z <- c(2,0,0,2)
 x <- c(1,3,4,6)
 k <- 30
@@ -64,9 +78,9 @@ pq <- getRatingPoints(z=z,x=x,k=k,m=m,l=l,plot=TRUE)
 print(pq)
 plot(x=pq[,'level'],y=pq[,'discharge'])
 
-# natural channel
+## natural channel
 z <- c(9,9,9,10,9,8,7,6,7,8,7,6,5,4,3,4,5,6,5,4,1,4,5,6,7,8,9,8,7,8,8)
-x <- c(1:25,23,24,25,26,27,28)
+x <- c(1:25,23:28)
 k <- sample(0:100,size=length(z))
 m <- 0.03
 l <- 1:13
