@@ -75,7 +75,7 @@ characters.
 }
 
 \references{
-\href{http://www.bafu.admin.ch/index.html?lang=en}{BAFU}
+\href{https://www.bafu.admin.ch/bafu/en/home.html?_organization=811&_topic=29}{BAFU}
 }
 
 \author{

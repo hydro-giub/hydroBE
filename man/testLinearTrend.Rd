@@ -18,8 +18,7 @@ testLinearTrend(x, n = 1000, ret.slopes = F)
 \item{x}{numeric vector. Missing values are not allowed and it is
   assumed that the frequency, at which the observation took place, is
   constant.}
-\item{n}{integer. Number of permutations, should be \code{n}
-  \eqn{\ge 1000}.}
+\item{n}{integer. Number of permutations, should hold \eqn{n \ge 1000}.}
 \item{ret.slopes}{logical. Return the slopes as obtained from the
   permutation procedure?}
 }

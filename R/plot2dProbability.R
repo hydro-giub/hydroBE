@@ -1,4 +1,4 @@
-plot2dProbability <- function(x1,x2,n=100,probs=0.9,obs.only=FALSE,bandwith,...) {
+plot2dProbability <- function(x1,x2,n=100,p=0.9,obs.only=FALSE,bandwith,...) {
 
     n <- length(x1)
 
@@ -33,25 +33,25 @@ plot2dProbability <- function(x1,x2,n=100,probs=0.9,obs.only=FALSE,bandwith,...)
 
         d <- kd$z[cbind(bc1,bc2)]
 
-        ## grab densities which occur at probs
-        q <- quantile(d,probs=1-probs)
+        ## grab densities which occur at p
+        q <- quantile(d,probs=1-p)
 
         plot(x1,x2,xlim=x1lim,ylim=x2lim,...)
-        contour(kd,levels=q,col=2,add=T,labels=probs,labcex=1)
+        contour(kd,levels=q,col=2,add=T,labels=p,labcex=1)
         
     } else {
 
         ## integrate pdf, starting with the highest values
         d <- sort(kd$z,decreasing=T)
-        p <- cumsum(d*bs1*bs2)
+        ps <- cumsum(d*bs1*bs2)
 
-        ## grab densities which occur at probs
-        cl <- rep(NA,length(probs))
-        for(i in 1:length(probs)) {cl[i] <- max(which(p<=probs[i]))}
+        ## grab densities which occur at p
+        cl <- rep(NA,length(p))
+        for(i in 1:length(p)) {cl[i] <- max(which(ps<=p[i]))}
         j <- is.finite(cl)
 
         plot(x1,x2,xlim=x1lim,ylim=x2lim,...)
-        contour(kd,levels=d[cl[j]],col=2,add=T,labels=probs[j],labcex=1)
+        contour(kd,levels=d[cl[j]],col=2,add=T,labels=p[j],labcex=1)
 
     }
 

@@ -32,15 +32,15 @@ two-sided test is implemented here.
 \value{
 List with entries
 \item{i}{integer. The index of the most probable breakpoint in \code{x},
-  i.e. \code{i} \eqn{=argmax_t(|U_t|)}.}
+  i.e. \eqn{i=argmax_t(|U_t|)}{i=argmax(t)|U(t)|}.}
 \item{p.value}{real number. The p-value, i.e. the probability of not observing a
   breakpoint at \code{i}.}
-\item{k}{real number. \eqn{|U_t|} at \eqn{t=} \code{i}.}
-\item{critical.value}{real number. The value of \eqn{k} for which
-  \eqn{P(K<k)=1-} \code{alpha}.}
-\item{reject.HO}{logical. Reject the null hypothesis, i.e. \code{k}
-  \eqn{\ge} \code{critical.value}?}
-\item{u}{numeric vector. \eqn{U_t} corresponding to the values in \code{x}.}
+\item{k}{real number. \eqn{k=|U_{i}|}{k=|U(i)|}.}
+\item{critical.value}{real number. The value of \eqn{x} for which
+  \eqn{P(K<x)=1-alpha}.}
+\item{reject.HO}{logical. Reject the null hypothesis, i.e.
+  \eqn{k \ge critical.value}?}
+\item{u}{numeric vector. \eqn{U_t}{U(t)} corresponding to the values in \code{x}.}
 }
 
 \references{

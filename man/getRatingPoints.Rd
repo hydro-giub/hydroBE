@@ -9,8 +9,9 @@ Calculate discharge according to the Strickler formula
 For a given open channel profile defined by \code{z} in the vertical,
 \code{x} in the horizontal, slope \code{m}, and Strickler value 
 \code{k}, streamflow velocity is calculated for the water levels
-\code{l} according to the Strickler formula \deqn{v = k*R^{2/3}*m^{1/2}}
-with hydraulic radius \eqn{R = (area)/(radius)}.
+\code{l} according to the Strickler formula
+\deqn{v = k \cdot R^{2/3} \cdot m^{1/2}}{v = k*R^(2/3)*m^(1/2)}
+with hydraulic radius \eqn{R = area/radius}.
 }
 
 \usage{
@@ -26,7 +27,7 @@ getRatingPoints(z, x, k, m, l, plot = FALSE)
   value(s) [m^(1/3)/s]. In case of a vector, \code{k} should have the
   same length as \code{z} and \code{x} and gets linearly interpolated.}
 \item{m}{real number. Slope of the river bed perpendicular to the
-  channel profile, \code{m} \eqn{= tan(\alpha)}.}
+  channel profile, \eqn{m = tan(\alpha)}.}
 \item{l}{numeric vector. Positive water levels [m] for which
   corresponding discharge should be calculated.}
 \item{plot}{logical. Plot the channel profile?}

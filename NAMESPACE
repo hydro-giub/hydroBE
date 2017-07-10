@@ -4,6 +4,6 @@ export(estimateBaseflow, estimateSnowFraction, getRatingPoints, plotHypsograph)
 export(testBreakpoint, testLinearTrend, applySnht)
 export(declusterExtremes, getReturnLevels, plot2dProbability)
 
-import(graphics, stats, utils)
+importFrom(graphics, abline, contour, lines, par, plot, points, polygon, text)
 importFrom(MASS, kde2d)
-
+importFrom(stats, approx, coef, lm, na.omit, qnorm, quantile, spline)

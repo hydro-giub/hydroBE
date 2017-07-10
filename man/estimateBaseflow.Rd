@@ -32,7 +32,9 @@ estimateBaseflow(y, win = 5, r = 0.9, plot = FALSE,
 \details{
 The series will be truncated to the last \code{length(y)\%\%win} entries
 in \code{y} to match whole multiples of \code{win}. A baseflow ordinate
-\eqn{x_{n}} is defined by \deqn{x_{n-1} > x_{n}*r < x_{n+1}} where
+\eqn{x_{t}}{x(t)} is defined by
+\deqn{x_{t-1} > r \cdot x_{t} < x_{t+1}}{x(t-1) > r*x(t) < x(t+1)}
+where
 \eqn{x} is a local minima in a window with length \code{win}. Missing
 values do not satisfy this inequality (see 'Examples').
 }
