@@ -33,33 +33,34 @@ Either \code{dir} or \code{files} can be specified, but not both;
 \code{time.res} determines how the function deals with the time
 information. The approach is to first constrain the time stamps to the
 format 'YYYY-MM-DD HH:MM' and second to truncate this string to the
-desired resolution. E.g. for \code{time.res='month'} we end up with
-'YYYY-MM' and for \code{time.res='hour'} we get 'YYYY-MM-DD HH'. In case
-of \code{time.res='min'} and \code{time.res='irregular'} the last digit
-is ignored, so the highest frequency amounts to 10 minute intervals
-(i.e. 'YYYY-MM-DD HH:M').
+desired resolution. E.g. for \code{time.res = 'month'} we end up with
+'YYYY-MM' and for \code{time.res = 'hour'} we get 'YYYY-MM-DD HH'. In
+case of \code{time.res = 'min'} and \code{time.res = 'irregular'} the
+last digit is ignored, so the highest frequency amounts to 10 minute
+intervals (i.e. 'YYYY-MM-DD HH:M').
 
-\code{time.res} is in particular important if \code{series=TRUE} since
+\code{time.res} is in particular important if \code{series = TRUE} since
 it forces the observations to a common time interval. If more than one
 observation is present in a particular time interval, only the last
 observation is used.
 
 The ordering of files in \code{dir} or \code{files} determines how
-series get merged: If station id, unit, and type are consistent, then
-missing values in the first series are replaced by corresponding
-non-missing values in the second series and so on.
+series get merged: If station id, measurement unit, and type (peak
+versus mean values) are consistent , then missing values in the first
+series are replaced by corresponding non-missing values in the second
+series and so on.
 }
 
 \value{
-If \code{series=FALSE} a data frame with columns 'file' (file name) 'id'
-(station id), 'name' (watercourse), 'site' (site name), 'unit'
+If \code{series = FALSE} a data frame with columns 'file' (file name)
+'id' (station id), 'name' (watercourse), 'site' (site name), 'unit'
 (measurement unit), 'type' (peak versus mean values), 'start' (date of
 the first non-missing value), 'end' (date of the last non-missing
 value), 'comment' (remaining annotations as found in the header),
 'hydropro' (file exported out of the Hydropro software?), 'sep' (field
 separator), and 'skip' (number of header lines).
 
-If \code{series=FALSE} a matrix with row names corresponding to the
+If \code{series = FALSE} a matrix with row names corresponding to the
 argument \code{time.res}.  In case of mean values, clock time refers
 to the starting time of the underlying period, e.g. for hourly values 01
 corresponds to 01:00 - 01:59. The column names contain the id (if
@@ -67,11 +68,8 @@ present) of the station as last number.
 }
 
 \section{Warning}{
-The functions rely on a rather heuristic approach and thus may fail when
-the BAFU comes up with new file formats. Particularly files out of the
-Hydropro software (used for the most recent and unofficial observations)
-show a surprising wide range of naming conventions and non ascii
-characters.
+The function relies on a rather heuristic approach and thus may fail
+when the BAFU comes up with new file formats.
 }
 
 \references{

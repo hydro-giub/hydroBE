@@ -33,11 +33,11 @@ does not account for autocorrelation.
 List with entries
 \item{b}{real number. The coefficient when \code{x} is regressed
   against time.}
-\item{p.value}{real number. The probability of observing a larger
-  value (in absolute terms) then \code{slope} according to the
-  empiricial distribution of \code{per.slopes}.}
-\item{slopes}{numeric vector of length \code{nper}. The slopes as
-  obtained during the permutation procedure.}
+\item{p.value}{real number. The probability of observing a stronger
+  trend than \code{b} under H0. If \eqn{b<0} then \code{p.value} amounts
+  to \eqn{P(B<b)} and \eqn{P(B>b)} otherwise.}
+\item{slopes}{numeric vector of length \code{n}. The slopes as
+  obtained from the permutation procedure.}
 }
 
 \references{
