@@ -65,33 +65,37 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge) {
     ## merge duplicated series
     ## missing attributes result in ..
     ## we do not merge such stations
-    if(missing(merge)) {
+    if(!missing(merge)) {
         
-        return(m)
-        
-    } else {
-
         id <- as.matrix(file.specs[,merge])
         id <- apply(id,1,paste,collapse='.')
-        nr <- grepl('^\\.+$',id) | grepl('\\.\\.',id)
+        nr <- grepl('^\\.*$',id) | grepl('\\.\\.',id)
         dp <- .getDuplicates(id)
         dp[nr] <- NULL
         rmc <- unlist(lapply(dp,'[','from'),use.names=F)
+        
+        if(length(dp)>0 & !is.null(rmc)) {
 
-        for(i in 1:length(dp)) {
-            if(is.null(dp[[i]])) {
-                next
-            } else {
-                rpl <- dp[[i]][['from']]
-                trg <- dp[[i]][['to']]
-                for(j in rpl) {
-                    na <- is.na(m[,trg])
-                    m[na,trg] <- m[na,j]
-                }           
-            }       
+            for(i in 1:length(dp)) {
+                if(is.null(dp[[i]])) {
+                    next
+                } else {
+                    rpl <- dp[[i]][['from']]
+                    trg <- dp[[i]][['to']]
+                    for(j in rpl) {
+                        na <- is.na(m[,trg])
+                        m[na,trg] <- m[na,j]
+                    }           
+                }       
+            }
+
+            return(m[,-rmc,drop=F])
+            
         }
         
-        return(m[,-rmc,drop=F])
+    } else {
+
+        return(m)
         
     }
     
