@@ -68,8 +68,12 @@ present) of the station as last number.
 }
 
 \section{Warning}{
-The function relies on a rather heuristic approach and thus may fail
-when the BAFU comes up with new file formats.
+\itemize{
+  \item The function relies on a rather heuristic approach and thus may
+  fail when the BAFU comes up with new file formats.
+  \item Warning messages like 'NAs introduced by coercion' mean that
+  missing values are present in at least one of the series.
+}
 }
 
 \references{

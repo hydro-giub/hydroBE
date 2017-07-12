@@ -38,8 +38,8 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     i1 <- which.min(as.numeric(gsub('[-: ]','',file.specs$start)))
     i2 <- which.max(as.numeric(gsub('[-: ]','',file.specs$end)))
     rn <- .getRegularTimestamps(start=file.specs$start[i1],
-                               end=file.specs$end[i2],
-                               time.res=time.res)
+                                end=file.specs$end[i2],
+                                time.res=time.res)
 
     ## init matrix
     m <- matrix(NA,nrow=length(rn),ncol=n,
@@ -162,15 +162,21 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
 
     ## adapt field separator
     x <- gsub(sep,';',x,fixed=T)
-    
-    ## constrain date field to YYYY.MM.DD HH:MM
-    if(grepl(';.*?;',x[1])) {x <- sub(';',' ',x,fixed=T)}    
-    x <- sub(' ([[:digit:]]{1}:[[:digit:]]{2});',' 0\\1;',x)
-    x <- sub(';',' 00:00;',x,fixed=T)
-    x <- sub('^([[:digit:].]+ [[:digit:]]{2}:[[:digit:]]{2}).*?([[:digit:].]+)$','\\1;\\2',x)
-    if(grepl('^[[:digit:]]{2}\\.[[:digit:]]{2}\\.[[:digit:]]{4}',x[1])) {
-        x <- sub('^([[:digit:]]{2})\\.([[:digit:]]{2})\\.([[:digit:]]{4})(.*)$','\\3.\\2.\\1\\4',x)
+
+    ## remove all white space
+    x <- gsub('[[:blank:]]','',x)
+
+    ## if clock time is present, replace field delimiter with white space
+    if(grepl(';.*?;',x[1])) {
+        x <- sub(';',' ',x,fixed=T)
     }
+    
+    ## attach clock time and constrain to HH:MM
+    x <- sub(';',' 00:00;',x,fixed=T)
+    x <- sub('^([[:digit:].]{10}) ([[:digit:]]{2}:[[:digit:]]{2}).*?;(.*)$','\\1 \\2;\\3',x)
+
+    ## constrain DD.MM.YYYY to YYYY.MM.DD
+    x <- sub('^([[:digit:]]{2})\\.([[:digit:]]{2})\\.([[:digit:]]{4})(.*)$','\\3.\\2.\\1\\4',x)
 
     ## set 24:xx to 00:xx
     ## needs also to adjust the day
@@ -184,14 +190,14 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     }
     
     ## set missing values to NA
-    i1 <- grepl('[[:digit:]]$',x)
+    i1 <- grepl(';\\.?[[:digit:]]+\\.?[[:digit:]]*$',x)
     x[!i1] <- sub(';.*$',';NA',x[!i1])
     
     ## remove leading and trailing NAs
-    i2 <-  (cumsum(i1)>0) & rev(cumsum(rev(i1))>0)
+    i2 <- (cumsum(i1)>0) & rev(cumsum(rev(i1))>0)
     x <- x[i2]
     
-    ##  return as numeric vector
+    ##  return as numeric vector and format date to YYYY-MM-DD HH:MM
     y <- as.numeric(sub('^.*?;','',x))
     yn <- sub(';.*$','',x)
     yn <- gsub('.','-',yn,fixed=T)
@@ -203,36 +209,35 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
 ## constrain the lines to format YYYY.MM.DD HH:MM;value
 .cleanSeriesBafuRegular <- function(x,sep) {
 
-    ## adapt field separator
-    x <- gsub(sep,';',x,fixed=T)
+    ## remove all white space
+    x <- gsub('[[:blank:]]','',x)
     
     ## remove first column (gauge id)
-    x <- sub('^[[:digit:].]*?;','',x)
-
-    ## remove leading white space
-    x <- sub('^[[:blank:]]*','',x)
+    x <- sub('^[[:digit:]]*?;','',x)
     
     ## remove time interval if present
     if(grepl('-',x[1])) {
         x <- sub('-[[:digit:][:blank:].:]+;',';',x)
     }
     
-    ## constrain date field to YYYY.MM.DD HH:MM
+    ## expand YYYY.MM to YYYY.MM.DD
     if(grepl('^[[:digit:].]{7};',x[1])) {
         x <- sub(';','.01;',x,fixed=T)
     }
-    x <- sub(';',' 00:00;',x,fixed=T)
-    x <- sub('^([[:digit:].]+ [[:digit:]]{2}:[[:digit:]]{2}).*?([[:digit:].]+)$','\\1;\\2',x)
+
+    ## attach clock time and constrain to HH:MM
+    x <- sub(';','00:00;',x,fixed=T)
+    x <- sub('^([[:digit:].]{10})([[:digit:]]{2}:[[:digit:]]{2}).*?;(.*)$','\\1 \\2;\\3',x)
     
     ## set missing values to NA
-    i1 <- grepl('[[:digit:]]$',x)
+    i1 <- grepl(';\\.?[[:digit:]]+\\.?[[:digit:]]*$',x)
     x[!i1] <- sub(';.*$',';NA',x[!i1])
     
     ## remove leading and trailing NAs
-    i2 <-  (cumsum(i1)>0) & rev(cumsum(rev(i1))>0)
+    i2 <- (cumsum(i1)>0) & rev(cumsum(rev(i1))>0)
     x <- x[i2]
 
-    ##  return as numeric vector and format date to YYYY-MM-DD
+    ## return as numeric vector and format date to YYYY-MM-DD HH:MM
     y <- as.numeric(sub('^.*?;','',x))
     yn <- sub(';.*$','',x)
     yn <- gsub('.','-',yn,fixed=T)
@@ -241,7 +246,7 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
 
 }
 
-.checkBafuHeader <- function(h) {
+.prettifyBafuHeader <- function(h) {
 
     ## prettify output from checkBafuHeaderRegular and checkBafuHeaderHydropro
     if(grepl('m[^[:blank:]]*?/s',h$unit)) {h$unit <- 'm3/s'}
@@ -256,7 +261,7 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     
     h <- list(id=NA,name=NA,site=NA,unit=NA,comment=NA,skip=NA)
     
-    x <- gsub('Luecke|L\u00FCcke|L\\xfccke|NA|Lcke|L\u0081cke','',x)
+    x <- gsub(.getNaRegex(),'',x)
     sk <- grep('^[[:blank:][:digit:][:cntrl:];,.:/-]+$',x)[1]-1
     x <- x[1:sk]
     x <- gsub('([*%";[:cntrl:]])','',x)
@@ -289,7 +294,7 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     h <- lapply(h,function(x){sub('[[:blank:][:cntrl:];,.:/-]+$','',x)})
     h$skip <- sk
     
-    h <- .checkBafuHeader(h)
+    h <- .prettifyBafuHeader(h)
     return(h)
     
 }
@@ -298,7 +303,7 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     
     h <- list(id=NA,name=NA,site=NA,unit=NA,comment=NA,skip=NA)
     
-    x <- gsub('Luecke|L\u00FCcke|L\\xfccke|NA|Lcke|L\u0081cke','',x)
+    x <- gsub(.getNaRegex(),'',x)
     sk <- grep('^[[:blank:][:digit:][:cntrl:];,.:/-]+$',x)[1]-1
     x <- x[1:sk]
     x <- gsub('[*%";[:cntrl:]]','',x)
@@ -325,7 +330,7 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     h <- lapply(h,function(x){sub('[[:blank:][:cntrl:];,.:/-]+$','',x)})
     h$skip <- sk
     
-    h <- .checkBafuHeader(h)
+    h <- .prettifyBafuHeader(h)
     return(h)
     
 }

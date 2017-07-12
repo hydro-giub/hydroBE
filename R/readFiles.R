@@ -11,6 +11,12 @@
 
 }
 
+.getNaRegex <- function() {
+
+    return('Luecke|L\u00FCcke|L\\xfccke|NA|Lcke|L\u0081cke')
+
+}
+
 .getFileHeadTail <- function(file.name,encoding) {
 
     fs <- file.info(file.name)$size
@@ -96,7 +102,6 @@
            hour='hour',
            min='10 min',
            irregular='10 min')
-
     
 }
 
