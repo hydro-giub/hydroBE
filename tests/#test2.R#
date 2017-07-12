@@ -1,0 +1,27 @@
+## test .getDuplicates()
+
+
+library(hydroBE)
+?estimateSnowFraction
+
+x <- seq(0,2*pi,length.out=365)
+temp <- 5*sin(x-2)+rnorm(365)
+temp[100:150] <- NA
+precip <- rgamma(365,shape=2,rate=0.1)
+precip[sample(x=1:365,size=250)] <- 0
+
+## separate snow from precipitation
+thr <- 0
+trans <- 1
+f <- estimateSnowFraction(y=temp,thr=thr,trans=trans)
+snow <- precip*f
+rain <- precip-snow
+
+## plot series
+par(mfrow=c(3,1),mar=c(0.5,4,0.5,1),oma=c(4,0,0,0))
+plot(temp,type='l',ylab='degree Celsius',xaxt='n')
+abline(h=c(thr,thr-trans,thr+trans),lty=3)
+plot(precip,type='s',ylab='mm',xaxt='n',col='red')
+par(new=TRUE)
+plot(snow,type='s',xlab=NA,ylab=NA,axes=FALSE,col='blue')
+plot(f,type='l',ylab='snow fraction',xlab='time',xpd=NA)
