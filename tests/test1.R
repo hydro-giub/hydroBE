@@ -1,3 +1,4 @@
+## test cleanSeries* functions
 library(hydroBE)
 rm(list=ls())
 
@@ -42,7 +43,19 @@ if(!isTRUE(r)) {print(r);stop()}
 r <- check(f=hydroBE:::.cleanSeriesBafuHydropro,x=d,sep=',',value='1',date='2000-01-01 00:00')
 if(!isTRUE(r)) {print(r);stop()}
 
-## AWA test removing cols >3
+## AWA test removing of unnecessary columns
+d <- c('01.01.2000,00:00,1',
+       '01.01.2000,00:00,1,1,1,',
+       '01.01.2000,00:00, 1,  2; 5',
+       '01.01.2000,00:00,1   ,.3',
+       '01.01.2000,00:00,1;3',
+       '01.01.2000,00:00,1,',
+       '01.01.2000,00:00,1,,',
+       '01.01.2000,00:00,1,,,',
+       '01.01.2000,00:00,1,Luecke',
+       '01.01.2000,00:00,1,.2,3,,')
+r <- check(f=hydroBE:::.cleanSeriesAwaHydropro,x=d,sep=',',value='1',date='2000-01-01 00:00')
+if(!isTRUE(r)) {print(r);stop()}
 
 ## BAFU regular date and time, mean values
 d <- c('0050;2000.01-2000.01;1',
