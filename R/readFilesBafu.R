@@ -263,6 +263,11 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     
     x <- gsub(.getNaRegex(),'',x)
     sk <- grep('^[[:blank:][:digit:][:cntrl:];,.:/-]+$',x)[1]-1
+    if(sk<1 | length(sk)<1) {
+        h$skip <- 0
+        return(h)
+    }
+        
     x <- x[1:sk]
     x <- gsub('([*%";[:cntrl:]])','',x)
     x <- sub(' /[ dD]+onn.*?onal data','',x)
@@ -305,6 +310,11 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     
     x <- gsub(.getNaRegex(),'',x)
     sk <- grep('^[[:blank:][:digit:][:cntrl:];,.:/-]+$',x)[1]-1
+    if(sk<1 | length(sk)<1) {
+        h$skip <- 0
+        return(h)
+    }
+    
     x <- x[1:sk]
     x <- gsub('[*%";[:cntrl:]]','',x)
     x <- sub(' /[ dD]+onn.*?onal data','',x)
