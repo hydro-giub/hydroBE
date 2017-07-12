@@ -1,4 +1,4 @@
-readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
+readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge) {
 
     if(!is.null(dir)) {
         files <- list.files(dir,full.names=T)
@@ -26,13 +26,7 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     n <- nrow(file.specs)
     
     ## ceate unique names out of the ids
-    ## names ending with '..' do not have an id
-    ## series in nr should not be replaced at all
-    cn <- file.specs$id
-    cn <- sub('^.*/[[:blank:]]*','',cn)
-    nr <- grep('^$',cn)
-    cn[nr] <- '.'
-    cn <- paste('id',1:n,cn,sep='.')
+    cn <- paste0('i',1:n,'i',file.specs$id)
 
     ## make regular timestamps
     i1 <- which.min(as.numeric(gsub('[-: ]','',file.specs$start)))
@@ -69,31 +63,36 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     }
 
     ## merge duplicated series
-    cnn <- paste(file.specs$unit,file.specs$type,sub('^id\\.[[:digit:]]+','',cn),sep='.')
-    dp <- .getDuplicates(cnn)
-    dp[nr] <- NULL
-    rmc <- unlist(lapply(dp,'[','from'),use.names=F)
-
-    if(is.null(rmc) | !merge) {
+    ## missing attributes result in ..
+    ## we do not merge such stations
+    if(missing(merge)) {
         
         return(m)
         
     } else {
 
-        for(i in 1:n) {
+        id <- as.matrix(file.specs[,merge])
+        id <- apply(id,1,paste,collapse='.')
+        nr <- grepl('^\\.+$',id) | grepl('\\.\\.',id)
+        dp <- .getDuplicates(id)
+        dp[nr] <- NULL
+        rmc <- unlist(lapply(dp,'[','from'),use.names=F)
+
+        for(i in 1:length(dp)) {
             if(is.null(dp[[i]])) {
                 next
             } else {
-                rpl <- dp[i][['from']]
+                rpl <- dp[[i]][['from']]
+                trg <- dp[[i]][['to']]
                 for(j in rpl) {
-                    na <- is.na(m[,i])
-                    m[na,i] <- m[na,j]
+                    na <- is.na(m[,trg])
+                    m[na,trg] <- m[na,j]
                 }           
             }       
         }
-
+        
         return(m[,-rmc,drop=F])
-    
+        
     }
     
 }
@@ -253,6 +252,7 @@ readFilesBafu <- function(dir=NULL,files,time.res,series=FALSE,merge=FALSE) {
     if(grepl('l/s',h$unit)) {h$unit <- 'l/s'}
     if(grepl('asserstand',h$unit)) {h$unit <- 'm'}
     if(grepl('emperatur',h$unit)) {h$unit <- 'dC'}
+    h$id <- sub('^.*/[[:blank:]]*','',h$id)
     return(h)
 
 }

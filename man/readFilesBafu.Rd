@@ -11,8 +11,7 @@ Umwelt Schweiz).
 }
 
 \usage{
-readFilesBafu(dir = NULL, files, time.res, series = FALSE, 
-              merge = FALSE)
+readFilesBafu(dir = NULL, files, time.res, series = FALSE, merge)
 }
 
 \arguments{
@@ -22,8 +21,8 @@ readFilesBafu(dir = NULL, files, time.res, series = FALSE,
   'year', 'month', 'day', 'hour', 'min', or 'irregular', see 'Details'.}
 \item{series}{logical. Return the series instead of a summary? In case
   of several files, this can take some time.}
-\item{merge}{logical. Merge the series when observations of a gauging
-  station are distributed over more than one file?}
+\item{merge}{character vector. If not missing, the series get merged
+  according to the attributes defined in \code{merge}, see 'Details'.}
 }
 
 \details{
@@ -45,10 +44,12 @@ observation is present in a particular time interval, only the last
 observation is used.
 
 The ordering of files in \code{dir} or \code{files} determines how
-series get merged: If station id, measurement unit, and type (peak
-versus mean values) are consistent , then missing values in the first
-series are replaced by corresponding non-missing values in the second
-series and so on.
+series get merged: If the attributes specified in \code{merge} are
+consistent, then missing values in the first series are replaced by
+corresponding non-missing values in the second series and so
+on. Possible attributes are restricted to column names of the data frame
+returned if \code{series = FALSE}. Series for which an attribute is
+missing are exluded from the mergin procedure.
 }
 
 \value{
