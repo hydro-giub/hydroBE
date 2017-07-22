@@ -1,5 +1,5 @@
 # hydroBE
-R-Package with miscellaneous functions of the Group of Hydrology Bern.
+R-Package with miscellaneous functions of the [Group of Hydrology Bern](http://www.hydrologie.unibe.ch/index.html).
 
 To install the package, you can use the help of devtools:
 
