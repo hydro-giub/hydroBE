@@ -61,7 +61,7 @@ value), 'comment' (remaining annotations as found in the header),
 'hydropro' (file exported out of the Hydropro software?), 'sep' (field
 separator), and 'skip' (number of header lines).
 
-If \code{series = FALSE} a matrix with row names corresponding to the
+If \code{series = TRUE} a matrix with row names corresponding to the
 argument \code{time.res}.  In case of mean values, clock time refers
 to the starting time of the underlying period, e.g. for hourly values 01
 corresponds to 01:00 - 01:59. The column names contain the id (if

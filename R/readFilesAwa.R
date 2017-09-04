@@ -91,7 +91,7 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
 
             return(m[,-rmc,drop=F])
             
-        }
+        } else {return(m)}
         
     } else {
 
