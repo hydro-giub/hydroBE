@@ -2,12 +2,12 @@
 \alias{fetchBafuTable}
 
 \title{
-Grab daily streamflow series out of BAFU pdf tables
+  Grab daily streamflow series out of BAFU pdf tables
 }
 
 \description{
-The function returns daily streamflow series from online pdf tables of
-the BAFU (Bundesamt fuer Umwelt Schweiz).
+  The function returns daily streamflow series from online pdf tables of
+  the BAFU (Bundesamt fuer Umwelt Schweiz).
 }
 
 \usage{
@@ -15,24 +15,24 @@ fetchBafuTable(id, year)
 }
 
 \arguments{
-\item{id}{integer. The id of the gauging station of interest.}
-\item{year}{integer. The year for which to fetch the daily series.}
+  \item{id}{integer. The id of the gauging station of interest.}
+  \item{year}{integer. The year for which to fetch the daily series.}
 }
 
 \value{
-Data frame with columns 'date' (daily time steps), 'discharge' (daily
-mean streamflow), and 'preliminary'. The latter indicates whether the
-values are quality controlled and homogenised.
+  Data frame with columns 'date' (daily time steps), 'discharge' (daily
+  mean streamflow), and 'preliminary'. The latter indicates whether the
+  values are quality controlled and homogenised.
 }
 
 \note{
-For some gauging stations the pdf tables containing data before the year
-2004 have a format different than the one currently used. This format is
-not supported yet.
+  For some gauging stations the pdf tables containing data before the year
+  2004 have a format different than the one currently used. This format is
+  not supported yet.
 }
 
 \author{
-Original code provided by Jan S.
+  Original code provided by Jan S.
 }
 
 \examples{

@@ -2,13 +2,13 @@
 \alias{plot2dProbability}
 
 \title{
-Plot contours of constant probability of bivariate observations
+  Plot contours of constant probability of bivariate observations
 }
 
 \description{
-The probability density is first estimated using the bivariate normal
-kernel \code{\link{kde2d}} from package MASS. Contours of constant
-probability are then drawn on the scatterplot with the observations.
+  The probability density is first estimated using the bivariate normal
+  kernel \code{\link{kde2d}} from package MASS. Contours of constant
+  probability are then drawn on the scatterplot with the observations.
 }
 
 \usage{
@@ -17,40 +17,40 @@ plot2dProbability(x1, x2, n = 100, p = 0.9, obs.only = FALSE,
 }
 
 \arguments{
-\item{x1}{numeric vector. The first variable.}
-\item{x2}{numeric vector. The second variable.}
-\item{n}{integer or integer vector of length two. Defines the number of
-  grid points to discretise the plane with the observations. Passed to
-  \code{\link{kde2d}}.}
-\item{p}{numeric vector. The probabilities of non-exceedance.}
-\item{obs.only}{logical. Integrate the complete pdf over the domain of
-  the observations or only at the location of the observations?}
-\item{bandwith}{real number or vector of length two. Defines the
-  bandwith for the normal kernel. Passed to \code{\link{kde2d}}.}
-\item{\dots}{additional arguments. Passed to \code{\link{plot.default}}.}
+  \item{x1}{numeric vector. The first variable.}
+  \item{x2}{numeric vector. The second variable.}
+  \item{n}{integer or integer vector of length two. Defines the number of
+    grid points to discretise the plane with the observations. Passed to
+    \code{\link{kde2d}}.}
+  \item{p}{numeric vector. The probabilities of non-exceedance.}
+  \item{obs.only}{logical. Integrate the complete pdf over the domain of
+    the observations or only at the location of the observations?}
+  \item{bandwith}{real number or vector of length two. Defines the
+    bandwith for the normal kernel. Passed to \code{\link{kde2d}}.}
+  \item{\dots}{additional arguments. Passed to \code{\link{plot.default}}.}
 }
 
 \details{
-Missing values in \code{x1} and \code{x2} are not allowed. If
-\code{obs.only = TRUE} the kernel density is sampled at the location of
-the points defined by \code{x1} and \code{x2}. The quantiles of these
-density values (with probability \eqn{1-p}) are then used to
-draw the contours. For  \code{obs.only = FALSE} the complete density
-function is integrated. 
+  Missing values in \code{x1} and \code{x2} are not allowed. If
+  \code{obs.only = TRUE} the kernel density is sampled at the location of
+  the points defined by \code{x1} and \code{x2}. The quantiles of these
+  density values (with probability \eqn{1-p}) are then used to
+  draw the contours. For  \code{obs.only = FALSE} the complete density
+  function is integrated. 
 }
 
 \references{
-Haenggi, P., and R. Weingartner (2011).
-"Inter-annual variability of runoff and climate within the Upper Rhine River basin, 1808-2007".
-Hydrological Sciences Journal.
+  Haenggi, P., and R. Weingartner (2011).
+  "Inter-annual variability of runoff and climate within the Upper Rhine River basin, 1808-2007".
+  Hydrological Sciences Journal.
 }
 
 \author{
-Original code provided by Pascal H.
+  Original code provided by Pascal H.
 }
 
 \seealso{
-\code{\link{kde2d}} from package MASS; \code{\link{contour}}
+  \code{\link{kde2d}} from package MASS; \code{\link{contour}}
 }
 
 \examples{

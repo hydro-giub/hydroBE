@@ -2,11 +2,11 @@
 \alias{plotHypsograph}
 
 \title{
-Plot hypsography against area
+  Plot hypsography against area
 }
 
 \description{
-Plots the hypsography of a given region against the cumulated area.
+  Plots the hypsography of a given region against the cumulated area.
 }
 
 \usage{
@@ -14,19 +14,19 @@ plotHypsograph(x, ylab = "m a.s.l.", x.res = 1000, y.res = 1000, ...)
 }
 
 \arguments{
-\item{x}{numeric vector or matrix. Contains the elevation values; see
-  the 'Examples' for how to deal with objects from package
-  \bold{\href{https://cran.r-project.org/package=raster}{raster}}.}
-\item{ylab}{string. The y axis label.}
-\item{x.res}{real number. The length of a grid cell in the x direction
-  with unit [m].}
-\item{y.res}{real number. Length of a grid cell in the y direction with
-  unit [m].}
-\item{\dots}{additional arguments. Passed to \code{\link{plot.default}}}
+  \item{x}{numeric vector or matrix. Contains the elevation values; see
+    the 'Examples' for how to deal with objects from package
+    \bold{\href{https://cran.r-project.org/package=raster}{raster}}.}
+  \item{ylab}{string. The y axis label.}
+  \item{x.res}{real number. The length of a grid cell in the x direction
+    with unit [m].}
+  \item{y.res}{real number. Length of a grid cell in the y direction with
+    unit [m].}
+  \item{\dots}{additional arguments. Passed to \code{\link{plot.default}}}
 }
 
 \author{
-Jan S
+  Jan S
 }
 
 \examples{

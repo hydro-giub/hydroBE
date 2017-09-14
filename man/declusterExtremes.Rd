@@ -2,13 +2,13 @@
 \alias{declusterExtremes}
 
 \title{
-Decluster maxima in a time series
+  Decluster maxima in a time series
 }
 
 \description{
-Recursively declusters the maxima in a time series based on a minimal
-temporal distance. This can be useful to define independent events for
-an extreme value analysis.
+  Recursively declusters the maxima in a time series based on a minimal
+  temporal distance. This can be useful to define independent events for
+  an extreme value analysis.
 }
 
 \usage{
@@ -16,23 +16,23 @@ declusterExtremes(y, L = 11)
 }
 
 \arguments{
-\item{y}{numeric vector. A (strictly regular) series; \code{NA}s are
-  allowed and will be treated as \eqn{-\infty}.}
-\item{L}{integer. Minimum distance in number of time units.}
+  \item{y}{numeric vector. A (strictly regular) series; \code{NA}s are
+    allowed and will be treated as \eqn{-\infty}.}
+  \item{L}{integer. Minimum distance in number of time units.}
 }
 
 \details{
-Plateaus are strictly handled as non-maxima. To decluster minimas,
-use \eqn{-1 \cdot y}{-1*y}.
+  Plateaus are strictly handled as non-maxima. To decluster minimas,
+  use \eqn{-1 \cdot y}{-1*y}.
 }
 
 \value{
-Integer vector with indices of the maxima within \code{y} with respect
-to \code{L}.
+  Integer vector with indices of the maxima within \code{y} with respect
+  to \code{L}.
 }
 
 \author{
-Simon S
+  Simon S
 }
 
 \examples{

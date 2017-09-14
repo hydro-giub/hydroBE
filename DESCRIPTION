@@ -4,7 +4,7 @@ Title: Miscellaneous Functions of the Group of Hydrology Bern
 Version: 0.9
 Date: 2017-07-09
 Depends: R (>= 3.0.0)
-Imports: graphics, MASS, stats
+Imports: graphics, MASS, stats, utils
 Suggests: ismev, raster
 Description: Read, plot, and analyse hydrological data.
 Author: Alain B, Jan S, Ole R, Pascal H, Simon S

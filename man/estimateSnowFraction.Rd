@@ -2,14 +2,14 @@
 \alias{estimateSnowFraction}
 
 \title{
-Estimate snow fraction
+  Estimate snow fraction
 }
 
 \description{
-The fraction of frozen water of (potential) precipitation is estimated
-by using a temperature threshold. The function can be useful e.g. to
-estimate the number of snow days or to accumulate the snow water
-equivalent.
+  The fraction of frozen water of (potential) precipitation is estimated
+  by using a temperature threshold. The function can be useful e.g. to
+  estimate the number of snow days or to accumulate the snow water
+  equivalent.
 }
 
 \usage{
@@ -17,34 +17,34 @@ estimateSnowFraction(y, thr = 0.9, trans = 1)
 }
 
 \arguments{
-\item{y}{numeric vector, matrix, or array. Contains the temperature
-  values. See the 'Examples' for how to deal with objects from package
-  \bold{\href{https://cran.r-project.org/package=raster}{raster}}.} 
-\item{thr}{real number. Temperatures below this threshold value
-  convert rain to snow.}
-\item{trans}{positive real number. Defines the transition range (see
-  'Details').}
+  \item{y}{numeric vector, matrix, or array. Contains the temperature
+    values. See the 'Examples' for how to deal with objects from package
+    \bold{\href{https://cran.r-project.org/package=raster}{raster}}.} 
+  \item{thr}{real number. Temperatures below this threshold value
+    convert rain to snow.}
+  \item{trans}{positive real number. Defines the transition range (see
+    'Details').}
 }
 
 \details{
-To allow for fractional water freezing, \code{thr} gets extended by
-\code{trans}. Thus \deqn{y < thr - trans} will convert precipitation
-into snow, whereas \deqn{y > thr + trans} preserves precipitation as
-rain. For the range spanned by \code{trans} linear interpolation takes
-place.
-
-The default values for \code{thr} and \code{trans} are derived from a
-hydrological analysis in the Thur catchment (Switzerland) and refer to
-temperature in degree Celsius.
+  To allow for fractional water freezing, \code{thr} gets extended by
+  \code{trans}. Thus \deqn{y < thr - trans} will convert precipitation
+  into snow, whereas \deqn{y > thr + trans} preserves precipitation as
+  rain. For the range spanned by \code{trans} linear interpolation takes
+  place.
+  
+  The default values for \code{thr} and \code{trans} are derived from a
+  hydrological analysis in the Thur catchment (Switzerland) and refer to
+  temperature in degree Celsius.
 }
 
 \value{
-Numeric array with the same dimensions as \code{y}, giving the snow
-fraction as a number in \eqn{[0,1]}.
+  Numeric array with the same dimensions as \code{y}, giving the snow
+  fraction as a number in \eqn{[0,1]}.
 }
 
 \author{
-Original code provided by Ole R.
+  Original code provided by Ole R.
 }
 
 \examples{

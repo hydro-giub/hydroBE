@@ -6,9 +6,9 @@ To install the package, you can use the help of devtools:
 ```r
 install.packages('devtools')
 library('devtools')
-install_github(repo='hydro-giub/hydroBE',dependencies=T)
+install_github(repo='hydro-giub/hydroBE',dependencies=TRUE)
 library(hydroBE)
-?hydroBE
+package?hydroBE
 ```
 
-or simply download the repo and install from source.
+or download the repo and install from source.

@@ -1,9 +1,6 @@
-export(fetchBafuTable)
-export(readFilesAwa, readFilesBafu)
-export(estimateBaseflow, estimateSnowFraction, getRatingPoints, plotHypsograph)
-export(testBreakpoint, testLinearTrend, applySnht)
-export(declusterExtremes, getReturnLevels, plot2dProbability)
+exportPattern("^[[:alpha:]]+")
 
 importFrom(graphics, abline, contour, lines, par, plot, points, polygon, text)
 importFrom(MASS, kde2d)
 importFrom(stats, approx, coef, lm, na.omit, qnorm, quantile, spline)
+importFrom(utils, read.table, unzip)
