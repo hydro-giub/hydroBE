@@ -15,7 +15,7 @@ readFilesAwa(dir = NULL, files, time.res, series = FALSE, merge)
 }
 
 \arguments{
-  \item{dir}{string. the directory which contains the files from AWA.}
+  \item{dir}{string. the directory which contains the files from the AWA.}
   \item{files}{character vector. The file names.}
   \item{time.res}{string. The measurement frequency, must be either
     'year', 'month', 'day', 'hour', 'min', or 'irregular', see 'Details'.}
