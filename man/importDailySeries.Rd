@@ -5,6 +5,7 @@
 \alias{importDailySeriesLfub}
 \alias{importDailySeriesLubw}
 \alias{importDailySeriesMapama}
+\alias{importDailySeriesMedde}
 \alias{importDailySeriesMs}
 
 \title{
@@ -20,6 +21,7 @@
     \href{http://www.gkd.bayern.de/fluesse/abfluss/karten/index.php?thema=gkd}{LFUB} \tab Germany \cr
     \href{https://www.lubw.baden-wuerttemberg.de/lubw}{LUBW} \tab Germany \cr
     \href{http://sig.mapama.es/redes-seguimiento/visor.html?herramienta=Aforos}{MAPAMA} \tab Spain \cr
+    \href{http://www.hydro.eaufrance.fr/}{MEDDE} \tab France \cr
     \href{http://www.meteoschweiz.admin.ch/home.html?tab=overview}{MS} \tab Switzerland
   }
 }
@@ -59,7 +61,7 @@ importDailySeriesMs(file = NULL, id = NULL, series = TRUE, quiet = TRUE,
 
 \value{
   Matrix with the daily dates in the row names; streamflow data is labeled
-  'qd'. If \code{series=FALSE} a list which contains some information about
+  'qd'. If \code{series=FALSE} a list that contains some information about
   the file.
 }
 

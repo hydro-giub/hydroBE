@@ -306,6 +306,85 @@ importDailySeriesMapama <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
 }
 
+importDailySeriesMedde <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+
+    p <- dirname(file)
+    f <- basename(file)
+    file <- list.files(path=p,pattern=f,full.names=TRUE)
+    if(length(file)!=1L) {
+        warning('file not found or multiple matches')
+        return(NULL)
+    }
+
+    l <- readLines(file,encoding='latin1',n=ifelse(series,-1L,200L))
+    n <- length(l)
+    ll <- l[1:ifelse(n>200,200L,n)]
+
+    i <- grep('^Code station',ll)[1L]
+    h <- read.table(text=ll[i:(i+1L)],sep=';')
+    site <- sub('^.*? \u00E0 (.*)$','\\1',h[2,2])
+    name <- sub('^(.*?) \u00E0 .*$','\\1',h[2,2])
+    id2 <- h[2,1]
+    skip <- NA
+
+    if(series) {
+
+        i1 <- grepl('^Proc',l)
+        i2 <- grepl('^[[:digit:]]+',l)
+        l <- l[i1 | i2]
+
+        yi <- which(grepl('^Proc',l))
+        y <- as.numeric(gsub('[^[:digit:]]','',l[yi]))
+        yr <- as.Date(paste0(range(y),c('-01-01','-12-31')))
+        d <- seq.Date(yr[1],yr[2],by='day')
+
+        m <- matrix(NA,nrow=length(d),ncol=1L,dimnames=list(as.character(d),'qd'))
+
+        ds <-   paste(rep(formatC(1:12,width=2,flag='0'),each=31),
+                      rep(formatC(1:31,width=2,flag='0'),times=12),sep='-')
+
+        for(i in 1:length(y)) {
+
+            lt <- l[(yi[i]+1):(yi[i]+31)]
+            lt <- paste(lt,collapse='\n')
+
+            lt <- read.table(text=lt,sep=';')
+            lt <- as.matrix(lt)
+            lt <- lt[,seq(from=2,to=24,by=2)]
+            dim(lt) <- NULL
+            names(lt) <- paste(rep(y[i],31*12),ds,sep='-')
+            
+            ri <- as.Date(paste0(c(y[i],y[i]),c('-01-01','-12-31')))
+            di <- as.character(seq.Date(ri[1],ri[2],by='day'))
+            m[di,'qd'] <- as.numeric(lt[di])
+            
+        }
+
+        isNum <- !is.na(m[,1L])
+        isNum <- (cumsum(isNum)>0) & rev(cumsum(rev(isNum))>0)
+        m <- m[isNum,,drop=FALSE]
+        if(any(diff(as.Date(rownames(m)))!=1L)) {
+            warning('irregular series',immediate.=TRUE)
+        }
+
+    } else {
+        
+        m <- list(file=file,name=name,site=site,id=id,skip=skip)
+        
+    }
+
+    if(id2!=id && as.integer(id2) != as.integer(id)) {
+        warning('id does not match',immediate.=TRUE)
+    }
+
+    if(!quiet) {
+        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
+    }
+
+    return(m)
+
+}
+
 importDailySeriesMs <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE,vars=NULL,cnames=NULL) {
     
     p <- dirname(file)
