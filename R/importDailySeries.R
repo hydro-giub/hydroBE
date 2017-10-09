@@ -12,11 +12,11 @@ importDailySeriesBafu <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
     n <- length(l)
     ll <- l[1:ifelse(n>200,200L,n)]
     
-    h <- ll[grepl(paste('^[[:digit:]]+ / ',id,'.*$',sep=''),ll)]
+    h <- ll[grepl(paste0('^[[:digit:]]+ / ',id,'.*$'),ll)]
     site <- sub('.*?-(.*) [[:digit:]]+.*','\\1',h)
     name <- sub('.*[[:digit:]]+ (.*?)-.* [[:digit:]]+.*','\\1',h)
     id2 <- sub('.*/ ([[:digit:]]+) .*','\\1',h)
-    skip <- grep(paste(id,';[-[:digit:];,. ]+$',sep=''),ll)[1L]-1L
+    skip <- grep(paste0(id,';[-[:digit:];,. ]+$'),ll)[1L]-1L
 
     if(series) {
         l <- l[-(1:skip)]
@@ -386,7 +386,7 @@ importDailySeriesMedde <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 }
 
 importDailySeriesMs <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE,vars=NULL,cnames=NULL) {
-    
+        
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=TRUE)
@@ -394,38 +394,52 @@ importDailySeriesMs <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE,vars=NU
         warning('file not found or multiple matches')
         return(NULL)
     }
-    
+
     ff <- unzip(file,list=TRUE)
     ff <- ff$Name[grepl('^order_[0-9]+_data\\.txt$',ff$Name)]
-    c <- unz(file,ff)
-    l <- readLines(c)
-    close(c)
-    i <- range(grep(paste('^',id,sep=''),l))
-    df <- read.table(text=l[(i[1L]-1L):i[2L]],header=TRUE,sep=';',quote='',na.strings='-',
-                     blank.lines.skip=FALSE,stringsAsFactors=FALSE)
+    co <- unz(file,ff)
+    l <- readLines(co)
+    close(co)
+
+    i <- range(grep(paste0('^',id),l))
+    df <- read.table(text=l[(i[1L]-1L):i[2L]],header=TRUE,sep=';',
+                     quote='',na.strings='-',blank.lines.skip=FALSE,
+                     stringsAsFactors=FALSE)
 
     if(series) {
+        
         id2 <- df[1L,'stn']
         i <- vars%in%names(df)
         if(!any(i)) {return(NULL)}
         vars <- vars[i]
-        if(is.null(cnames)) {cnames <- vars} else {cnames <- cnames[i]}
-        m <- matrix(df[,vars],nrow=nrow(df),ncol=length(vars),
-                    dimnames=list(as.character(as.Date(as.character(df$time),'%Y%m%d')),cnames))
+        
+        if(is.null(cnames)) {
+            cnames <- vars
+        } else {
+            cnames <- cnames[i]
+        }
+
+        d <- as.Date(as.character(df$time),'%Y%m%d')
+        m <- as.matrix(df[,vars])
+        rownames(m) <- as.character(d)
+        
         isNum <- apply(!is.na(m),1L,any)
         isNum <- (cumsum(isNum)>0) & rev(cumsum(rev(isNum))>0)
         m <- m[isNum,,drop=FALSE]
-        if(any(diff(as.Date(rownames(m)))!=1L)) {
+        if(any(diff(d[isNum])!=1L)) {
             warning('irregular series',immediate.=TRUE)
         }
+        
     } else {
+        
         m <- list(file=file,id=id,first.row=i[1L],last.row=i[2L])
+
     }
-    
+
     if(id2!=id) {
         warning('id does not match',immediate.=TRUE)
     }
-    
+
     if(!quiet) {
         print(paste0('file: ',file,'; id: ',id2))
     }
