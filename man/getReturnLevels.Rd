@@ -26,7 +26,8 @@ getReturnLevels(f, per = c(30,100,300), alpha = 0.05)
 
 \details{
   Return levels and confidence bounds are calculated as described in Coles
-  (2001). Confidence bounds follow the delta method.
+  (2001). Confidence bounds follow the delta method. Only stationary GEV
+  distributions are supported.
 }
 
 \value{
