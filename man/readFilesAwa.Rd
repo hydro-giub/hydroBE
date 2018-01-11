@@ -49,7 +49,7 @@ readFilesAwa(dir = NULL, files, time.res, series = FALSE, merge)
   corresponding non-missing values in the second series and so
   on. Possible attributes are restricted to column names of the data frame
   returned if \code{series = FALSE}. Series for which an attribute is
-  missing are exluded from the mergin procedure.
+  missing are excluded from the mergin procedure.
 }
 
 \value{
