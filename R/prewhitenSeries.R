@@ -6,53 +6,44 @@ prewhitenSeries <- function(x,alpha=0.05,thr=0.001,max.iter=100) {
     xt1 <- numeric(n-1)
     xt2 <- numeric(n)
     
-    a1 <- b1 <- Inf
-    a2 <- acf(x,plot=FALSE)$acf[2,1,1]
-    b2 <- sens.slope(x)$estimates
+    a1 <- acf(x,plot=FALSE)$acf[2,1,1]
+    b1 <- sens.slope(x)$estimates
+    a2 <- b2 <- Inf
     ad <- bd <- Inf
-    prw <- NA
+    prw <- FALSE
     i <- 0
     
-    if(a2 > cl) {
+    while(ad > thr | bd > thr) {            
 
-        while(ad > thr | bd > thr) {            
-            
-            i <- i+1
+        if(!(a1 > cl)) {break}
 
-            xt1[] <- (x[-1]-a2*x[-n])/(1-a2)
-            b2 <- sens.slope(xt1)$estimates
-            xt2[] <- x-b2*(1:n)
-            a2 <- acf(xt2,plot=FALSE)$acf[2,1,1]
-            
-            if(!(a2 > cl)) {break}
-            
-            ad <- abs(a1-a2)
-            bd <- abs(b1-b2)
-            
-            a1 <- a2
-            b1 <- b2
-            
-            if(i>=max.iter) {
-                warning(paste('still no convergence after',
-                              i,'iterations'))
-                break
-            }
-            
+        if(i>=max.iter) {
+            warning(paste('still no convergence after',
+                          i,'iterations'))
+            break
         }
 
-        xt1 <- c(NA,xt1)
-        prw <- TRUE
-        
-    } else {
+        i <- i+1
 
-        xt1 <- x
+        xt1[] <- (x[-1]-a1*x[-n])/(1-a1)
+        b2 <- sens.slope(xt1)$estimates
+        bd <- abs(b1-b2)
+        b1 <- b2
+
+        xt2[] <- x-b1*(1:n)
+        a2 <- acf(xt2,plot=FALSE)$acf[2,1,1]
+        ad <- abs(a1-a2)
         a1 <- a2
-        prw <- FALSE
-        
+
     }
 
-    attributes(b2) <- NULL
+    if(i>0) {
+        prw <- TRUE
+        x[] <- c(NA,xt1)
+    }
     
-    return(list(x=xt1,prewhitend=prw,acoef=a1,slope=b2,iter=i))
+    attributes(b1) <- NULL
+    
+    return(list(x=x,prewhitend=prw,acoef=a1,slope=b1,iter=i))
 
 }

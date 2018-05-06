@@ -99,8 +99,8 @@ for(i in 1:nsim) {
 }
 
 summary(m)
-sum(m[,'prewhitend']==1)/ns
-sum(m[,'mk.test']<0.05)/ns
+sum(m[,'prewhitend']==1)/nsim
+sum(m[,'mk.test']<0.05)/nsim
 
 par(mfrow=c(1,3))
 hist(m[,'acoef'])
@@ -127,8 +127,8 @@ for(i in 1:nsim) {
 }
 
 summary(m)
-sum(m[,'prewhitend']==1)/ns
-sum(m[,'mk.test']<0.05)/ns
+sum(m[,'prewhitend']==1)/nsim
+sum(m[,'mk.test']<0.05)/nsim
 
 par(mfrow=c(1,3))
 hist(m[,'acoef'])
