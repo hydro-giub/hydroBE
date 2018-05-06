@@ -26,9 +26,10 @@ fetchBafuTable(id, year)
 }
 
 \note{
-  For some gauging stations the pdf tables containing data before the year
-  2004 have a format different than the one currently used. This format is
-  not supported yet.
+  For a few gauging stations the pdf tables have a format different than
+  the one normally used. This most likely results in an error and holds
+  in particular for the station at Aare Bruegg or some pdf tables
+  containing data before the year 2004.
 }
 
 \author{

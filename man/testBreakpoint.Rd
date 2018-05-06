@@ -33,14 +33,15 @@ testBreakpoint(x, alpha = 0.05)
   List with entries
   \item{i}{integer. The index of the most probable breakpoint in \code{x},
     i.e. \eqn{i=argmax_t(|U_t|)}{i=argmax(t)|U(t)|}.}
-  \item{p.value}{real number. The p-value, i.e. the probability of not observing a
-    breakpoint at \code{i}.}
+  \item{p.value}{real number. The p-value, i.e. the probability of not
+    observing a breakpoint at \code{i}.}
   \item{k}{real number. \eqn{k=|U_{i}|}{k=|U(i)|}.}
   \item{critical.value}{real number. The value of \eqn{x} for which
     \eqn{P(K<x)=1-alpha}.}
   \item{reject.HO}{logical. Reject the null hypothesis, i.e.
     \eqn{k \ge critical.value}?}
-  \item{u}{numeric vector. \eqn{U_t}{U(t)} corresponding to the values in \code{x}.}
+  \item{u}{numeric vector. \eqn{U_t}{U(t)} corresponding to the values
+    in \code{x}.}
 }
 
 \references{

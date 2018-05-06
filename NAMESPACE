@@ -2,5 +2,6 @@ exportPattern("^[[:alpha:]]+")
 
 importFrom(graphics, abline, contour, lines, par, plot, points, polygon, text)
 importFrom(MASS, kde2d)
-importFrom(stats, approx, coef, lm, na.omit, qnorm, quantile, spline)
+importFrom(stats, acf, approx, coef, lm, na.omit, qnorm, quantile, spline)
+importFrom(trend, sens.slope)
 importFrom(utils, read.table, unzip)

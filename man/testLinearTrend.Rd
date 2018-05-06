@@ -51,11 +51,6 @@ testLinearTrend(x, n = 1000, ret.slopes = F)
   Original code provided by Pascal H.
 }
 
-\seealso{
-  \code{\link{testBreakpoint}} for a test concerning an abrupte change in
-  the mean level.
-}
-
 \examples{
 x <- rnorm(100) + seq(0,5,length.out=100)
 y <- testLinearTrend(x=x,n=1000,ret.slopes=TRUE)
