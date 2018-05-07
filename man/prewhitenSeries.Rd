@@ -43,9 +43,9 @@ prewhitenSeries(x, alpha = 0.05, thr = 0.001, max.iter = 100)
   time series is especially suitable in case of small sample sizes and
   that it provides a fair compromise between type I and type II
   errors. In particular, the approach tries to balance the AR1 and trend 
-  component, leading to an increased risk to detect spurious trends in
-  the prewhitend series if the original series consists of an AR1
-  process only; see the references and example below.
+  component, leading to a slightly increased risk to detect spurious
+  trends in the prewhitend series if the original series consists of an
+  AR1 process only; see the references and example below.
 }
 
 \value{
@@ -54,7 +54,9 @@ prewhitenSeries(x, alpha = 0.05, thr = 0.001, max.iter = 100)
   \item{prewhitend}{logical. Is \code{x} prewhitend?}
   \item{acoef}{real number. The estimated autocorrelation coefficient at
     lag 1.}
-  \item{slope}{real number. The estimated slope of a linear trend.}
+  \item{slope}{real number. The estimated slope of a linear trend used
+    to estimate \code{acoef} and hence does not necessarily equal the
+    slope of the returned series \code{x}.}
   \item{iter}{integer. The number of iterations.}
 }
 

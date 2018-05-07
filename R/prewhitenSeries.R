@@ -12,34 +12,39 @@ prewhitenSeries <- function(x,alpha=0.05,thr=0.001,max.iter=100) {
     ad <- bd <- Inf
     prw <- FALSE
     i <- 0
-    
-    while(ad > thr | bd > thr) {            
 
-        if(!(a1 > cl)) {break}
+    if(a1>cl) {
 
-        if(i>=max.iter) {
-            warning(paste('still no convergence after',
-                          i,'iterations'))
-            break
+        prw <- TRUE
+        xt1[] <- (x[-1]-a1*x[-n])/(1-a1)
+        
+        while((ad>thr | bd>thr) & i<max.iter) {            
+
+            i <- i+1
+
+            b2 <- sens.slope(xt1)$estimates
+            bd <- abs(b1-b2)
+            b1 <- b2
+
+            xt2[] <- x-b1*(1:n)
+            a2 <- acf(xt2,plot=FALSE)$acf[2,1,1]
+
+            if(a2<cl) {break}
+
+            ad <- abs(a1-a2)
+            a1 <- a2
+
+            xt1[] <- (x[-1]-a1*x[-n])/(1-a1)
+            
         }
 
-        i <- i+1
-
-        xt1[] <- (x[-1]-a1*x[-n])/(1-a1)
-        b2 <- sens.slope(xt1)$estimates
-        bd <- abs(b1-b2)
-        b1 <- b2
-
-        xt2[] <- x-b1*(1:n)
-        a2 <- acf(xt2,plot=FALSE)$acf[2,1,1]
-        ad <- abs(a1-a2)
-        a1 <- a2
-
-    }
-
-    if(i>0) {
-        prw <- TRUE
         x[] <- c(NA,xt1)
+        
+    }
+    
+    if(i==max.iter) {
+        warning(paste('still no convergence after',
+                      i,'iterations'))
     }
     
     attributes(b1) <- NULL
