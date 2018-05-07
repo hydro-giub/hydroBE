@@ -21,7 +21,9 @@ prewhitenSeries(x, alpha = 0.05, thr = 0.001, max.iter = 100)
     constant.}
   \item{alpha}{real number. Defines the significance level alpha that
     the autocorrelation coefficient at lag 1 needs to pass in order that
-    the prewhitening gets applied.}
+    the prewhitening gets applied. To be fully compatible with the
+    references below, use \code{1-pnorm(q=0.05,sd=1/sqrt(n))} with $n$
+    the sample size.}
   \item{thr}{real number. If the absolute difference of the
     autocorrelation coefficient and slope estimates between two
     iterations fall below \code{thr}, the iteration terminates.}
