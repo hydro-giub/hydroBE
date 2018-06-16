@@ -65,11 +65,11 @@ prewhitenSeries(x, alpha = 0.05, thr = 0.001, max.iter = 100)
 \references{
   Wang, X. L., and Swail, V. R. (2001).
   "Changes of Extreme Wave Heights in Northern Hemisphere Oceans and Related Atmospheric Circulation Regimes".
-  Journal of Climate, 14, 2204-2221.
+  Journal of Climate.
 
   Zhang, X., and Zwiers, F. W. (2004).
   "Comment on 'Applicability of prewhitening to eliminate the influence of serial correlation on the Mann-Kendall test' by Sheng Yue and Chun Yuan Wang".
-  Water Resources Research, 40, 1-5.
+  Water Resources Research.
 }
 
 \author{

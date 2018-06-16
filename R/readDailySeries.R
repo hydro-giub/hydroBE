@@ -1,4 +1,47 @@
-importDailySeriesBafu <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
+                            quiet=TRUE,vars=NULL,cnames=NULL) {
+
+    provider <- tolower(provider)
+    
+    if(provider=='bafu') {
+        m <- .readDailySeriesBafu(file=file,id=id,series=series,quiet=quiet)
+    }
+
+    if(provider=='bmlfuw') {
+        m <- .readDailySeriesBmlfuw(file=file,id=id,series=series,quiet=quiet)
+    }
+
+    if(provider=='grdc') {
+        m <- .readDailySeriesGrdc(file=file,id=id,series=series,quiet=quiet)
+    }
+
+    if(provider=='lfub') {
+        m <- .readDailySeriesLfub(file=file,id=id,series=series,quiet=quiet)
+    }
+
+    if(provider=='lubw') {
+        m <- .readDailySeriesLubw(file=file,id=id,series=series,quiet=quiet)
+    }
+
+    if(provider=='mapama') {
+        m <- .readDailySeriesMapama(file=file,id=id,series=series,quiet=quiet)
+    }
+
+    if(provider=='medde') {
+        m <- .readDailySeriesMedde(file=file,id=id,series=series,quiet=quiet)
+    }
+
+    if(provider=='metsw') {
+        m <- .readDailySeriesMetsw(file=file,id=id,series=series,quiet=quiet,
+                                   vars=vars,cnames=cnames)
+    }
+
+    return(m)
+
+}
+
+
+.readDailySeriesBafu <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
     
     p <- dirname(file)
     f <- basename(file)
@@ -47,7 +90,7 @@ importDailySeriesBafu <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
     
 }
 
-importDailySeriesBmlfuw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+.readDailySeriesBmlfuw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
     p <- dirname(file)
     f <- basename(file)
@@ -96,7 +139,7 @@ importDailySeriesBmlfuw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
 }
 
-importDailySeriesGrdc <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+.readDailySeriesGrdc <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
     p <- dirname(file)
     f <- basename(file)
@@ -147,7 +190,7 @@ importDailySeriesGrdc <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
 }
 
-importDailySeriesLfub <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+.readDailySeriesLfub <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
     p <- dirname(file)
     f <- basename(file)
@@ -198,7 +241,7 @@ importDailySeriesLfub <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
 }
 
-importDailySeriesLubw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+.readDailySeriesLubw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
     p <- dirname(file)
     f <- basename(file)
@@ -233,7 +276,7 @@ importDailySeriesLubw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
     } else {
         m <- list(file=file,name=name,site=site,id=id,skip=skip)
     }
-  
+    
     if(id2!=id && as.integer(id2) != as.integer(id)) {
         warning('id does not match',immediate.=TRUE)
     }
@@ -246,7 +289,7 @@ importDailySeriesLubw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
 }
 
-importDailySeriesMapama <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+.readDailySeriesMapama <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
     p <- dirname(file)
     f <- basename(file)
@@ -306,7 +349,7 @@ importDailySeriesMapama <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
 }
 
-importDailySeriesMedde <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+.readDailySeriesMedde <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
     p <- dirname(file)
     f <- basename(file)
@@ -385,8 +428,8 @@ importDailySeriesMedde <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
 
 }
 
-importDailySeriesMs <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE,vars=NULL,cnames=NULL) {
-        
+.readDailySeriesMetsw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE,vars=NULL,cnames=NULL) {
+    
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=TRUE)

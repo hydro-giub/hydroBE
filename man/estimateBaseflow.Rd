@@ -46,7 +46,6 @@ estimateBaseflow(y, win = 5, r = 0.9, plot = FALSE,
 \references{
   Gustard, A., A. Bullock, and J.M. Dixon (1992).
   "Low flow estimation in the United Kingdom".
-  pp 20-25.
 }
 
 \author{

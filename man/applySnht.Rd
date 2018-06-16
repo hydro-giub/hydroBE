@@ -2,11 +2,11 @@
 \alias{applySnht}
 
 \title{
-  Conduct the Standard Normal Homogeneity Test
+  Conduct the standard normal homogeneity test
 }
 
 \description{
-  The Standard Normal Homogeneity Test (SNHT) tries to detect a breakpoint
+  The standard normal homogeneity test (SNHT) tries to detect a breakpoint
   concerning the mean value of a time series, usually in combination with
   a homogeneous reference series. If so, the goal is to detect artifical
   instationarities introduced by e.g. station relocations or sensor

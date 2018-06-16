@@ -47,7 +47,7 @@ testBreakpoint(x, alpha = 0.05)
 \references{
   Pettitt, A. N. (1979).
   "A non-parametric approach to the change-point problem".
-  Applied Statistics, 28, 2, 126-135.
+  Applied Statistics.
 }
 
 \author{
