@@ -22,7 +22,10 @@ plot2dProbability(x1, x2, n = 100, p = 0.9, obs.only = FALSE,
   \item{n}{integer or integer vector of length two. Defines the number of
     grid points to discretise the plane with the observations. Passed to
     \code{\link{kde2d}}.}
-  \item{p}{numeric vector. The probabilities of non-exceedance.}
+  \item{p}{numeric vector. The probabilities that the contours should
+    delineate. E.g. for \code{p=0.9} the contours encompass the smallest
+    region such that the probability of a new observation falling in
+    this region equals 0.9.}
   \item{obs.only}{logical. Integrate the complete pdf over the domain of
     the observations or only at the location of the observations?}
   \item{bandwith}{real number or vector of length two. Defines the

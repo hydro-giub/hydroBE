@@ -12,7 +12,7 @@ getCrps <- function(cdfx,cdfy,obs) {
         f2 <- approxfun(x=cdfx,y=(1-cdfy)^2,yleft=1,yright=0)
         F2 <- integrate(f2,lower=cdfx[1],upper=cdfx[nx],
                         stop.on.error=FALSE)
-        if(F2$message!='OK') print(F2$message)
+        if(F2$message!='OK') {print(F2$message)}
         F2 <- F2$value
     }
 
@@ -21,7 +21,7 @@ getCrps <- function(cdfx,cdfy,obs) {
         f2 <- approxfun(x=cdfx,y=cdfy^2,yleft=0,yright=1)
         F2 <- integrate(f2,lower=cdfx[1],upper=cdfx[nx],
                         stop.on.error=FALSE)
-        if(F2$message!='OK') print(F2$message)
+        if(F2$message!='OK') {print(F2$message)}
         F2 <- F2$value
     }
 
@@ -29,12 +29,12 @@ getCrps <- function(cdfx,cdfy,obs) {
         f1 <- approxfun(x=cdfx,y=cdfy^2,yleft=0,yright=1)
         F1 <- integrate(f1,lower=cdfx[1],upper=obs,
                         stop.on.error=FALSE)
-        if(F1$message!='OK') print(F1$message)
+        if(F1$message!='OK') {print(F1$message)}
         F1 <- F1$value
         f2 <- approxfun(x=cdfx,y=(1-cdfy)^2,yleft=1,yright=0)
         F2 <- integrate(f2,lower=obs,upper=cdfx[nx],
                         stop.on.error=FALSE)
-        if(F2$message!='OK') print(F2$message)
+        if(F2$message!='OK') {print(F2$message)}
         F2 <- F2$value
     }
 

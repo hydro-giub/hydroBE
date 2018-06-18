@@ -62,6 +62,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
     skip <- grep(paste0(id,';[-[:digit:];,. ]+$'),ll)[1L]-1L
 
     if(series) {
+        
         l <- l[-(1:skip)]
         l <- sub('^[[:digit:]]+;','',l)
         d <- sub('^([[:digit:]]{4}\\.[[:digit:]]{2}\\.[[:digit:]]{2}).*$','\\1',l)
@@ -74,8 +75,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         if(any(diff(as.Date(rownames(m)))!=1L)) {
             warning('irregular series',immediate.=TRUE)
         }
+        
     } else {
+        
         m <- list(file=file,name=name,site=site,id=id,skip=skip)
+        
     }
     
     if(id2!=id && as.integer(id2) != as.integer(id)) {
@@ -101,6 +105,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
     skip <- grep('^Werte:$',ll)[1L]
 
     if(series) {
+        
         l <- l[-(1:skip)]
         d <- sub('^([[:digit:]]{2})\\.([[:digit:]]{2})\\.([[:digit:]]{4}).*$','\\3-\\2-\\1',l)
         l <- sub('^.*;(.*)$','\\1',l)
@@ -111,8 +116,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         if(any(diff(as.Date(rownames(m)))!=1L)) {
             warning('irregular series',immediate.=TRUE)
         }
+        
     } else {
+        
         m <- list(file=file,name=name,site=site,id=id,skip=skip)
+        
     }
 
     if(id2!=id && as.integer(id2) != as.integer(id)) {
@@ -138,6 +146,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
     skip <- grep('^[[:digit:]]+[[:digit:][:punct:][:blank:]]+$',ll)[1L]-1L
 
     if(series) {
+        
         l <- l[-(1:skip)]
         d <- sub('^([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}).*$','\\1',l)
         l <- sub(';[^;]*$','',l)
@@ -150,8 +159,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         if(any(diff(as.Date(rownames(m)))!=1L)) {
             warning('irregular series',immediate.=TRUE)
         }
+        
     } else {
+        
         m <- list(file=file,name=name,site=site,id=id,skip=skip)
+        
     }
 
     if(id2!=id && as.integer(id2) != as.integer(id)) {
@@ -177,6 +189,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
     skip <- grep('^Datum;',ll)[1L]
 
     if(series) {
+        
         l <- l[-(1:skip)]
         d <- sub('^([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}).*$','\\1',l)
         l <- sub('^[-[:digit:]]+;([[:digit:],]+);.*$','\\1',l)
@@ -189,8 +202,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         if(any(diff(as.Date(rownames(m)))!=1L)) {
             warning('irregular series',immediate.=TRUE)
         }
+        
     } else {
+        
         m <- list(file=file,name=name,site=site,id=id,skip=skip)
+        
     }
 
     if(id2!=id && as.integer(id2) != as.integer(id)) {
@@ -213,6 +229,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
     skip <- 1L
     
     if(series) {
+        
         l <- l[-(1:skip)]
         d <- sub('^([[:digit:]]{2})\\.([[:digit:]]{2})\\.([[:digit:]]{4}).*$','\\3-\\2-\\1',l)
         l <- sub('^.*[[:space:]]+','',l)
@@ -225,8 +242,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         if(any(diff(as.Date(rownames(m)))!=1)) {
             warning('irregular series',immediate.=TRUE)
         }
+        
     } else {
+        
         m <- list(file=file,name=name,site=site,id=id,skip=skip)
+        
     }
     
     if(id2!=id && as.integer(id2) != as.integer(id)) {
@@ -255,6 +275,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
     skip <- NA
 
     if(series) {
+        
         r <- range(mt[,2L])
         r <- as.Date(c(paste0(r[1L],'-01-01'),paste0(r[2L]+1L,'-12-31')))
         d <- seq.Date(r[1L],r[2L],by='day')
@@ -272,9 +293,12 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         m <- m[isNum,,drop=FALSE]
         if(any(diff(as.Date(rownames(m)))!=1)) {
             warning('irregular series',immediate.=TRUE)
-        }	
+        }
+	
     } else {
+        
         m <- list(file=file,name=name,site=site,id=id,skip=skip)
+        
     }
 
     if(id2!=id && as.integer(id2) != as.integer(id)) {

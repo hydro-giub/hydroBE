@@ -41,10 +41,9 @@ testLinearTrend(x, n = 1000, ret.slopes = F)
 }
 
 \references{
-  Kundzewicz, Z. W., and Robson, A. (Editors) (2000).
+  Kundzewicz, Z. W., and A. Robson (Editors) (2000).
   "Detecting trend and other changes in hydrological data".
-  World Climate Program - Water, WMO/UNESCO, WCDMP-45, WMO/TD 1013,
-  Geneva.
+  World Climate Program - Water, WMO/UNESCO, Geneva.
 }
 
 \author{

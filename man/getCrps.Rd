@@ -33,8 +33,8 @@ getCrps(cdfx, cdfy, obs)
 }
 
 \references{
-  Hersbach, H., (2000).
-  "Decomposition of the continuous ranked probability score for ensemble prediction systems."
+  Hersbach, H. (2000).
+  "Decomposition of the continuous ranked probability score for ensemble prediction systems".
   Weather and Forecasting.
 }
 
@@ -47,8 +47,8 @@ getCrps(cdfx, cdfy, obs)
     \item The step width in \code{cdfx} should be small enough such that
     a linear approximation between the points is reasonable.
     \item Step functions (i.e. deterministic predictions with the
-    probability mass at a single value) should be avoided since the
-    numerical integration fails (see the examples below).
+    entire probability mass at a single value) should be avoided since
+    the numerical integration fails (see the examples below).
   }
 }
 
