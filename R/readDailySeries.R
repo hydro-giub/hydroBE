@@ -1,48 +1,8 @@
 readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
-                            quiet=TRUE,vars=NULL,cnames=NULL) {
+                            vars=NULL,cnames=NULL) {
 
     provider <- tolower(provider)
-    
-    if(provider=='bafu') {
-        m <- .readDailySeriesBafu(file=file,id=id,series=series,quiet=quiet)
-    }
 
-    if(provider=='bmlfuw') {
-        m <- .readDailySeriesBmlfuw(file=file,id=id,series=series,quiet=quiet)
-    }
-
-    if(provider=='grdc') {
-        m <- .readDailySeriesGrdc(file=file,id=id,series=series,quiet=quiet)
-    }
-
-    if(provider=='lfub') {
-        m <- .readDailySeriesLfub(file=file,id=id,series=series,quiet=quiet)
-    }
-
-    if(provider=='lubw') {
-        m <- .readDailySeriesLubw(file=file,id=id,series=series,quiet=quiet)
-    }
-
-    if(provider=='mapama') {
-        m <- .readDailySeriesMapama(file=file,id=id,series=series,quiet=quiet)
-    }
-
-    if(provider=='medde') {
-        m <- .readDailySeriesMedde(file=file,id=id,series=series,quiet=quiet)
-    }
-
-    if(provider=='metsw') {
-        m <- .readDailySeriesMetsw(file=file,id=id,series=series,quiet=quiet,
-                                   vars=vars,cnames=cnames)
-    }
-
-    return(m)
-
-}
-
-
-.readDailySeriesBafu <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
-    
     p <- dirname(file)
     f <- basename(file)
     file <- list.files(path=p,pattern=f,full.names=TRUE)
@@ -50,6 +10,46 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('file not found or multiple matches')
         return(NULL)
     }
+    
+    
+    if(provider=='bafu') {
+        m <- .readDailySeriesBafu(file=file,id=id,series=series)
+    }
+
+    if(provider=='bmlfuw') {
+        m <- .readDailySeriesBmlfuw(file=file,id=id,series=series)
+    }
+
+    if(provider=='grdc') {
+        m <- .readDailySeriesGrdc(file=file,id=id,series=series)
+    }
+
+    if(provider=='lfub') {
+        m <- .readDailySeriesLfub(file=file,id=id,series=series)
+    }
+
+    if(provider=='lubw') {
+        m <- .readDailySeriesLubw(file=file,id=id,series=series)
+    }
+
+    if(provider=='mapama') {
+        m <- .readDailySeriesMapama(file=file,id=id,series=series)
+    }
+
+    if(provider=='medde') {
+        m <- .readDailySeriesMedde(file=file,id=id,series=series)
+    }
+
+    if(provider=='metsw') {
+        m <- .readDailySeriesMetsw(file=file,id=id,series=series,vars=vars,cnames=cnames)
+    }
+
+    return(m)
+
+}
+
+
+.readDailySeriesBafu <- function(file=NULL,id=NULL,series=TRUE) {
     
     l <- readLines(file,encoding='latin1',n=ifelse(series,-1L,200L))
     n <- length(l)
@@ -82,23 +82,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('id does not match',immediate.=TRUE)
     }
     
-    if(!quiet) {
-        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
-    }
-
     return(m)
     
 }
 
-.readDailySeriesBmlfuw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
-
-    p <- dirname(file)
-    f <- basename(file)
-    file <- list.files(path=p,pattern=f,full.names=TRUE)
-    if(length(file)!=1L) {
-        warning('file not found or multiple matches')
-        return(NULL)
-    }
+.readDailySeriesBmlfuw <- function(file=NULL,id=NULL,series=TRUE) {
 
     l <- readLines(file,encoding='latin1',n=ifelse(series,-1L,200L))
     n <- length(l)
@@ -131,24 +119,12 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('id does not match',immediate.=TRUE)
     }
     
-    if(!quiet) {
-        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
-    }
-
     return(m)
 
 }
 
-.readDailySeriesGrdc <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
+.readDailySeriesGrdc <- function(file=NULL,id=NULL,series=TRUE) {
 
-    p <- dirname(file)
-    f <- basename(file)
-    file <- list.files(path=p,pattern=f,full.names=TRUE)
-    if(length(file)!=1L) {
-        warning('file not found or multiple matches')
-        return(NULL)
-    }
-    
     l <- readLines(file,encoding='latin1',n=ifelse(series,-1L,200L))
     n <- length(l)
     ll <- l[1:ifelse(n>200,200L,n)]
@@ -182,24 +158,12 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('id does not match',immediate.=TRUE)
     }
     
-    if(!quiet) {
-        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
-    }
-
     return(m)
 
 }
 
-.readDailySeriesLfub <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
-
-    p <- dirname(file)
-    f <- basename(file)
-    file <- list.files(path=p,pattern=f,full.names=TRUE)
-    if(length(file)!=1L) {
-        warning('file not found or multiple matches')
-        return(NULL)
-    }
-
+.readDailySeriesLfub <- function(file=NULL,id=NULL,series=TRUE) {
+    
     l <- readLines(file,encoding='latin1',n=ifelse(series,-1L,200L))
     n <- length(l)
     ll <- l[1:ifelse(n>200,200L,n)]
@@ -233,23 +197,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('id does not match',immediate.=TRUE)
     }
     
-    if(!quiet) {
-        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
-    }
-
     return(m)
 
 }
 
-.readDailySeriesLubw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
-
-    p <- dirname(file)
-    f <- basename(file)
-    file <- list.files(path=p,pattern=f,full.names=TRUE)
-    if(length(file)!=1L) {
-        warning('file not found or multiple matches')
-        return(NULL)
-    }
+.readDailySeriesLubw <- function(file=NULL,id=NULL,series=TRUE) {
 
     l <- readLines(file,encoding='latin1',n=ifelse(series,-1L,200L))
     n <- length(l)
@@ -281,23 +233,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('id does not match',immediate.=TRUE)
     }
     
-    if(!quiet) {
-        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
-    }
-
     return(m)
 
 }
 
-.readDailySeriesMapama <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
-
-    p <- dirname(file)
-    f <- basename(file)
-    file <- list.files(path=p,pattern=f,full.names=TRUE)
-    if(length(file)!=1L) {
-        warning('file not found or multiple matches')
-        return(NULL)
-    }
+.readDailySeriesMapama <- function(file=NULL,id=NULL,series=TRUE) {
 
     l <- readLines(file,encoding='UTF-8')
 
@@ -341,23 +281,11 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('id does not match',immediate.=TRUE)
     }
     
-    if(!quiet) {
-        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
-    }
-
     return(m)
 
 }
 
-.readDailySeriesMedde <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE) {
-
-    p <- dirname(file)
-    f <- basename(file)
-    file <- list.files(path=p,pattern=f,full.names=TRUE)
-    if(length(file)!=1L) {
-        warning('file not found or multiple matches')
-        return(NULL)
-    }
+.readDailySeriesMedde <- function(file=NULL,id=NULL,series=TRUE) {
 
     l <- readLines(file,encoding='latin1',n=ifelse(series,-1L,200L))
     n <- length(l)
@@ -420,24 +348,12 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         warning('id does not match',immediate.=TRUE)
     }
 
-    if(!quiet) {
-        print(paste0('file: ',file,'; site: ',site,'; name: ',name,'; id: ',id2))
-    }
-
     return(m)
 
 }
 
-.readDailySeriesMetsw <- function(file=NULL,id=NULL,series=TRUE,quiet=TRUE,vars=NULL,cnames=NULL) {
+.readDailySeriesMetsw <- function(file=NULL,id=NULL,series=TRUE,vars=NULL,cnames=NULL) {
     
-    p <- dirname(file)
-    f <- basename(file)
-    file <- list.files(path=p,pattern=f,full.names=TRUE)
-    if(length(file)!=1L) {
-        warning('file not found or multiple matches')
-        return(NULL)
-    }
-
     ff <- unzip(file,list=TRUE)
     ff <- ff$Name[grepl('^order_[0-9]+_data\\.txt$',ff$Name)]
     co <- unz(file,ff)
@@ -481,10 +397,6 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
 
     if(id2!=id) {
         warning('id does not match',immediate.=TRUE)
-    }
-
-    if(!quiet) {
-        print(paste0('file: ',file,'; id: ',id2))
     }
     
     return(m)

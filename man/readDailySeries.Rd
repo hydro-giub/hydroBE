@@ -21,7 +21,7 @@
 
 \usage{
 readDailySeries(file = NULL, id = NULL, provider = NULL, series = TRUE,
-                quiet = TRUE, vars = NULL, cnames=NULL)
+                vars = NULL, cnames=NULL)
 }
 
 \arguments{
@@ -33,7 +33,6 @@ readDailySeries(file = NULL, id = NULL, provider = NULL, series = TRUE,
     specified in the table above.}
   \item{series}{logical. Return the series? Otherwise, name, id, and
     file name are returned.}
-  \item{quiet}{logical. Print a short summary?}
   \item{vars}{character vector. The variable's column names in
     \code{file}. Currently only used for METSW.}
   \item{cnames}{character vector of same length as \code{vars}. If

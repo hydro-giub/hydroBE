@@ -1,6 +1,7 @@
 # hydroBE
 R-Package with miscellaneous functions of the [Group of Hydrology Bern](http://www.hydrologie.unibe.ch/index.html).
 
+### How to start
 To install the package, you can use the help of [{devtools}](https://CRAN.R-project.org/package=devtools):
 
 ```r
@@ -11,4 +12,7 @@ library(hydroBE)
 package?hydroBE
 ```
 
-or download the repo and install from source. Please note that the package depends on the [{trend}](https://CRAN.R-project.org/package=trend) package.
+or download the repo and install from source.
+
+### Note
+- the package depends on the [{trend}](https://CRAN.R-project.org/package=trend) package
