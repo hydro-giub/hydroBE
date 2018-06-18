@@ -31,20 +31,21 @@ getApi(x, k = 0.9, n = 5, finite = TRUE)
 
 \details{
   \itemize{
-    \item  If \code{finite = TRUE} and \code{k} is a single number, the weights
-    are derived as \deqn{k^i, i=0,...,n-1}{k^i, i=0,...,n-1}.
-    \item If \code{finite = TRUE} and \code{k} is a numeric vector of
-    length greater than 1, \code{n} is ignored and \code{k} is used for
+    \item  If \code{finite=TRUE} and \code{k} is a single number, the weights
+    are derived as \eqn{k^i, i=0,...,n-1}{k^i, i=0,...,n-1}.
+    \item If \code{finite=TRUE} and \code{k} is a numeric vector of
+    length greater than one, \code{n} is ignored and \code{k} is used for
     the weighting procedure. In this case, the weights defined in
     \code{k} should increase along the vector indices.
-    \item If \code{finite = FALSE}, \code{n} is ignored and \code{k}
+    \item If \code{finite=FALSE}, \code{n} is ignored and \code{k}
     should be a single number. The API series is initialised with
     \code{x[1]} and recursively calculated according to
-    \deqn{API_t = k \cdot API_{t-1} + x[t-1]}{API_t = k*API_{t-1} + x[t-1]}
+    \deqn{API_t = k \cdot API_{t-1} + x_{t-1}}{API[t] = k*API[t-1] +
+      x[t-1]}
+    \item If \code{k} is a single number, the solutions of
+    \code{finite=TRUE} and \code{finite=FALSE} converge for increasing
+    values of \code{n} (see 'Examples' below).
   }
- If \code{k} is a single number, the solutions of \code{finite = TRUE}
- and \code{finite = FALSE} converge for increasing values of \code{n}
- (see 'Examples' below).
 }
 
 \value{
@@ -64,7 +65,7 @@ getApi(x, k = 0.9, n = 5, finite = TRUE)
 \examples{
 ## the larger n, the closer are the solutions 
 x <- rexp(1000)
-api1 <- getApi(x=x)
+api1 <- getApi(x=x,n=10)
 api2 <- getApi(x=x,finite=FALSE)
 
 x <- rexp(1000)

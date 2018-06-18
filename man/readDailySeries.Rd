@@ -20,24 +20,21 @@
 }
 
 \usage{
-readDailySeries(file = NULL, id = NULL, provider = NULL, series = TRUE,
-                vars = NULL, cnames=NULL)
+readDailySeries(file = NULL, id = NULL, provider = NULL,
+                series = TRUE, vars = NULL)
 }
 
 \arguments{
   \item{file}{string. The full file name (can also be a regular
     expression).}
-  \item{id}{integer. Id of the corresponding gauge station as specified by
-    the provider.}
+  \item{id}{number of string. Id of the corresponding gauge station as
+    specified by the provider.}
   \item{provider}{string. The abbreviated name of the data provider as
     specified in the table above.}
   \item{series}{logical. Return the series? Otherwise, name, id, and
     file name are returned.}
   \item{vars}{character vector. The variable's column names in
     \code{file}. Currently only used for METSW.}
-  \item{cnames}{character vector of same length as \code{vars}. If
-    supplied the returned matrix will have column names according to
-    \code{cnames}. Currently only used for METSW.}
 }
 
 \details{
@@ -69,6 +66,36 @@ Simon S
 
 \examples{
 \dontrun{
-f <- '/path/to/file.txt'
-d <- readDailySeries(file=f,id=2089,provider='BAFU')}
+## BAFU
+f <- paste0(ddir,'AllDar_Q_2490_Tagesmittel.asc')
+d <- readDailySeries(file=f,id='2490',provider='BAFU')
+
+## BMLFUW
+f <- paste0(ddir,'200451.txt')
+d <- readDailySeries(file=f,id='200451',provider='BMLFUW')
+
+## GRDC
+f <- paste0(ddir,'6731510.day')
+d <- readDailySeries(file=f,id='6731510',provider='GRDC')
+
+## LFUB
+f <- paste0(ddir,'21516505.csv')
+d <- readDailySeries(file=f,id='21516505',provider='LFUB')
+
+## LUBW
+f <- paste0(ddir,'0076275-Q.txt')
+d <- readDailySeries(file=f,id='0076275',provider='LUBW')
+
+## MAPAMA
+f <- paste0(ddir,'4904.xml')
+d <- readDailySeries(file=f,id='4904',provider='MAPAMA')
+
+## MEDDE
+f <- paste0(ddir,'H5920010.csv')
+d <- readDailySeries(file=f,id='H5920010',provider='MEDDE')
+
+## METSW
+f <- paste0(ddir,'order36881.zip')
+d <- readDailySeries(file=f,id='WIN',provider='METSW',
+                     vars=c('rre150d0','tre200d0'))}
 }

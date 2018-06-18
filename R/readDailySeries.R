@@ -1,5 +1,4 @@
-readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
-                            vars=NULL,cnames=NULL) {
+readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,vars=NULL) {
 
     provider <- tolower(provider)
 
@@ -41,7 +40,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
     }
 
     if(provider=='metsw') {
-        m <- .readDailySeriesMetsw(file=file,id=id,series=series,vars=vars,cnames=cnames)
+        m <- .readDailySeriesMetsw(file=file,id=id,series=series,vars=vars)
     }
 
     return(m)
@@ -376,7 +375,7 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
 
 }
 
-.readDailySeriesMetsw <- function(file=NULL,id=NULL,series=TRUE,vars=NULL,cnames=NULL) {
+.readDailySeriesMetsw <- function(file=NULL,id=NULL,series=TRUE,vars=NULL) {
     
     ff <- unzip(file,list=TRUE)
     ff <- ff$Name[grepl('^order_[0-9]+_data\\.txt$',ff$Name)]
@@ -395,12 +394,6 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,
         i <- vars%in%names(df)
         if(!any(i)) {return(NULL)}
         vars <- vars[i]
-        
-        if(is.null(cnames)) {
-            cnames <- vars
-        } else {
-            cnames <- cnames[i]
-        }
 
         d <- as.Date(as.character(df$time),'%Y%m%d')
         m <- as.matrix(df[,vars])

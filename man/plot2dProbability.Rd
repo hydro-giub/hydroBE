@@ -35,10 +35,10 @@ plot2dProbability(x1, x2, n = 100, p = 0.9, obs.only = FALSE,
 
 \details{
   Missing values in \code{x1} and \code{x2} are not allowed. If
-  \code{obs.only = TRUE} the kernel density is sampled at the location of
+  \code{obs.only=TRUE} the kernel density is sampled at the location of
   the points defined by \code{x1} and \code{x2}. The quantiles of these
   density values (with probability \eqn{1-p}) are then used to
-  draw the contours. For  \code{obs.only = FALSE} the complete density
+  draw the contours. For  \code{obs.only=FALSE} the complete density
   function is integrated. 
 }
 
