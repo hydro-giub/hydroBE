@@ -1,4 +1,4 @@
-## test cleanSeries* functions
+## test cleanSeries*()
 library(hydroBE)
 rm(list=ls())
 
@@ -38,10 +38,12 @@ d <- c('31.12.1999,24:00,1',
        '01.01.2000,00:00, 1',
        '01.01.2000,00:00,1 ',
        '01.01.2000,00:00 , 1')
-r <- check(f=hydroBE:::.cleanSeriesAwaHydropro,x=d,sep=',',value='1',date='2000-01-01 00:00')
-if(!isTRUE(r)) {print(r);stop()}
-r <- check(f=hydroBE:::.cleanSeriesBafuHydropro,x=d,sep=',',value='1',date='2000-01-01 00:00')
-if(!isTRUE(r)) {print(r);stop()}
+r <- check(f=hydroBE:::.cleanSeriesAwaHydropro,x=d,sep=',',
+           value='1',date='2000-01-01 00:00')
+if(!isTRUE(r)) {print(r);stop('.cleanSeriesAwaHydropro')}
+r <- check(f=hydroBE:::.cleanSeriesBafuHydropro,x=d,sep=',',
+           value='1',date='2000-01-01 00:00')
+if(!isTRUE(r)) {print(r);stop('.cleanSeriesBafuHydropro')}
 
 ## AWA test removing of unnecessary columns
 d <- c('01.01.2000,00:00,1',
@@ -54,8 +56,9 @@ d <- c('01.01.2000,00:00,1',
        '01.01.2000,00:00,1,,,',
        '01.01.2000,00:00,1,Luecke',
        '01.01.2000,00:00,1,.2,3,,')
-r <- check(f=hydroBE:::.cleanSeriesAwaHydropro,x=d,sep=',',value='1',date='2000-01-01 00:00')
-if(!isTRUE(r)) {print(r);stop()}
+r <- check(f=hydroBE:::.cleanSeriesAwaHydropro,x=d,sep=',',
+           value='1',date='2000-01-01 00:00')
+if(!isTRUE(r)) {print(r);stop('.cleanSeriesAwaHydropro')}
 
 ## BAFU regular date and time, mean values
 d <- c('0050;2000.01-2000.01;1',
@@ -72,8 +75,9 @@ d <- c('0050;2000.01-2000.01;1',
        '0050;2000.01.01-2000.01.02  ;1',
        ';2000.01.01 00:00-2000.01.01 01:00;1',
        '2000.01.01 00:00-2000.01.01 01:00;1')
-r <- check(f=hydroBE:::.cleanSeriesBafuRegular,x=d,sep=';',value='1',date='2000-01-01 00:00')
-if(!isTRUE(r)) {print(r);stop()}
+r <- check(f=hydroBE:::.cleanSeriesBafuRegular,x=d,sep=';',
+           value='1',date='2000-01-01 00:00')
+if(!isTRUE(r)) {print(r);stop('.cleanSeriesBafuRegular')}
 
 ## BAFU regular date and time, peak values
 d <- c('0050;2000.01;1',
@@ -90,8 +94,9 @@ d <- c('0050;2000.01;1',
        '0050;2000.01.01  ;1',
        ';2000.01.01 00:00;1',
        '2000.01.01 00:00;1')
-r <- check(f=hydroBE:::.cleanSeriesBafuRegular,x=d,sep=';',value='1',date='2000-01-01 00:00')
-if(!isTRUE(r)) {print(r);stop()}
+r <- check(f=hydroBE:::.cleanSeriesBafuRegular,x=d,sep=';',
+           value='1',date='2000-01-01 00:00')
+if(!isTRUE(r)) {print(r);stop('.cleanSeriesBafuRegular')}
 
 ## AWA and BAFU hydropro missing values
 d <- c('01.01.2000,00:00,NA',
@@ -108,7 +113,9 @@ d <- c('01.01.2000,00:00,NA',
        '01.01.2000,00:00,L1',
        '01.01.2000,00:00,bla1',
        '01.01.2000,00:00,1-1')
-r <- check(f=hydroBE:::.cleanSeriesAwaHydropro,x=d,sep=',',value='',date='')
-if(!isTRUE(r)) {print(r);stop()}
-r <- check(f=hydroBE:::.cleanSeriesBafuHydropro,x=d,sep=',',value='',date='')
-if(!isTRUE(r)) {print(r);stop()}
+r <- check(f=hydroBE:::.cleanSeriesAwaHydropro,x=d,sep=',',
+           value='',date='')
+if(!isTRUE(r)) {print(r);stop('.cleanSeriesAwaHydropro')}
+r <- check(f=hydroBE:::.cleanSeriesBafuHydropro,x=d,sep=',',
+           value='',date='')
+if(!isTRUE(r)) {print(r);stop('.cleanSeriesBafuHydropro')}

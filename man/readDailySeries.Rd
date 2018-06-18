@@ -58,6 +58,18 @@ readDailySeries(file = NULL, id = NULL, provider = NULL, series = TRUE,
   the file.
 }
 
+\section{Warning}{
+  This function has been successfully used over the past few years,
+  however, it will fail as soon as the data providers change their file
+  structures or header formats.
+}
+
 \author{
 Simon S
+}
+
+\examples{
+\dontrun{
+f <- '/path/to/file.txt'
+d <- readDailySeries(file=f,id=2089,provider='BAFU')}
 }
