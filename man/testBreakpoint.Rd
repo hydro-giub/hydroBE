@@ -18,7 +18,7 @@ testBreakpoint(x, alpha = 0.05)
   \item{x}{numeric vector. Missing values are not allowed and it is
     assumed that the frequency, at which the observation took place, is
     constant.}
-  \item{alpha}{real number. Defines the significance level alpha.}
+  \item{alpha}{real number. Defines the significance level.}
 }
 
 \details{

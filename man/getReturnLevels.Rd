@@ -16,18 +16,17 @@ getReturnLevels(f, per = c(30,100,300), alpha = 0.05)
 }
 
 \arguments{
-  \item{f}{object of class \code{gev.fit}. Needs to be the return value
-    from the function \code{gev.fit} of the package
+  \item{f}{object of class \code{gev.fit}. Needs to be the object
+    returned by the function \code{gev.fit} of the package
     \bold{\href{https://cran.r-project.org/package=ismev}{ismev}}.}
   \item{per}{integer vector. The return periods with respect to the chosen
     block size. For yearly block maxima this amounts to years.}
-  \item{alpha}{real number. The confidence level alpha.}
+  \item{alpha}{real number. Defines the confidence level.}
 }
 
 \details{
-  Return levels and confidence bounds are calculated as described in Coles
-  (2001). Confidence bounds follow the delta method. Only stationary GEV
-  distributions are supported.
+  Confidence bounds are calculated according to the delta method. Only
+  stationary GEV distributions are supported.
 }
 
 \value{
@@ -54,6 +53,6 @@ getReturnLevels(f, per = c(30,100,300), alpha = 0.05)
 \dontrun{
 library(ismev)
 f <- gev.fit(rnorm(100))
-rl <- getReturnLevels(f)
-rl}
+getReturnLevels(f)
+}
 }

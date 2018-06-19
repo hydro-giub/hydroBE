@@ -19,7 +19,7 @@ prewhitenSeries(x, alpha = 0.05, thr = 0.001, max.iter = 100)
   \item{x}{numeric vector. Missing values are not allowed and it is
     assumed that the frequency, at which the observation took place, is
     constant.}
-  \item{alpha}{real number. Defines the significance level alpha that
+  \item{alpha}{real number. Defines the significance level that
     the autocorrelation coefficient at lag 1 needs to pass in order that
     the prewhitening gets applied. To be fully compatible with the
     references below, use \code{1-pnorm(q=0.05,sd=1/sqrt(n))} with
@@ -85,7 +85,7 @@ n <- 50
 nsim <- 1000
 coln <- c('prewhitend','acoef','slope','iter','mk.test')
 
-## check type I error
+## check type I error (risk)
 ## series consists of AR1 process only
 m <- matrix(NA,nrow=nsim,ncol=length(coln),dimnames=list(NULL,coln))
 
@@ -111,7 +111,7 @@ hist(m[,'acoef'])
 hist(m[,'slope'])
 hist(m[,'mk.test'])
 
-## check type II error
+## check type II error (power)
 ## series consists of true trend and AR1 process
 m <- matrix(NA,nrow=nsim,ncol=length(coln),dimnames=list(NULL,coln))
 

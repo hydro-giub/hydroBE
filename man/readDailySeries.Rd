@@ -33,7 +33,7 @@ readDailySeries(file = NULL, id = NULL, provider = NULL,
     specified in the table above.}
   \item{series}{logical. Return the series? Otherwise, name, id, and
     file name are returned.}
-  \item{vars}{character vector. The variable's column names in
+  \item{vars}{character vector. The variables' column names in
     \code{file}. Currently only used for METSW.}
 }
 
@@ -49,7 +49,7 @@ readDailySeries(file = NULL, id = NULL, provider = NULL,
 }
 
 \value{
-  Matrix with the daily dates in the row names; streamflow data is labeled
+  Matrix with the daily dates in the row names; streamflow data is labelled
   'qd'. If \code{series=FALSE} a list that contains some information about
   the file.
 }

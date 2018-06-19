@@ -33,7 +33,7 @@ estimateSnowFraction(y, thr = 0.9, trans = 1)
   rain. For the range spanned by \code{trans} linear interpolation takes
   place.
   
-  The default values for \code{thr} and \code{trans} are derived from a
+  The default values for \code{thr} and \code{trans} are based on a
   hydrological analysis in the Thur catchment (Switzerland) and refer to
   temperature in degree Celsius.
 }

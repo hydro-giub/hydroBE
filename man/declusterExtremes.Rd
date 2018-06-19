@@ -22,7 +22,7 @@ declusterExtremes(y, L = 11)
 }
 
 \details{
-  Plateaus are strictly handled as non-maxima. To decluster minimas,
+  Plateaus are strictly handled as non-maxima. To decluster minima,
   use \eqn{-1 \cdot y}{-1*y}.
 }
 

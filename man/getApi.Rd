@@ -20,7 +20,7 @@ getApi(x, k = 0.9, n = 5, finite = TRUE)
     frequency and no missing values.}
   \item{k}{real number or numeric vector. The weights to sum up the
     antecedent precipitation values, see 'Details' below. The elements
-    of \code{k} should be in \eqn{[0,1]} to make physically sense.}
+    of \code{k} should be in \eqn{[0,1]} for physical consistency.}
   \item{n}{integer. The number of antecedent time steps to consider for
     the API.}
   \item{finite}{logical. Use a fixed number of previous days (as

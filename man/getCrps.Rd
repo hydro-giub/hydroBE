@@ -16,10 +16,10 @@ getCrps(cdfx, cdfy, obs)
 }
 
 \arguments{
-  \item{cdfx}{numeric vector. The locations of the probabilities defined
-    in \code{cdfy} on the x axis.}
+  \item{cdfx}{numeric vector. The quantiles belonging to the
+    probabilities defined in \code{cdfy}.}
   \item{cdfy}{numeric vector. The probabilities belonging to the
-    predicted cumulative distribution function.}
+    quantiles defined in \code{cdfx}.}
   \item{obs}{real number. The value of the observation corresponding to
     the probabilistic prediction.}
 }
@@ -48,7 +48,7 @@ getCrps(cdfx, cdfy, obs)
     a linear approximation between the points is reasonable.
     \item Step functions (i.e. deterministic predictions with the
     entire probability mass at a single value) should be avoided since
-    the numerical integration fails (see the examples below).
+    the numerical integration fails (see the 'Examples' below).
   }
 }
 
@@ -60,7 +60,7 @@ cdfy <- pnorm(q=cdfx)
 getCrps(cdfx=cdfx,cdfy=cdfy,obs=obs)
 
 ## 'deterministic' prediction:
-## in theory we should end up with the mean absolut error
+## in theory we should end up with the mean absolute error
 ## however, the numerical integration of the step function fails
 obs <- 0
 cdfx <- c(-3,-1,-1,2)

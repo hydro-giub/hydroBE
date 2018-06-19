@@ -5,11 +5,11 @@ plot2dProbability <- function(x1,x2,n=100,p=0.9,obs.only=FALSE,bandwith,...) {
     ## add some extra space
     x1lim <- range(x1)
     x1r <- x1lim[2]-x1lim[1]
-    x1lim <- x1lim+c(-x1r/10,x1r/10)
+    x1lim <- x1lim+c(-x1r/2,x1r/2)
 
     x2lim <- range(x2)
     x2r <- x2lim[2]-x2lim[1]
-    x2lim <- x2lim+c(-x2r/10,x2r/10)
+    x2lim <- x2lim+c(-x2r/2,x2r/2)
 
     ## kernel density
     if(missing(bandwith)) {

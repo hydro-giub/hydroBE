@@ -8,7 +8,7 @@
 \description{
   The standard normal homogeneity test (SNHT) tries to detect a breakpoint
   concerning the mean value of a time series, usually in combination with
-  a homogeneous reference series. If so, the goal is to detect artifical
+  a homogeneous reference series. If so, the goal is to detect artificial
   instationarities introduced by e.g. station relocations or sensor
   drifts. 
 }
@@ -39,7 +39,7 @@ applySnht(y, x, method, omit = 0)
 \value{
   List with entries:
   \item{i}{integer. The index of the most probable breakpoint, i.e. the
-    last time step before the break occures.}
+    last time step before the break occurs.}
   \item{test}{logical vector. Significance of the most probable breakpoint
     \code{i} with respect to the levels 0.1, 0.08, 0.06, 0.05, 0.025, and
     0.01. The critical values are taken from Khaliq and Ouarda (2007).}

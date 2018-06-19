@@ -28,7 +28,7 @@ getRatingPoints(z, x, k, m, l, plot = FALSE)
     same length as \code{z} and \code{x} and gets linearly interpolated.}
   \item{m}{real number. Slope of the river bed perpendicular to the
     channel profile, \eqn{m = tan(\alpha)}.}
-  \item{l}{numeric vector. Positive water levels [m] for which
+  \item{l}{numeric vector. Positive water levels [m] for which the
     corresponding discharge should be calculated.}
   \item{plot}{logical. Plot the channel profile?}
 }
@@ -79,7 +79,7 @@ pq <- getRatingPoints(z=z,x=x,k=k,m=m,l=l,plot=TRUE)
 print(pq)
 plot(x=pq[,'level'],y=pq[,'discharge'])
 
-## natural channel
+## 'natural' channel
 z <- c(9,9,9,10,9,8,7,6,7,8,7,6,5,4,3,4,5,6,5,4,1,4,5,6,7,8,9,8,7,8,8)
 x <- c(1:25,23:28)
 k <- sample(0:100,size=length(z))

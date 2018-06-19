@@ -20,9 +20,9 @@ estimateBaseflow(y, win = 5, r = 0.9, plot = FALSE,
   \item{y}{numeric vector. A strictly regular streamflow series (usually
     on a daily basis).}
   \item{win}{integer. Block width in number of time units to find local
-    minimas.}
+    minima.}
   \item{r}{real number. Denotes the ratio for constraining baseflow
-    ordinates out of the local minimas; often set around 0.9.}
+    ordinates out of the local minima; often set around 0.9.}
   \item{plot}{logical. Plot runoff and corresponding baseflow series?}
   \item{use.spline}{logical. Interpolate baseflow ordinates by spline
     smoothing?}
@@ -35,7 +35,7 @@ estimateBaseflow(y, win = 5, r = 0.9, plot = FALSE,
   \eqn{x_{t}}{x(t)} is defined by
   \deqn{x_{t-1} > r \cdot x_{t} < x_{t+1}}{x(t-1) > r*x(t) < x(t+1)}
   where
-  \eqn{x} is a local minima in a window with length \code{win}. Missing
+  \eqn{x} is a local minimum in a window of length \code{win}. Missing
   values do not satisfy this inequality (see 'Examples').
 }
 

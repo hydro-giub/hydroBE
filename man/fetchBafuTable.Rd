@@ -6,8 +6,8 @@
 }
 
 \description{
-  The function returns daily streamflow series from online pdf tables of
-  the BAFU (Bundesamt fuer Umwelt Schweiz).
+  The function returns daily streamflow series from pdf tables published
+  by the BAFU (Bundesamt fuer Umwelt Schweiz) on the internet.
 }
 
 \usage{
@@ -26,8 +26,8 @@ fetchBafuTable(id, year)
 }
 
 \note{
-  For a few gauging stations the pdf tables have a format different than
-  the one normally used. This most likely results in an error and holds
+  For a few gauging stations the pdf tables have a format different from
+  the ones normally used. This most likely results in an error and holds
   in particular for the station at Aare Bruegg or some pdf tables
   containing data before the year 2004.
 }
