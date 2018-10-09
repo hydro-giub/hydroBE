@@ -29,6 +29,7 @@ fetchBafuTable <- function(id,year,param=c('Q','P')[1]) {
     }
     isNum <- !is.na(df$discharge) 
     isNum <- (cumsum(isNum)>0) & rev(cumsum(rev(isNum))>0)
+    if(param=='P') {names(df)[2]<-'waterlevel'}
     return(df[isNum,])
     
 }
