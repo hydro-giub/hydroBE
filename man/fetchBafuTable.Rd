@@ -11,12 +11,13 @@
 }
 
 \usage{
-fetchBafuTable(id, year)
+fetchBafuTable(id, year,param)
 }
 
 \arguments{
   \item{id}{integer. The id of the gauging station of interest.}
   \item{year}{integer. The year for which to fetch the daily series.}
+  \item{param}{character. Parameter (Q or P) for which to fetch the daily series.}
 }
 
 \value{
@@ -39,6 +40,9 @@ fetchBafuTable(id, year)
 \examples{
 \dontrun{
 ## Muota at Ingenbohl
-d <- fetchBafuTable(id='2084',year=2010)
+d <- fetchBafuTable(id='2084',year=2010, param='Q')
+head(d)
+# Sempachersee at Sempach
+d <- fetchBafuTable(id='2168',year=2016, param='P')
 head(d)}
 }
