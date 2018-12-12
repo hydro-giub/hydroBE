@@ -17,7 +17,8 @@ fetchBafuTable(id, year,param)
 \arguments{
   \item{id}{integer. The id of the gauging station of interest.}
   \item{year}{integer. The year for which to fetch the daily series.}
-  \item{param}{character. Parameter (Q or P) for which to fetch the daily series.}
+  \item{param}{character. Parameter (Q or P) for which to fetch the
+  daily series; Q: streamflow, P: water level.}
 }
 
 \value{
@@ -42,7 +43,8 @@ fetchBafuTable(id, year,param)
 ## Muota at Ingenbohl
 d <- fetchBafuTable(id='2084',year=2010, param='Q')
 head(d)
-# Sempachersee at Sempach
+
+## Sempachersee at Sempach
 d <- fetchBafuTable(id='2168',year=2016, param='P')
 head(d)}
 }
