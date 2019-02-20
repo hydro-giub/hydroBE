@@ -12,22 +12,22 @@
 }
 
 \usage{
-declusterExtremes(y, L = 11)
+declusterExtremes(x, L = 11)
 }
 
 \arguments{
-  \item{y}{numeric vector. A (strictly regular) series; \code{NA}s are
+  \item{x}{numeric vector. A (strictly regular) series; \code{NA}s are
     allowed and will be treated as \eqn{-\infty}.}
   \item{L}{integer. Minimum distance in number of time units.}
 }
 
 \details{
   Plateaus are strictly handled as non-maxima. To decluster minima,
-  use \eqn{-1 \cdot y}{-1*y}.
+  use \eqn{-1 \cdot x}{-1*x}.
 }
 
 \value{
-  Integer vector with indices of the maxima within \code{y} with respect
+  Integer vector with indices of the maxima within \code{x} with respect
   to \code{L}.
 }
 
@@ -39,12 +39,12 @@ declusterExtremes(y, L = 11)
 ## use case for an extreme value analysis on a daily basis
 r <- as.Date(c('2006-01-01','2010-12-31'))
 d <- seq.Date(r[1],r[2],by='day')
-y <- rnorm(length(d))
+x <- rnorm(length(d))
 
-i <- declusterExtremes(y)
+i <- declusterExtremes(x)
 g <- format(d[i],'\%Y')
-plot(x=d,y=y,type='l')
-points(x=d[i],y=y[i],col=3)
+plot(x=d,y=x,type='l')
+points(x=d[i],y=x[i],col=3)
 
 ## yearly blockmaxima
 f <- function(x){
@@ -52,25 +52,25 @@ f <- function(x){
     i[which.max(x)] <- TRUE
     return(i)
 }
-j <- unlist(tapply(y[i],g,f),use.names=FALSE)
+j <- unlist(tapply(x[i],g,f),use.names=FALSE)
 i.block <- i[j]
 
-plot(x=d,y=y,type='l')
-points(x=d[i],y=y[i],col=3)
-points(x=d[i.block],y=y[i.block],col=2,cex=1.5)
+plot(x=d,y=x,type='l')
+points(x=d[i],y=x[i],col=3)
+points(x=d[i.block],y=x[i.block],col=2,cex=1.5)
 abline(v=seq.Date(min(d),max(d)+1,by='year'),lty=3)
 
 ## points over threshold
-thr <- quantile(y,probs=0.95)
-i.pot <- i[y[i]>thr]
+thr <- quantile(x,probs=0.95)
+i.pot <- i[x[i]>thr]
 
-plot(x=d,y=y,type='l')
-points(x=d[i],y=y[i],col=3)
-points(x=d[i.pot],y=y[i.pot],col=2,cex=1.5)
+plot(x=d,y=x,type='l')
+points(x=d[i],y=x[i],col=3)
+points(x=d[i.pot],y=x[i.pot],col=2,cex=1.5)
 abline(h=thr,lty=3)
 
 \dontrun{
 library(ismev)
-m1 <- gev.fit(y[i.block])
-m2 <- gpd.fit(y[i],threshold=thr,npy=mean(table(g)))}
+m1 <- gev.fit(x[i.block])
+m2 <- gpd.fit(x[i],threshold=thr,npy=mean(table(g)))}
 }

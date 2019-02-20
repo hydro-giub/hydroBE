@@ -2,7 +2,7 @@ Package: hydroBE
 Type: Package
 Title: Miscellaneous Functions of the Group of Hydrology Bern
 Version: 0.9
-Date: 2018-06-18
+Date: 2018-02-20
 Depends: R (>= 3.0.0)
 Imports: graphics, MASS, stats, trend, utils
 Suggests: ismev, raster
