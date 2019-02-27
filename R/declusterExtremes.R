@@ -7,9 +7,9 @@ declusterExtremes <- function(x,L=11) {
         i <- which(x[-c(1,n)]>x[-(1:2)] & x[-c(1,n)]>x[-c(n-1,n)])+1
         ii <- which.max(x[i])
         i <- i[ii]
-        t1 <- rep(F,n)
+        t1 <- rep(FALSE,n)
         t1[d<(i-L+1)] <- TRUE
-        t2 <- rep(F,n)
+        t2 <- rep(FALSE,n)
         t2[d>(i+L-1)] <- TRUE
         ti1 <- declusterExtremes(x=x[t1],L=L)
         ti2 <- declusterExtremes(x=x[t2],L=L)

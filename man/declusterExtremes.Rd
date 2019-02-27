@@ -22,13 +22,14 @@ declusterExtremes(x, L = 11)
 }
 
 \details{
-  Plateaus are strictly handled as non-maxima. To decluster minima,
-  use \eqn{-1 \cdot x}{-1*x}.
+  Plateaus are strictly handled as non-maxima. The first and last time
+  step are ignored as it is not known whether they represent local
+  maxima. To decluster minima, use \eqn{-1 \cdot x}{-1*x}.
 }
 
 \value{
-  Integer vector with indices of the maxima within \code{x} with respect
-  to \code{L}.
+  Integer vector containing the indices of the maxima within \code{x}
+  with respect to \code{L}.
 }
 
 \author{
