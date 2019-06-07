@@ -13,6 +13,3 @@ package?hydroBE
 ```
 
 or download the repo and install from source.
-
-### Note
-The package imports the [{trend}](https://CRAN.R-project.org/package=trend) package and its dependencies.

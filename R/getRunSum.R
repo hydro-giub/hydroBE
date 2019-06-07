@@ -1,3 +1,3 @@
 getRunSum <- function(x,w) {
-    .Call('runSum',x,as.integer(w))
+    .Call('runSum',as.double(x),as.integer(w))
 }
