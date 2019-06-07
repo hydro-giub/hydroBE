@@ -1,6 +1,6 @@
 exportPattern("^[[:alpha:]]+")
 
-importFrom(graphics, abline, contour, lines, par, plot, points, polygon, text)
+importFrom(graphics, abline, contour, lines, par, plot, points, polygon, rect, segments, text)
 importFrom(MASS, kde2d)
 importFrom(stats, acf, approx, approxfun, coef, integrate, lm, na.omit, qnorm,
            quantile, spline)

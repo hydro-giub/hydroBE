@@ -261,13 +261,13 @@ readDailySeries <- function(file=NULL,id=NULL,provider=NULL,series=TRUE,vars=NUL
     l <- readLines(file,encoding='UTF-8')
 
     l <- gsub('<[^!].*?>','',l)
-    l <- sub('<![CDATA[','',l,fixed=T)
-    l <- sub(']]>','',l,fixed=T)
-    l <- sub(',','.',l,fixed=T)
+    l <- sub('<![CDATA[','',l,fixed=TRUE)
+    l <- sub(']]>','',l,fixed=TRUE)
+    l <- sub(',','.',l,fixed=TRUE)
     l <- sub('-[[:digit:]]+','',l)
     l <- l[grepl('^[[:digit:]-]+',l)]
 
-    mt <- matrix(as.numeric(l),ncol=15L,nrow=length(l)/15,byrow=T)
+    mt <- matrix(as.numeric(l),ncol=15L,nrow=length(l)/15,byrow=TRUE)
     site <- NA
     name <- NA
     id2 <- mt[1L,1L]

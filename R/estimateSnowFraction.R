@@ -15,6 +15,7 @@ estimateSnowFraction <- function(y,thr=0.9,trans=1) {
 
     f[y>9990] <- NA
     dim(f) <- d
+
     return(f)
     
 }

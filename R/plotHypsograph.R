@@ -14,6 +14,7 @@ plotHypsograph <- function(x,ylab='m a.s.l.',x.res=1e3,y.res=1e3,...) {
 
     ## plot
     plot(x=a.cum,y=z,type='l',xlab=expression(km^2),ylab=ylab,...)
+
     return(invisible())
     
 }

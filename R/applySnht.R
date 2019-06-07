@@ -24,7 +24,7 @@ applySnht <- function(y,x,method,omit=0) {
 
     tv <- (1:(n-1))*m[,1]+((n-1):1)*m[,2]
     dim(tv) <- NULL
-    i <- order(tv,decreasing=T)
+    i <- order(tv,decreasing=TRUE)
     i <- setdiff(i,c(0:omit,(n-omit):n))
 
     j <- which.min(abs(snhtCriticalValues[,'n']-n))

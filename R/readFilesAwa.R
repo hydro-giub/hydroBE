@@ -1,7 +1,7 @@
 readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
 
     if(!is.null(dir)) {
-        files <- list.files(dir,full.names=T)
+        files <- list.files(dir,full.names=TRUE)
     }
 
     file.specs <- .initFileSpecs(files=files)
@@ -72,7 +72,7 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
         nr <- grepl('^\\.*$',id) | grepl('\\.\\.',id)
         dp <- .getDuplicates(id)
         dp[nr] <- NULL
-        rmc <- unlist(lapply(dp,'[','from'),use.names=F)
+        rmc <- unlist(lapply(dp,'[','from'),use.names=FALSE)
         
         if(length(dp)>0 & !is.null(rmc)) {
 
@@ -89,7 +89,7 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
                 }       
             }
 
-            return(m[,-rmc,drop=F])
+            return(m[,-rmc,drop=FALSE])
             
         } else {return(m)}
         
@@ -143,7 +143,7 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
 .cleanSeriesAwaHydropro <- function(x,sep) {
 
     ## adapt field separator
-    x <- gsub(sep,';',x,fixed=T)
+    x <- gsub(sep,';',x,fixed=TRUE)
 
     ## remove all white space
     x <- gsub('[[:blank:]]','',x)
@@ -153,11 +153,11 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
 
     ## if clock time is present, replace field delimiter with white space
     if(grepl(';.*?;',x[1])) {
-        x <- sub(';',' ',x,fixed=T)
+        x <- sub(';',' ',x,fixed=TRUE)
     }
 
     ## attach clock time and constrain to HH:MM
-    x <- sub(';',' 00:00;',x,fixed=T)
+    x <- sub(';',' 00:00;',x,fixed=TRUE)
     x <- sub('^([[:digit:].]{10}) ([[:digit:]]{2}:[[:digit:]]{2}).*?;(.*)$','\\1 \\2;\\3',x)
 
     ## constrain DD.MM.YYYY to YYYY.MM.DD
@@ -165,7 +165,7 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
 
     ## set 24:xx to 00:xx
     ## needs also to adjust the day
-    i <- grepl('24:00',x,fixed=T)
+    i <- grepl('24:00',x,fixed=TRUE)
     if(any(i)) {
         xd <- sub(';.*$','',x[i])
         xd <- as.POSIXct(xd,format='%Y.%m.%d %H:%M',tz='UTC')
@@ -185,7 +185,7 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
     ##  return as numeric vector and format date to YYYY-MM-DD HH:MM
     y <- as.numeric(sub('^.*?;','',x))
     yn <- sub(';.*$','',x)
-    yn <- gsub('.','-',yn,fixed=T)
+    yn <- gsub('.','-',yn,fixed=TRUE)
     names(y) <- yn
     return(y)
 
@@ -221,21 +221,21 @@ readFilesAwa <- function(dir=NULL,files,time.res,series=FALSE,merge) {
     
     i <- grep('^HBBE',x)
     h$id <- sub('^.*?-([AGP]{1}[0123456789]+)-.*','\\1',x[i])
-    x <- sub(h$id,'',x,fixed=ifelse(nchar(h$id)>0,T,F))
+    x <- sub(h$id,'',x,fixed=ifelse(nchar(h$id)>0,TRUE,FALSE))
     x <- sub('^HBBE[[:alnum:]]?--[[:digit:]]+-[[:digit:]]+$','',x)
     
     i <- grep('Abfl|Wsfl',x)
     if(length(i)==1) {
         h$unit <- sub('^.*?(Abfl.*$|Wsfl.*$)','\\1',x[i])
-        x <- sub(h$unit,'',x,fixed=ifelse(nchar(h$unit)>0,T,F))
+        x <- sub(h$unit,'',x,fixed=ifelse(nchar(h$unit)>0,TRUE,FALSE))
     }
     
     i <- grep('^[[:alpha:][:blank:][:punct:]]+,[[:alpha:][:blank:][:punct:]]+$',x)
     if(length(i) == 1L) {
         h$name <- sub('^([[:alpha:][:blank:][:punct:]]+),.*$','\\1',x[i])
         h$site <- sub('^[[:alpha:][:blank:][:punct:]]+,([^-]+).*$','\\1',x[i])
-        x <- sub(h$name,'',x,fixed=ifelse(nchar(h$name)>0,T,F))
-        x <- sub(h$site,'',x,fixed=ifelse(nchar(h$site)>0,T,F))
+        x <- sub(h$name,'',x,fixed=ifelse(nchar(h$name)>0,TRUE,FALSE))
+        x <- sub(h$site,'',x,fixed=ifelse(nchar(h$site)>0,TRUE,FALSE))
     }
     
     x <- gsub('^[[:blank:][:punct:][:cntrl:]]+','',x)

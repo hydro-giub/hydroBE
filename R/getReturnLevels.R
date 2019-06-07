@@ -1,6 +1,7 @@
 getReturnLevels <- function(f,per=c(30,100,300),alpha=0.05) {
-    
-    rl <- matrix(NA,nrow=length(per),ncol=4,dimnames=list(NULL,c('period','level','lower','upper')))
+
+    dn <- list(NULL,c('period','level','lower','upper'))
+    rl <- matrix(NA,nrow=length(per),ncol=4,dimnames=dn)
     rl[,1] <- per
     mu <- f$mle[1]
     si <- f$mle[2]
@@ -23,6 +24,7 @@ getReturnLevels <- function(f,per=c(30,100,300),alpha=0.05) {
     v <- pd%*%f$cov%*%t(pd)
     rl[,3] <- rl[,2]-qnorm(1-alpha/2)*sqrt(diag(v))
     rl[,4] <- rl[,2]+qnorm(1-alpha/2)*sqrt(diag(v))
+
     return(rl)
     
 }

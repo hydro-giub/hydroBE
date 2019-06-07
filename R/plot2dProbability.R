@@ -37,12 +37,12 @@ plot2dProbability <- function(x1,x2,n=100,p=0.9,obs.only=FALSE,bandwith,...) {
         q <- quantile(d,probs=1-p)
 
         plot(x1,x2,xlim=x1lim,ylim=x2lim,...)
-        contour(kd,levels=q,col=2,add=T,labels=p,labcex=1)
+        contour(kd,levels=q,col=2,add=TRUE,labels=p,labcex=1)
         
     } else {
 
         ## integrate pdf, starting with the highest values
-        d <- sort(kd$z,decreasing=T)
+        d <- sort(kd$z,decreasing=TRUE)
         ps <- cumsum(d*bs1*bs2)
 
         ## grab densities which occur at p
@@ -51,7 +51,7 @@ plot2dProbability <- function(x1,x2,n=100,p=0.9,obs.only=FALSE,bandwith,...) {
         j <- is.finite(cl)
 
         plot(x1,x2,xlim=x1lim,ylim=x2lim,...)
-        contour(kd,levels=d[cl[j]],col=2,add=T,labels=p[j],labcex=1)
+        contour(kd,levels=d[cl[j]],col=2,add=TRUE,labels=p[j],labcex=1)
 
     }
 
