@@ -1,7 +1,7 @@
 drawColorBar <- function(breaks=NULL,col=NULL,usr=par('usr'),
                          xleft=0.05,xright=0.08,
                          ybottom=0.25,ytop=0.25,
-                         main='',main.cex=1.5,main.mar=0.01,
+                         main='z',main.cex=1.5,main.mar=0.01,
                          lab.cex=1,lwd=0.5,seg.len=0.2) {
 
     n <- length(col)

@@ -6,7 +6,7 @@
 }
 
 \description{
-  Calculates a running sum with respect to a user specified window width
+  Calculates a running sum with respect to a user specified window width.
 }
 
 \usage{
@@ -17,6 +17,12 @@ getRunSum(x, w)
   \item{x}{numeric vector. The vector for which to calculate the running
     sum.}
   \item{w}{integer. Window width in number of time steps.}
+}
+
+\details{
+  The function implements a special case of
+  \code{\link{filter}}, i.e. the case where the filter consists of 1s
+  only, see 'Examples' below.
 }
 
 \value{
@@ -32,7 +38,8 @@ getRunSum(x, w)
 }
 
 \examples{
-x <- rnorm(100)
-w <- 10
-rs <- getRunSum(x=x,w=w)
+x <- rnorm(20)
+w <- 4
+getRunSum(x=x,w=w)
+filter(x=x,filter=rep(1,times=w),sides=1)
 }

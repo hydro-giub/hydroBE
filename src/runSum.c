@@ -2,7 +2,7 @@
 #include <Rmath.h>
 #include <Rinternals.h>
 
-// rolling sum
+// running sum
 // x: numeric vector
 // w: positive integer, window width
 SEXP runSum(SEXP x, SEXP w) {
